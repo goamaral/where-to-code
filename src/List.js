@@ -13,8 +13,10 @@ class List extends Component {
       return (<ListItem key={key} data={item} />);
     });
 
-    if (this.props.extraChild !== null) {
-      out.push(this.props.extraChild);
+    if (this.props.extraChildren !== null) {
+      this.props.extraChildren.forEach((child) => {
+        out.push(child);
+      });
     }
 
     return out;

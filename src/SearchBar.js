@@ -23,9 +23,10 @@ class SearchBar extends Component {
           onChange={this.onChange.bind(this)}
         />
         <Dropdown
-          data={this.data}
+          data={this.props.data}
           width={this.props.width}
           visible={this.state.dropdownVisible}
+          extraChildren={this.props.extraChildren}
         />
       </div>
     );
@@ -45,8 +46,6 @@ class SearchBar extends Component {
 
     return style;
   }
-
-  data = ['label1', 'label2', 'label3'];
 }
 
 export default SearchBar;

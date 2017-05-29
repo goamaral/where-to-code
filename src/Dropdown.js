@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List, ListItem } from './List';
+import { List } from './List';
 
 class Dropdown extends Component {
   render() {
@@ -8,7 +8,7 @@ class Dropdown extends Component {
           style={this.generateListStyle()}
           data={this.props.data}
           width={this.props.width}
-          extraChild={<ListItem key='extraChild' style={{ borderRadius: '0 0 4px 4px' }}  data="Can't find it? Please add it :)" />}
+          extraChildren={this.props.extraChildren}
       />
     );
   }
