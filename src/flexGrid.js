@@ -20,9 +20,18 @@ class Row extends Component {
 }
 
 class Column extends Component {
+  style = {
+    column: {
+      display: 'flex',
+      height: '100%',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }
   render() {
     return (
-      <div style={{ display: 'flex', height: '100%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ ...this.style.column, ...this.props.style }} className={this.props.className}>
         { this.props.children }
       </div>
     );

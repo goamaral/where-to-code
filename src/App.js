@@ -1,16 +1,34 @@
 import React, { Component } from 'react';
 import { Core } from './flexGrid';
-import { SearchInput, H1 } from './Bootstrap';
+import { Header } from './Bootstrap';
 import './style.css';
+import SearchBar from './SearchBar';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: ''
+    };
+  }
+
   render() {
     return (
       <Core>
-        <H1 fontSize='60px'>Where to code?</H1>
-        <SearchInput width='500px' height='40px' placeholder="Please type your city or country" />
+        <Header style={{ marginBottom: '8vh' }} fontSize='4em'>Where to code?</Header>
+        <SearchBar
+          width='40vw'
+          height='40px'
+          placeholder="Please insert your city or country"
+          updateState={this.updateInputValue.bind(this)}
+          state={this.state.inputValue}
+        />
       </Core>
     );
+  }
+
+  updateInputValue(value) {
+    this.setState({ inputValue: value });
   }
 }
 

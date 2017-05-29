@@ -1,41 +1,80 @@
 import React, { Component } from 'react';
-import { Row } from './flexGrid';
 
-class SearchInput extends Component {
+class Input extends Component {
+  render() {
+    return (
+      <input
+        type="text"
+        style={{ ...this.style.input, ...this.props.style }}
+        placeholder={this.props.placeholder}
+        onChange={this.onChange.bind(this)}
+        value={this.props.state}
+      />
+    );
+  }
+
+  onChange(ev) {
+    this.props.updateState(ev.target.value);
+    this.props.onChange(ev.target.value);
+  }
+
   style = {
     input: {
       width: this.props.width,
       height: this.props.height,
       padding: '10px',
       textAlign: 'center',
-      fontSize: '1.3em'
-    },
+      fontSize: '1.3em',
+      margin: '20px',
+      border: '1px solid rgb(221, 221, 221)',
+    }
+  }
+}
+
+class SpanButton extends Component {
+  render() {
+    return (
+      <span
+        style={this.style.span}
+        className={this.className()}
+        onClick={this.props.onClick}
+      />
+    );
+  }
+
+  className() {
+    return "input-group-addon btn" + this.props.className;
+  }
+
+  style = {
     span: {
-      width: Math.round(parseInt(this.props.width, 10)/7),
+      width: this.props.width,
       height: this.props.height,
       padding: '10px',
       textAlign: 'center',
       fontSize: '1.3em',
-      marginBottom: '2px'
+      marginBottom: '2px',
+      borderRadius: '5px',
+      margin: '20px'
     }
   }
+}
 
+class Header extends Component {
   render() {
     return (
-      <Row style={{ margin: '20px' }}>
-        <input style={this.style.input} type="text" className="form-control" placeholder={this.props.placeholder} />
-        <span style={this.style.span} className="input-group-addon btn glyphicon glyphicon-search" />
-      </Row>
+      <h1 style={{ ...this.style.h1, ...this.props.style }}>
+        {this.props.children}
+      </h1>
     );
+  }
+
+  style = {
+    h1: {
+      fontSize: this.props.fontSize,
+      margin: '20px'
+    }
   }
 }
 
-class H1 extends Component {
-  render() {
-    return (
-      <h1 style={{ fontSize: this.props.fontSize, margin: '20px' }}>{this.props.children}</h1>
-    );
-  }
-}
-
-export { SearchInput, H1 };
+export { Input, Header, SpanButton };
