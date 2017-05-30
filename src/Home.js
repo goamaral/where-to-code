@@ -4,16 +4,12 @@ import { Header } from './Bootstrap';
 import './style.css';
 import SearchBar from './SearchBar';
 import { ListItem } from './List';
+import { updateInput } from './actions/inputActions';
+import { connect } from 'react-redux';
+import { LOCATION_CHANGED } from './actions/types';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputValue: '',
-      originalData: ['Viseu', 'Portugal', 'Porto', 'Espanha', 'Lisboa', 'Coimbra', 'Madrid', 'Vila Real', 'Braga', 'Braganca']
-    };
-    this.listMore = false;
-  }
+class Home extends Component {
+  listMore = false;
 
   render() {
     return (
@@ -24,7 +20,7 @@ class App extends Component {
           height='40px'
           placeholder="Please insert your city or country"
           updateState={this.updateInputValue.bind(this)}
-          state={this.state.inputValue}
+          state={this.props.inputValues.locationData}
           data={this.filterData()}
           extraChildren={this.generateExtraChildren()}
         />
@@ -37,27 +33,27 @@ class App extends Component {
     if (this.listMore) {
       out.unshift(<ListItem key='extraChild2' data="..." />)
     }
-
     return out;
   }
 
   filterData() {
-    let out = this.state.originalData.filter((item) => {
-      return item.toLowerCase().includes(this.state.inputValue.toLowerCase());
+    let out = this.props.data.locationData.filter((item) => {
+      return item.toLowerCase().includes(this.props.inputValues.location.toLowerCase());
     });
-
     this.listMore = out.length > 5;
-
     out = out.splice(0,5);
-
-    console.log(out);
-
     return out;
   }
 
   updateInputValue(value) {
-    this.setState({ inputValue: value });
+    this.props.updateInput(value, LOCATION_CHANGED);
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  let { data, inputValues } = state;
+
+  return { data, inputValues };
+};
+
+export default connect(mapStateToProps, { updateInput }) (Home);
