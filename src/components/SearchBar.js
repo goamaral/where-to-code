@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Input } from './Bootstrap';
-import Dropdown from './Dropdown';
+import { Dropdown } from './Dropdown';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -48,4 +48,4 @@ class SearchBar extends Component {
   }
 }
 
-export default SearchBar;
+export { SearchBar };

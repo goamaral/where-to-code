@@ -1,3 +1,10 @@
+export const fetchData = (data, type) => {
+	return {
+		type: type,
+		payload: data
+	};
+};
+
 export const updateInput = (text, type) => {
 	return {
 		type: type,

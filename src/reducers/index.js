@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import DataReducer from './DataReducer';
-import InputValueReducer from './InputValueReducer';
+import HomeReducer from './HomeReducer';
 
 export default combineReducers({
-	data: DataReducer,
-	inputValues: InputValueReducer
+	home: HomeReducer
 });

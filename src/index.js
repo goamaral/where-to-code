@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import Home from './Home';
+import Router from './routing/Router';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -11,7 +11,7 @@ export default class App extends Component {
 		return (
 			<Provider store={createStore(reducers)}>
 				<div>
-					<Home />
+					<Router />
 				</div>
 			</Provider>
 		);
