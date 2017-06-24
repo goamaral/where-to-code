@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Home from './Home';
-import Location from './Location';
-import '../style.css';
+import Home from 'routing/Home';
+import Location from 'routing/Location';
+import 'style.css';
 
 const Router = () => (
   <BrowserRouter>

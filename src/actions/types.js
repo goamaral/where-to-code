@@ -1,2 +1,3 @@
-export const LOCATION_CHANGED = 'location_changed';
-export const LOCATION_DATA_CHANGED = 'location_data_changed';
+export const UPDATE_LOCATION = 'update_location';
+export const UPDATE_LOCATIONS = 'update_locations';
+export const RESET_LOCATION  = 'rest_location';

@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Core, Header, SearchBar, ListItem } from '../components';
-import { updateInput } from '../actions/HomeActions';
-import { LOCATION_CHANGED } from '../actions/types';
+
+import { Core, Header, SearchBar, ListItem } from 'components';
+import { fetchLocations, updateLocation } from 'actions/HomeActions';
 
 class Home extends Component {
-  listMore = false;
-
   render() {
     return (
       <Core>
@@ -19,55 +17,28 @@ class Home extends Component {
           updateState={this.updateInputValue.bind(this)}
           state={this.props.locationData}
           data={this.processData()}
-          extraChildren={this.generateExtraChildren()}
         />
       </Core>
     );
   }
 
   processData() {
-    let data = this.filterData()
-    return data.map((item) => {
+    return this.props.locations.map((item) => {
       return (<Link to={'/location/' + item}>{item}</Link>);
     });
   }
 
-  generateExtraChildren() {
-    let out = [
-      <Link key='extraChild' to={'/newLocation'}>
-        <ListItem style={{ borderRadius: '0 0 4px 4px' }}  data="Can't find it? Please add it :)" />
-      </Link>
-    ];
-
-    if (this.listMore) {
-      out.unshift(
-        <Link key='extraChild2' to={'/searchResults'}>
-          <ListItem data="..." />
-        </Link>
-      );
-    }
-    return out;
-  }
-
-  filterData() {
-    let out = this.props.locationData.filter((item) => {
-      return item.toLowerCase().includes(this.props.location.toLowerCase());
-    });
-    this.listMore = out.length > 5;
-    out = out.splice(0,5);
-    return out;
-  }
-
   updateInputValue(value) {
-    this.props.updateInput(value, LOCATION_CHANGED);
+    this.props.updateLocation(value);
+    this.props.fetchLocations(value);
   }
 }
 
 const mapStateToProps = (state) => {
   let { home } = state;
-  let { locationData, location } = home;
+  let { locations, location } = home;
 
-  return { locationData, location };
+  return { locations, location };
 };
 
-export default connect(mapStateToProps, { updateInput }) (Home);
+export default connect(mapStateToProps, { updateLocation, fetchLocations }) (Home);

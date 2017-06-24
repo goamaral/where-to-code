@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { List } from './List';
+import { List } from 'components/List';
 
 class Dropdown extends Component {
   render() {
@@ -8,7 +8,6 @@ class Dropdown extends Component {
           style={this.generateListStyle()}
           data={this.props.data}
           width={this.props.width}
-          extraChildren={this.props.extraChildren}
       />
     );
   }

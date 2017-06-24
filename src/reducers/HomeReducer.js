@@ -1,16 +1,18 @@
-import { LOCATION_DATA_CHANGED, LOCATION_CHANGED } from '../actions/types';
+import { UPDATE_LOCATIONS, UPDATE_LOCATION, RESET_LOCATION } from 'actions/types';
 
 const INITIAL_STATE = {
-	locationData: ['Viseu', 'Portugal', 'Porto', 'Espanha', 'Lisboa', 'Coimbra', 'Madrid', 'Vila Real', 'Braga', 'Braganca'],
-  location: ''
+  location: '',
+  locations: []
 };
 
 export default (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-		case LOCATION_CHANGED:
+		case UPDATE_LOCATION:
 			return { ...state, location: action.payload };
-    case LOCATION_DATA_CHANGED:
-			return { ...state, locationData: action.payload };
+		case UPDATE_LOCATIONS:
+			return { ...state, locations: action.payload};
+		case RESET_LOCATION:
+			return { ...state, location: action.payload }
 		default:
 			return state;
 	}

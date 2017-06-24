@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Column } from './flexGrid';
+import { Column } from 'components/flexGrid';
 
 class List extends Component {
   style = {
@@ -9,17 +9,9 @@ class List extends Component {
   }
 
   renderData() {
-    let out = this.props.data.map((item, key) => {
+    return this.props.data.map((item, key) => {
       return (<ListItem key={parseInt(key, 10)} data={item} />);
     });
-
-    if (this.props.extraChildren !== null) {
-      this.props.extraChildren.forEach((child) => {
-        out.push(child);
-      });
-    }
-
-    return out;
   }
 
   render() {

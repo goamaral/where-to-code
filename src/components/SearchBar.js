@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { Input } from './Bootstrap';
-import { Dropdown } from './Dropdown';
+import { Input } from 'components/Bootstrap';
+import { Dropdown } from 'components/Dropdown';
 
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dropdownVisible: false
-    };
-  }
+  state = {
+    dropdownVisible: false
+  };
 
   render() {
     return (
@@ -20,19 +17,18 @@ class SearchBar extends Component {
           width={this.props.width}
           height={this.props.height}
           style={this.generateInputStyle()}
-          onChange={this.onChange.bind(this)}
+          onChange={this.toggleVisibility.bind(this)}
         />
         <Dropdown
           data={this.props.data}
           width={this.props.width}
           visible={this.state.dropdownVisible}
-          extraChildren={this.props.extraChildren}
         />
       </div>
     );
   }
 
-  onChange(value) {
+  toggleVisibility(value) {
     if (value === '') {
       this.setState({ dropdownVisible: false });
     } else this.setState({ dropdownVisible: true });

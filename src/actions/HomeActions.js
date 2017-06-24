@@ -1,20 +1,41 @@
-export const fetchData = (data, type) => {
-	return {
-		type: type,
-		payload: data
-	};
+import { googleApiKey } from 'config';
+import axios from 'axios';
+
+import { UPDATE_LOCATION, UPDATE_LOCATIONS, RESET_LOCATION } from 'actions/types';
+
+export const fetchLocations = (location) => {
+	return (dispatch) => {
+		axios.get("https://maps.googleapis.com/maps/api/place/autocomplete/json", {
+			params: {
+				key: googleApiKey,
+				input: location
+			}
+		})
+		.then((result) => {
+			let locations = result.data.predictions.map((item) => {
+				return item.description;
+			});
+			dispatch({
+				type: UPDATE_LOCATIONS,
+				payload: locations
+			});
+		})
+		.catch((error) => {
+			alert(error); newLocationData = ''
+		});
+	}
 };
 
-export const updateInput = (text, type) => {
+export const updateLocation = (text) => {
 	return {
-		type: type,
+		type: UPDATE_LOCATION,
 		payload: text
 	};
 };
 
-export const resetInput = (newState = '', type) => {
+export const resetLocation = (newState = '') => {
   return {
-    type: type,
+    type: RESET_LOCATION,
     payload: newState
   };
 }
