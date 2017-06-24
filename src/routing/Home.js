@@ -34,15 +34,15 @@ class Home extends Component {
 
   generateExtraChildren() {
     let out = [
-      <Link to={'/newLocation'}>
-        <ListItem key='extraChild' style={{ borderRadius: '0 0 4px 4px' }}  data="Can't find it? Please add it :)" />
+      <Link key='extraChild' to={'/newLocation'}>
+        <ListItem style={{ borderRadius: '0 0 4px 4px' }}  data="Can't find it? Please add it :)" />
       </Link>
     ];
 
     if (this.listMore) {
       out.unshift(
-        <Link to={'/searchResults'}>
-          <ListItem key='extraChild2' data="..." />
+        <Link key='extraChild2' to={'/searchResults'}>
+          <ListItem data="..." />
         </Link>
       );
     }

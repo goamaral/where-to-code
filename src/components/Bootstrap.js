@@ -14,6 +14,7 @@ class Input extends Component {
   }
 
   onChange(ev) {
+    console.log(this.value);
     this.props.updateState(ev.target.value);
     this.props.onChange(ev.target.value);
   }

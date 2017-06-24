@@ -10,7 +10,7 @@ class List extends Component {
 
   renderData() {
     let out = this.props.data.map((item, key) => {
-      return (<ListItem key={key} data={item} />);
+      return (<ListItem key={parseInt(key, 10)} data={item} />);
     });
 
     if (this.props.extraChildren !== null) {
