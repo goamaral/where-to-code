@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input } from 'components/Bootstrap';
 import { Dropdown } from 'components/Dropdown';
+import { Column } from 'components/flexGrid';
 
 class SearchBar extends Component {
   state = {
@@ -9,7 +10,7 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div>
+      <Column>
         <Input
           placeholder={this.props.placeholder}
           updateState={this.props.updateState}
@@ -24,7 +25,7 @@ class SearchBar extends Component {
           width={this.props.width}
           visible={this.state.dropdownVisible}
         />
-      </div>
+      </Column>
     );
   }
 

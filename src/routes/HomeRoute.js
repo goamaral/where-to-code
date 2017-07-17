@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { Core, Header, SearchBar, ListItem } from 'components';
 import { fetchLocations, updateLocation } from 'actions/HomeActions';
@@ -9,7 +8,7 @@ class Home extends Component {
   render() {
     return (
       <Core>
-        <Header style={{ marginBottom: '8vh' }} fontSize='4em'>Where to code?</Header>
+        <Header style={{ marginBottom: '8vh', textAlign: 'center' }} fontSize='4em'>Where to code?</Header>
         <SearchBar
           width='40vw'
           height='40px'
@@ -24,7 +23,7 @@ class Home extends Component {
 
   processData() {
     return this.props.locations.map((item) => {
-      return (<Link to={'/location/' + item}>{item}</Link>);
+      return (<a href={'/location/' + item}>{item}</a>);
     });
   }
 

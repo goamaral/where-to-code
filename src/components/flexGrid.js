@@ -4,12 +4,12 @@ class Row extends Component {
   style = {
     row: {
       display: 'flex',
-      width: '100%',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center'
     }
   }
+
   render() {
     return (
       <div style={{ ...this.style.row, ...this.props.style }}>
@@ -23,12 +23,12 @@ class Column extends Component {
   style = {
     column: {
       display: 'flex',
-      height: '100%',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center'
     }
   }
+
   render() {
     return (
       <div style={{ ...this.style.column, ...this.props.style }} className={this.props.className}>
@@ -39,16 +39,20 @@ class Column extends Component {
 }
 
 class Core extends Component {
+  style = {
+    core: {
+      justifyContent: 'center',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      height: '80vh'
+    }
+  }
+
   render() {
     return (
-      <div style={{height: '80vh'}}>
-        <Column>
-          <Row>
-            <Column>
-              {this.props.children}
-            </Column>
-          </Row>
-        </Column>
+      <div style={this.style.core}>
+        {this.props.children}
       </div>
     );
   }
