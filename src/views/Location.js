@@ -1,4 +1,4 @@
-import HomeRoute from 'routes/LocationRoute';
+import LocationRoute from 'routes/LocationRoute';
 import App from 'App';
 import ReactDOM from 'react-dom';
 import React from 'react';

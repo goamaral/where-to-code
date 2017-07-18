@@ -53,7 +53,25 @@
 /***/ 265:
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var MapStyle = exports.MapStyle = {
+	  width: '50vw',
+	  height: '70vh',
+	  border: '0'
+	};
+
+	var HeaderStyle = exports.HeaderStyle = {
+	  margin: '3vh 3vw',
+	  fontSize: '2.5em'
+	};
+
+	var DivStyle = exports.DivStyle = {
+	  height: '80vh'
+	};
 
 /***/ })
 

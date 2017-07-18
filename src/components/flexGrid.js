@@ -24,14 +24,13 @@ class Column extends Component {
     column: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center'
+      alignItems: 'center'
     }
   }
 
   render() {
     return (
-      <div style={{ ...this.style.column, ...this.props.style }} className={this.props.className}>
+      <div style={{ ...this.style.column, ...this.props.style }}>
         { this.props.children }
       </div>
     );

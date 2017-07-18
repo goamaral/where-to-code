@@ -4493,8 +4493,7 @@
 	      column: {
 	        display: 'flex',
 	        flexDirection: 'column',
-	        alignItems: 'center',
-	        justifyContent: 'center'
+	        alignItems: 'center'
 	      }
 	    }, _temp2), _possibleConstructorReturn(_this2, _ret2);
 	  }
@@ -4504,7 +4503,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { style: _extends({}, this.style.column, this.props.style), className: this.props.className },
+	        { style: _extends({}, this.style.column, this.props.style) },
 	        this.props.children
 	      );
 	    }
