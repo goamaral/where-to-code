@@ -25,8 +25,8 @@ class Input extends Component {
       padding: '10px',
       textAlign: 'center',
       fontSize: '1.3em',
-      margin: '20px',
       border: '1px solid rgb(221, 221, 221)',
+      backgroundColor: 'white'
     }
   }
 }

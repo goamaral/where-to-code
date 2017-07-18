@@ -12,16 +12,13 @@ export const fetchLocations = (location) => {
 			}
 		})
 		.then((result) => {
-			let locations = result.data.predictions.map((item) => {
-				return item.description;
-			});
 			dispatch({
 				type: UPDATE_LOCATIONS,
-				payload: locations
+				payload: result.data.predictions
 			});
 		})
 		.catch((error) => {
-			alert(error); newLocationData = ''
+			alert(error);
 		});
 	}
 };

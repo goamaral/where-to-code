@@ -45,13 +45,12 @@ class Core extends Component {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      height: '80vh'
     }
   }
 
   render() {
     return (
-      <div style={this.style.core}>
+      <div style={{ ...this.style.core, ...this.props.style }}>
         {this.props.children}
       </div>
     );

@@ -7,8 +7,8 @@ import { fetchLocations, updateLocation } from 'actions/HomeActions';
 class Home extends Component {
   render() {
     return (
-      <Core>
-        <Header style={{ marginBottom: '8vh', textAlign: 'center' }} fontSize='4em'>Where to code?</Header>
+      <Core style={{ height: '80vh' }}>
+        <Header style={{ margin: '0 0 8vh 0', textAlign: 'center', color: 'white' }} fontSize='4em'>Where to code?</Header>
         <SearchBar
           width='40vw'
           height='40px'
@@ -23,7 +23,7 @@ class Home extends Component {
 
   processData() {
     return this.props.locations.map((item) => {
-      return (<a href={'/location/' + item}>{item}</a>);
+      return (<a style={{ textDecoration: 'none' }} href={'/location/' + item.description}>{item.description}</a>);
     });
   }
 

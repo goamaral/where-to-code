@@ -10,7 +10,7 @@ class List extends Component {
 
   renderData() {
     return this.props.data.map((item, key) => {
-      return (<ListItem key={parseInt(key, 10)} data={item} />);
+      return (<ListItem style={this.props.itemStyle} key={parseInt(key, 10)} data={item} />);
     });
   }
 
@@ -26,7 +26,6 @@ class List extends Component {
 class ListItem extends Component {
   style = {
     item: {
-      border: '1px solid #ddd',
       padding: '10px 15px',
       marginBottom: '-1px',
       width: '100% '

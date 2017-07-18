@@ -17,13 +17,14 @@ class SearchBar extends Component {
           value={this.props.state}
           width={this.props.width}
           height={this.props.height}
-          style={this.generateInputStyle()}
+          style={{ ...this.props.style, ...this.generateInputStyle() }}
           onChange={this.toggleVisibility.bind(this)}
         />
         <Dropdown
           data={this.props.data}
           width={this.props.width}
           visible={this.state.dropdownVisible}
+          style={this.props.style}
         />
       </Column>
     );
@@ -36,9 +37,9 @@ class SearchBar extends Component {
   }
 
   generateInputStyle() {
-    let style = { margin: '0 0 -1px 0', borderRadius: '4px' };
+    let style = { margin: '0 0 -1px 0', borderRadius: '5px', outline: 'none' };
     if (this.state.dropdownVisible) {
-      style.borderRadius = '4px 4px 0 0';
+      style.borderRadius = '5px 5px 0 0';
     }
 
     return style;
