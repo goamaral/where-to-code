@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 
 import { Core, Header, SearchBar, ListItem } from 'components';
 import { fetchLocations, updateLocation } from 'actions/HomeActions';
+import { HeaderStyle, CoreStyle, SearchBarStyle } from 'style/HomeStyle';
 
-class Home extends Component {
+class HomeRoute extends Component {
   render() {
     return (
-      <Core style={{ height: '80vh' }}>
-        <Header style={{ margin: '0 0 8vh 0', textAlign: 'center', color: 'white' }} fontSize='4em'>Where to code?</Header>
+      <Core style={CoreStyle}>
+        <Header style={HeaderStyle}>Where to code?</Header>
         <SearchBar
-          width='40vw'
-          height='40px'
+          style={SearchBarStyle}
           placeholder="Please insert your city or country"
           updateState={this.updateInputValue.bind(this)}
           state={this.props.locationData}
@@ -40,4 +40,4 @@ const mapStateToProps = (state) => {
   return { locations, location };
 };
 
-export default connect(mapStateToProps, { updateLocation, fetchLocations }) (Home);
+export default connect(mapStateToProps, { updateLocation, fetchLocations }) (HomeRoute);

@@ -6756,12 +6756,12 @@
 /* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.SpanButton = exports.Header = exports.Input = undefined;
+	exports.Header = exports.Input = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -6783,42 +6783,24 @@
 	  _inherits(Input, _Component);
 
 	  function Input() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
 	    _classCallCheck(this, Input);
 
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Input.__proto__ || Object.getPrototypeOf(Input)).call.apply(_ref, [this].concat(args))), _this), _this.style = {
-	      input: {
-	        width: _this.props.width,
-	        height: _this.props.height,
-	        padding: '10px',
-	        textAlign: 'center',
-	        fontSize: '1.3em',
-	        border: '1px solid rgb(221, 221, 221)',
-	        backgroundColor: 'white'
-	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    return _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).apply(this, arguments));
 	  }
 
 	  _createClass(Input, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
-	      return _react2.default.createElement('input', {
-	        type: 'text',
-	        style: _extends({}, this.style.input, this.props.style),
+	      return _react2.default.createElement("input", {
+	        type: "text",
+	        style: _extends({}, this.props.style),
 	        placeholder: this.props.placeholder,
 	        onChange: this.onChange.bind(this),
 	        value: this.props.state
 	      });
 	    }
 	  }, {
-	    key: 'onChange',
+	    key: "onChange",
 	    value: function onChange(ev) {
 	      this.props.updateState(ev.target.value);
 	      this.props.onChange(ev.target.value);
@@ -6828,81 +6810,21 @@
 	  return Input;
 	}(_react.Component);
 
-	var SpanButton = function (_Component2) {
-	  _inherits(SpanButton, _Component2);
-
-	  function SpanButton() {
-	    var _ref2;
-
-	    var _temp2, _this2, _ret2;
-
-	    _classCallCheck(this, SpanButton);
-
-	    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	      args[_key2] = arguments[_key2];
-	    }
-
-	    return _ret2 = (_temp2 = (_this2 = _possibleConstructorReturn(this, (_ref2 = SpanButton.__proto__ || Object.getPrototypeOf(SpanButton)).call.apply(_ref2, [this].concat(args))), _this2), _this2.style = {
-	      span: {
-	        width: _this2.props.width,
-	        height: _this2.props.height,
-	        padding: '10px',
-	        textAlign: 'center',
-	        fontSize: '1.3em',
-	        marginBottom: '2px',
-	        borderRadius: '5px',
-	        margin: '20px'
-	      }
-	    }, _temp2), _possibleConstructorReturn(_this2, _ret2);
-	  }
-
-	  _createClass(SpanButton, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement('span', {
-	        style: this.style.span,
-	        className: this.className(),
-	        onClick: this.props.onClick
-	      });
-	    }
-	  }, {
-	    key: 'className',
-	    value: function className() {
-	      return "input-group-addon btn" + this.props.className;
-	    }
-	  }]);
-
-	  return SpanButton;
-	}(_react.Component);
-
-	var Header = function (_Component3) {
-	  _inherits(Header, _Component3);
+	var Header = function (_Component2) {
+	  _inherits(Header, _Component2);
 
 	  function Header() {
-	    var _ref3;
-
-	    var _temp3, _this3, _ret3;
-
 	    _classCallCheck(this, Header);
 
-	    for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-	      args[_key3] = arguments[_key3];
-	    }
-
-	    return _ret3 = (_temp3 = (_this3 = _possibleConstructorReturn(this, (_ref3 = Header.__proto__ || Object.getPrototypeOf(Header)).call.apply(_ref3, [this].concat(args))), _this3), _this3.style = {
-	      h1: {
-	        fontSize: _this3.props.fontSize,
-	        margin: '20px'
-	      }
-	    }, _temp3), _possibleConstructorReturn(_this3, _ret3);
+	    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
 	  }
 
 	  _createClass(Header, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'h1',
-	        { style: _extends({}, this.style.h1, this.props.style) },
+	        "h1",
+	        { style: this.props.style },
 	        this.props.children
 	      );
 	    }
@@ -6913,7 +6835,6 @@
 
 	exports.Input = Input;
 	exports.Header = Header;
-	exports.SpanButton = SpanButton;
 
 /***/ }),
 /* 82 */
@@ -6948,31 +6869,17 @@
 	  _inherits(Dropdown, _Component);
 
 	  function Dropdown() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
 	    _classCallCheck(this, Dropdown);
 
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call.apply(_ref, [this].concat(args))), _this), _this.style = {
-	      dropdown: {
-	        backgroundColor: 'white',
-	        borderRadius: '0 0 5px 5px'
-	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    return _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).apply(this, arguments));
 	  }
 
 	  _createClass(Dropdown, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(_List.List, {
-	        style: _extends({}, this.style.dropdown, this.generateListStyle(), this.props.style),
+	        style: _extends({}, this.generateListStyle(), this.props.style),
 	        data: this.props.data,
-	        width: this.props.width,
 	        itemStyle: { borderTop: '#BDBDBD solid 1px ' }
 	      });
 	    }
@@ -7271,6 +7178,8 @@
 
 	var _HomeActions = __webpack_require__(89);
 
+	var _HomeStyle = __webpack_require__(117);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7279,29 +7188,28 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Home = function (_Component) {
-	  _inherits(Home, _Component);
+	var HomeRoute = function (_Component) {
+	  _inherits(HomeRoute, _Component);
 
-	  function Home() {
-	    _classCallCheck(this, Home);
+	  function HomeRoute() {
+	    _classCallCheck(this, HomeRoute);
 
-	    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (HomeRoute.__proto__ || Object.getPrototypeOf(HomeRoute)).apply(this, arguments));
 	  }
 
-	  _createClass(Home, [{
+	  _createClass(HomeRoute, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        _components.Core,
-	        { style: { height: '80vh' } },
+	        { style: _HomeStyle.CoreStyle },
 	        _react2.default.createElement(
 	          _components.Header,
-	          { style: { margin: '0 0 8vh 0', textAlign: 'center', color: 'white' }, fontSize: '4em' },
+	          { style: _HomeStyle.HeaderStyle },
 	          'Where to code?'
 	        ),
 	        _react2.default.createElement(_components.SearchBar, {
-	          width: '40vw',
-	          height: '40px',
+	          style: _HomeStyle.SearchBarStyle,
 	          placeholder: 'Please insert your city or country',
 	          updateState: this.updateInputValue.bind(this),
 	          state: this.props.locationData,
@@ -7328,7 +7236,7 @@
 	    }
 	  }]);
 
-	  return Home;
+	  return HomeRoute;
 	}(_react.Component);
 
 	var mapStateToProps = function mapStateToProps(state) {
@@ -7340,7 +7248,7 @@
 	  return { locations: locations, location: location };
 	};
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { updateLocation: _HomeActions.updateLocation, fetchLocations: _HomeActions.fetchLocations })(Home);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { updateLocation: _HomeActions.updateLocation, fetchLocations: _HomeActions.fetchLocations })(HomeRoute);
 
 /***/ }),
 /* 87 */
@@ -7436,16 +7344,13 @@
 	          placeholder: this.props.placeholder,
 	          updateState: this.props.updateState,
 	          value: this.props.state,
-	          width: this.props.width,
-	          height: this.props.height,
-	          style: _extends({}, this.props.style, this.generateInputStyle()),
+	          style: _extends({}, this.props.style.input, this.generateInputStyle()),
 	          onChange: this.toggleVisibility.bind(this)
 	        }),
 	        _react2.default.createElement(_Dropdown.Dropdown, {
 	          data: this.props.data,
-	          width: this.props.width,
 	          visible: this.state.dropdownVisible,
-	          style: this.props.style
+	          style: this.props.style.dropdown
 	        })
 	      );
 	    }
@@ -9069,6 +8974,46 @@
 	  };
 	};
 
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var HeaderStyle = exports.HeaderStyle = _defineProperty({
+	  margin: '0 0 8vh 0',
+	  textAlign: 'center',
+	  color: 'white',
+	  fontSize: '4em'
+	}, 'margin', '20px');
+
+	var CoreStyle = exports.CoreStyle = {
+	  height: '80vh'
+	};
+
+	var SearchBarStyle = exports.SearchBarStyle = {
+	  input: {
+	    padding: '10px',
+	    textAlign: 'center',
+	    fontSize: '1.3em',
+	    border: '1px solid rgb(221, 221, 221)',
+	    backgroundColor: 'white',
+	    width: '40vw',
+	    height: '40px'
+	  },
+	  dropdown: {
+	    width: '40vw',
+	    backgroundColor: 'white',
+	    borderRadius: '0 0 5px 5px'
+	  }
+	};
 
 /***/ })
 /******/ ]);

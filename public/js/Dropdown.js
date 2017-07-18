@@ -4442,31 +4442,17 @@
 	  _inherits(Dropdown, _Component);
 
 	  function Dropdown() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
 	    _classCallCheck(this, Dropdown);
 
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call.apply(_ref, [this].concat(args))), _this), _this.style = {
-	      dropdown: {
-	        backgroundColor: 'white',
-	        borderRadius: '0 0 5px 5px'
-	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    return _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).apply(this, arguments));
 	  }
 
 	  _createClass(Dropdown, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(_List.List, {
-	        style: _extends({}, this.style.dropdown, this.generateListStyle(), this.props.style),
+	        style: _extends({}, this.generateListStyle(), this.props.style),
 	        data: this.props.data,
-	        width: this.props.width,
 	        itemStyle: { borderTop: '#BDBDBD solid 1px ' }
 	      });
 	    }

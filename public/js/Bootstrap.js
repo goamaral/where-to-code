@@ -4412,12 +4412,12 @@
 /* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.SpanButton = exports.Header = exports.Input = undefined;
+	exports.Header = exports.Input = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -4439,42 +4439,24 @@
 	  _inherits(Input, _Component);
 
 	  function Input() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
 	    _classCallCheck(this, Input);
 
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Input.__proto__ || Object.getPrototypeOf(Input)).call.apply(_ref, [this].concat(args))), _this), _this.style = {
-	      input: {
-	        width: _this.props.width,
-	        height: _this.props.height,
-	        padding: '10px',
-	        textAlign: 'center',
-	        fontSize: '1.3em',
-	        border: '1px solid rgb(221, 221, 221)',
-	        backgroundColor: 'white'
-	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    return _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).apply(this, arguments));
 	  }
 
 	  _createClass(Input, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
-	      return _react2.default.createElement('input', {
-	        type: 'text',
-	        style: _extends({}, this.style.input, this.props.style),
+	      return _react2.default.createElement("input", {
+	        type: "text",
+	        style: _extends({}, this.props.style),
 	        placeholder: this.props.placeholder,
 	        onChange: this.onChange.bind(this),
 	        value: this.props.state
 	      });
 	    }
 	  }, {
-	    key: 'onChange',
+	    key: "onChange",
 	    value: function onChange(ev) {
 	      this.props.updateState(ev.target.value);
 	      this.props.onChange(ev.target.value);
@@ -4484,81 +4466,21 @@
 	  return Input;
 	}(_react.Component);
 
-	var SpanButton = function (_Component2) {
-	  _inherits(SpanButton, _Component2);
-
-	  function SpanButton() {
-	    var _ref2;
-
-	    var _temp2, _this2, _ret2;
-
-	    _classCallCheck(this, SpanButton);
-
-	    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	      args[_key2] = arguments[_key2];
-	    }
-
-	    return _ret2 = (_temp2 = (_this2 = _possibleConstructorReturn(this, (_ref2 = SpanButton.__proto__ || Object.getPrototypeOf(SpanButton)).call.apply(_ref2, [this].concat(args))), _this2), _this2.style = {
-	      span: {
-	        width: _this2.props.width,
-	        height: _this2.props.height,
-	        padding: '10px',
-	        textAlign: 'center',
-	        fontSize: '1.3em',
-	        marginBottom: '2px',
-	        borderRadius: '5px',
-	        margin: '20px'
-	      }
-	    }, _temp2), _possibleConstructorReturn(_this2, _ret2);
-	  }
-
-	  _createClass(SpanButton, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement('span', {
-	        style: this.style.span,
-	        className: this.className(),
-	        onClick: this.props.onClick
-	      });
-	    }
-	  }, {
-	    key: 'className',
-	    value: function className() {
-	      return "input-group-addon btn" + this.props.className;
-	    }
-	  }]);
-
-	  return SpanButton;
-	}(_react.Component);
-
-	var Header = function (_Component3) {
-	  _inherits(Header, _Component3);
+	var Header = function (_Component2) {
+	  _inherits(Header, _Component2);
 
 	  function Header() {
-	    var _ref3;
-
-	    var _temp3, _this3, _ret3;
-
 	    _classCallCheck(this, Header);
 
-	    for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-	      args[_key3] = arguments[_key3];
-	    }
-
-	    return _ret3 = (_temp3 = (_this3 = _possibleConstructorReturn(this, (_ref3 = Header.__proto__ || Object.getPrototypeOf(Header)).call.apply(_ref3, [this].concat(args))), _this3), _this3.style = {
-	      h1: {
-	        fontSize: _this3.props.fontSize,
-	        margin: '20px'
-	      }
-	    }, _temp3), _possibleConstructorReturn(_this3, _ret3);
+	    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
 	  }
 
 	  _createClass(Header, [{
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'h1',
-	        { style: _extends({}, this.style.h1, this.props.style) },
+	        "h1",
+	        { style: this.props.style },
 	        this.props.children
 	      );
 	    }
@@ -4569,7 +4491,6 @@
 
 	exports.Input = Input;
 	exports.Header = Header;
-	exports.SpanButton = SpanButton;
 
 /***/ })
 /******/ ]);

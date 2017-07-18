@@ -15,16 +15,13 @@ class SearchBar extends Component {
           placeholder={this.props.placeholder}
           updateState={this.props.updateState}
           value={this.props.state}
-          width={this.props.width}
-          height={this.props.height}
-          style={{ ...this.props.style, ...this.generateInputStyle() }}
+          style={{ ...this.props.style.input, ...this.generateInputStyle() }}
           onChange={this.toggleVisibility.bind(this)}
         />
         <Dropdown
           data={this.props.data}
-          width={this.props.width}
           visible={this.state.dropdownVisible}
-          style={this.props.style}
+          style={this.props.style.dropdown}
         />
       </Column>
     );
