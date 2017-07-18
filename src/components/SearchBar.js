@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Input } from 'components/Bootstrap';
 import { Dropdown } from 'components/Dropdown';
 import { Column } from 'components/flexGrid';
 
@@ -11,12 +10,12 @@ class SearchBar extends Component {
   render() {
     return (
       <Column>
-        <Input
+        <input
+          type='text'
           placeholder={this.props.placeholder}
-          updateState={this.props.updateState}
           value={this.props.state}
           style={{ ...this.props.style.input, ...this.generateInputStyle() }}
-          onChange={this.toggleVisibility.bind(this)}
+          onChange={this.onChange.bind(this)}
         />
         <Dropdown
           data={this.props.data}
@@ -25,6 +24,11 @@ class SearchBar extends Component {
         />
       </Column>
     );
+  }
+
+  onChange(ev) {
+    this.props.updateState(ev.target.value);
+    this.toggleVisibility(ev.target.value);
   }
 
   toggleVisibility(value) {

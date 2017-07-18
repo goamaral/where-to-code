@@ -44,7 +44,7 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(83);
+	module.exports = __webpack_require__(82);
 
 
 /***/ }),
@@ -4410,8 +4410,7 @@
 /* 79 */,
 /* 80 */,
 /* 81 */,
-/* 82 */,
-/* 83 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4421,15 +4420,13 @@
 	});
 	exports.ListItem = exports.List = undefined;
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _flexGrid = __webpack_require__(84);
+	var _flexGrid = __webpack_require__(83);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4443,21 +4440,9 @@
 	  _inherits(List, _Component);
 
 	  function List() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
 	    _classCallCheck(this, List);
 
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = List.__proto__ || Object.getPrototypeOf(List)).call.apply(_ref, [this].concat(args))), _this), _this.style = {
-	      div: {
-	        width: _this.props.width
-	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
 	  }
 
 	  _createClass(List, [{
@@ -4474,7 +4459,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        _flexGrid.Column,
-	        { style: _extends({}, this.style.div, this.props.style) },
+	        { style: this.props.style },
 	        this.renderData()
 	      );
 	    }
@@ -4487,31 +4472,17 @@
 	  _inherits(ListItem, _Component2);
 
 	  function ListItem() {
-	    var _ref2;
-
-	    var _temp2, _this3, _ret2;
-
 	    _classCallCheck(this, ListItem);
 
-	    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	      args[_key2] = arguments[_key2];
-	    }
-
-	    return _ret2 = (_temp2 = (_this3 = _possibleConstructorReturn(this, (_ref2 = ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call.apply(_ref2, [this].concat(args))), _this3), _this3.style = {
-	      item: {
-	        padding: '10px 15px',
-	        marginBottom: '-1px',
-	        width: '100% '
-	      }
-	    }, _temp2), _possibleConstructorReturn(_this3, _ret2);
+	    return _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).apply(this, arguments));
 	  }
 
 	  _createClass(ListItem, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'div',
-	        { style: _extends({}, this.style.item, this.props.style) },
+	        'li',
+	        { style: this.props.style },
 	        this.props.data
 	      );
 	    }
@@ -4524,7 +4495,7 @@
 	exports.ListItem = ListItem;
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';

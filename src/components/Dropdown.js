@@ -5,9 +5,9 @@ class Dropdown extends Component {
   render() {
     return (
       <List
-          style={{ ...this.generateListStyle(), ...this.props.style }}
+          style={{ ...this.generateListStyle(), ...this.props.style.list }}
           data={this.props.data}
-          itemStyle={{ borderTop: '#BDBDBD solid 1px ' }}
+          itemStyle={this.props.style.listItemStyle}
       />
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Core, Header, SearchBar, ListItem } from 'components';
+import { Core, SearchBar, ListItem } from 'components';
 import { fetchLocations, updateLocation } from 'actions/HomeActions';
 import { HeaderStyle, CoreStyle, SearchBarStyle } from 'style/HomeStyle';
 
@@ -9,7 +9,7 @@ class HomeRoute extends Component {
   render() {
     return (
       <Core style={CoreStyle}>
-        <Header style={HeaderStyle}>Where to code?</Header>
+        <h1 style={HeaderStyle}>Where to code?</h1>
         <SearchBar
           style={SearchBarStyle}
           placeholder="Please insert your city or country"
