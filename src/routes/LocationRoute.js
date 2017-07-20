@@ -11,7 +11,7 @@ export default class LocationRoute extends Component {
     return (
       <div style={DivStyle}>
         <h1 style={HeaderStyle}>{document.title}</h1>
-        <GoogleMap ApiKey={googleApiKey} />
+        <GoogleMap ApiKey={googleApiKey} address={document.title} />
       </div>
     );
   }

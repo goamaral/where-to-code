@@ -4443,9 +4443,7 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var location = document.title //Page title
-	      .split(' ').join('+'); //Replace spaces
-
+	      var address = this.props.address;
 	      var div = this.refs.googleMap;
 
 	      var script = document.createElement('script');
@@ -4453,7 +4451,7 @@
 	      document.head.appendChild(script);
 	      script.onload = function () {
 	        var geocoder = new google.maps.Geocoder();
-	        geocoder.geocode({ 'address': location }, function (res, status) {
+	        geocoder.geocode({ 'address': address }, function (res, status) {
 	          if (status == google.maps.GeocoderStatus.OK) {
 	            var zoom = function () {
 	              var types = res[0].types;
@@ -4584,7 +4582,7 @@
 	          { style: _LocationStyle.HeaderStyle },
 	          document.title
 	        ),
-	        _react2.default.createElement(_GoogleMap2.default, { ApiKey: _config.googleApiKey })
+	        _react2.default.createElement(_GoogleMap2.default, { ApiKey: _config.googleApiKey, address: document.title })
 	      );
 	    }
 	  }]);
