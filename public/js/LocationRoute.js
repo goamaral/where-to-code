@@ -45,7 +45,7 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(264);
+	module.exports = __webpack_require__(266);
 
 
 /***/ }),
@@ -4401,7 +4401,7 @@
 
 /***/ }),
 
-/***/ 83:
+/***/ 84:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4409,15 +4409,14 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Core = exports.Column = exports.Row = undefined;
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _LocationStyle = __webpack_require__(85);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4427,126 +4426,98 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Row = function (_Component) {
-	  _inherits(Row, _Component);
+	var GoogleMap = function (_Component) {
+	  _inherits(GoogleMap, _Component);
 
-	  function Row() {
-	    var _ref;
+	  function GoogleMap() {
+	    _classCallCheck(this, GoogleMap);
 
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, Row);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Row.__proto__ || Object.getPrototypeOf(Row)).call.apply(_ref, [this].concat(args))), _this), _this.style = {
-	      row: {
-	        display: 'flex',
-	        flexDirection: 'row',
-	        alignItems: 'center',
-	        justifyContent: 'center'
-	      }
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    return _possibleConstructorReturn(this, (GoogleMap.__proto__ || Object.getPrototypeOf(GoogleMap)).apply(this, arguments));
 	  }
 
-	  _createClass(Row, [{
+	  _createClass(GoogleMap, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { style: _extends({}, this.style.row, this.props.style) },
-	        this.props.children
-	      );
+	      return _react2.default.createElement('div', { ref: 'googleMap', style: _LocationStyle.MapStyle });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var location = document.title //Page title
+	      .split(' ').join('+'); //Replace spaces
+
+	      var div = this.refs.googleMap;
+
+	      var script = document.createElement('script');
+	      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.props.ApiKey;
+	      document.head.appendChild(script);
+	      script.onload = function () {
+	        var geocoder = new google.maps.Geocoder();
+	        geocoder.geocode({ 'address': location }, function (res, status) {
+	          if (status == google.maps.GeocoderStatus.OK) {
+	            var zoom = function () {
+	              var types = res[0].types;
+	              if (types.includes('route') || types.includes('street_number') || types.includes('street_address')) {
+	                return 16;
+	              } else if (types.includes('neighborhood')) {
+	                return 14;
+	              } else if (types.includes('sublocality') || types.includes('administrative_area_level_2')) {
+	                return 10;
+	              } else if (types.includes('administrative_area_level_1')) {
+	                return 6;
+	              } else if (types.includes('country')) {
+	                return 4;
+	              } else if (types.includes('postal_code') || types.includes('locality')) {
+	                return 13;
+	              } else alert('Invalid location');
+	            }();
+	            var coord = {
+	              lat: res[0].geometry.location.lat(),
+	              lng: res[0].geometry.location.lng()
+	            };
+	            this.map = new google.maps.Map(div, {
+	              zoom: zoom,
+	              center: coord
+	            });
+	          }
+	        });
+	      };
 	    }
 	  }]);
 
-	  return Row;
+	  return GoogleMap;
 	}(_react.Component);
 
-	var Column = function (_Component2) {
-	  _inherits(Column, _Component2);
-
-	  function Column() {
-	    var _ref2;
-
-	    var _temp2, _this2, _ret2;
-
-	    _classCallCheck(this, Column);
-
-	    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-	      args[_key2] = arguments[_key2];
-	    }
-
-	    return _ret2 = (_temp2 = (_this2 = _possibleConstructorReturn(this, (_ref2 = Column.__proto__ || Object.getPrototypeOf(Column)).call.apply(_ref2, [this].concat(args))), _this2), _this2.style = {
-	      column: {
-	        display: 'flex',
-	        flexDirection: 'column',
-	        alignItems: 'center'
-	      }
-	    }, _temp2), _possibleConstructorReturn(_this2, _ret2);
-	  }
-
-	  _createClass(Column, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { style: _extends({}, this.style.column, this.props.style) },
-	        this.props.children
-	      );
-	    }
-	  }]);
-
-	  return Column;
-	}(_react.Component);
-
-	var Core = function (_Component3) {
-	  _inherits(Core, _Component3);
-
-	  function Core() {
-	    var _ref3;
-
-	    var _temp3, _this3, _ret3;
-
-	    _classCallCheck(this, Core);
-
-	    for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-	      args[_key3] = arguments[_key3];
-	    }
-
-	    return _ret3 = (_temp3 = (_this3 = _possibleConstructorReturn(this, (_ref3 = Core.__proto__ || Object.getPrototypeOf(Core)).call.apply(_ref3, [this].concat(args))), _this3), _this3.style = {
-	      core: {
-	        justifyContent: 'center',
-	        display: 'flex',
-	        flexDirection: 'column',
-	        alignItems: 'center'
-	      }
-	    }, _temp3), _possibleConstructorReturn(_this3, _ret3);
-	  }
-
-	  _createClass(Core, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { style: _extends({}, this.style.core, this.props.style) },
-	        this.props.children
-	      );
-	    }
-	  }]);
-
-	  return Core;
-	}(_react.Component);
-
-	exports.Row = Row;
-	exports.Column = Column;
-	exports.Core = Core;
+	exports.default = GoogleMap;
 
 /***/ }),
 
-/***/ 89:
+/***/ 85:
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var MapStyle = exports.MapStyle = {
+	  width: '50vw',
+	  height: '70vh',
+	  border: '0'
+	};
+
+	var HeaderStyle = exports.HeaderStyle = {
+	  margin: '3vh 3vw',
+	  fontSize: '2.5em'
+	};
+
+	var DivStyle = exports.DivStyle = {
+	  height: '80vh'
+	};
+
+/***/ }),
+
+/***/ 91:
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -4560,7 +4531,7 @@
 
 /***/ }),
 
-/***/ 264:
+/***/ 266:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4575,11 +4546,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _config = __webpack_require__(89);
+	var _config = __webpack_require__(91);
 
-	var _LocationStyle = __webpack_require__(265);
+	var _LocationStyle = __webpack_require__(85);
 
-	var _flexGrid = __webpack_require__(83);
+	var _GoogleMap = __webpack_require__(84);
+
+	var _GoogleMap2 = _interopRequireDefault(_GoogleMap);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4603,7 +4576,6 @@
 	    value: function render() {
 	      var location = document.title //Page title
 	      .split(' ').join('+'); //Replace spaces
-	      var iframeSrc = "https://www.google.com/maps/embed/v1/search?key=" + _config.googleApiKey + "&q=" + location;
 	      return _react2.default.createElement(
 	        'div',
 	        { style: _LocationStyle.DivStyle },
@@ -4612,10 +4584,7 @@
 	          { style: _LocationStyle.HeaderStyle },
 	          document.title
 	        ),
-	        _react2.default.createElement('iframe', {
-	          style: _LocationStyle.MapStyle,
-	          src: iframeSrc,
-	          allowFullScreen: 'true' })
+	        _react2.default.createElement(_GoogleMap2.default, { ApiKey: _config.googleApiKey })
 	      );
 	    }
 	  }]);
@@ -4624,31 +4593,6 @@
 	}(_react.Component);
 
 	exports.default = LocationRoute;
-
-/***/ }),
-
-/***/ 265:
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var MapStyle = exports.MapStyle = {
-	  width: '50vw',
-	  height: '70vh',
-	  border: '0'
-	};
-
-	var HeaderStyle = exports.HeaderStyle = {
-	  margin: '3vh 3vw',
-	  fontSize: '2.5em'
-	};
-
-	var DivStyle = exports.DivStyle = {
-	  height: '80vh'
-	};
 
 /***/ })
 
