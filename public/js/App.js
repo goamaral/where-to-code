@@ -67,11 +67,11 @@
 
 	var _redux = __webpack_require__(50);
 
-	var _reducers = __webpack_require__(77);
+	var _reducers = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"reducers\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
-	var _reduxThunk = __webpack_require__(80);
+	var _reduxThunk = __webpack_require__(77);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -6799,76 +6799,6 @@
 
 /***/ }),
 /* 77 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _redux = __webpack_require__(50);
-
-	var _HomeReducer = __webpack_require__(78);
-
-	var _HomeReducer2 = _interopRequireDefault(_HomeReducer);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = (0, _redux.combineReducers)({
-		home: _HomeReducer2.default
-	});
-
-/***/ }),
-/* 78 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _types = __webpack_require__(79);
-
-	var INITIAL_STATE = {
-		location: '',
-		locations: []
-	};
-
-	exports.default = function () {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
-		var action = arguments[1];
-
-		switch (action.type) {
-			case _types.UPDATE_LOCATION:
-				return _extends({}, state, { location: action.payload });
-			case _types.UPDATE_LOCATIONS:
-				return _extends({}, state, { locations: action.payload });
-			case _types.RESET_LOCATION:
-				return _extends({}, state, { location: action.payload });
-			default:
-				return state;
-		}
-	};
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var UPDATE_LOCATION = exports.UPDATE_LOCATION = 'update_location';
-	var UPDATE_LOCATIONS = exports.UPDATE_LOCATIONS = 'update_locations';
-	var RESET_LOCATION = exports.RESET_LOCATION = 'rest_location';
-
-/***/ }),
-/* 80 */
 /***/ (function(module, exports) {
 
 	'use strict';

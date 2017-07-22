@@ -45,12 +45,12 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(118);
+	module.exports = __webpack_require__(190);
 
 
 /***/ }),
 
-/***/ 118:
+/***/ 190:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -58,20 +58,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	var HeaderStyle = exports.HeaderStyle = _defineProperty({
-	  margin: '0 0 8vh 0',
-	  textAlign: 'center',
-	  color: 'white',
-	  fontSize: '4em'
-	}, 'margin', '20px');
-
-	var CoreStyle = exports.CoreStyle = {
-	  height: '80vh'
-	};
-
 	var SearchBarStyle = exports.SearchBarStyle = {
 	  input: {
 	    padding: '10px',

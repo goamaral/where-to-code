@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
-		<meta charset = "UTF-8">
-		<title><%= @location %></title>
+    <link rel="stylesheet" href="/css/LocationStyle.css">
     <script src="/js/Location.js"></script>
+		<title><%= @location %></title>
   </head>
 
  	<body>
-		<div id="root"></div>
+    <div class="hero">
+      <h1 class="header"><%= @location %></h1>
+      <map></map>
+    </div>
   </body>
 </html>

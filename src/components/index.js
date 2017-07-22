@@ -1,10 +1,11 @@
-import { Dropdown } from './Dropdown';
+import Dropdown from './Dropdown';
 import { Row, Column, Core } from './flexGrid';
+import GoogleMap from './GoogleMap';
 import { List, ListItem } from './List';
-import { SearchBar } from './SearchBar';
+import SearchBar from './SearchBar';
 
 export {
-  Dropdown, Row, Column, Core,
+  Row, Column, Core,
   List, ListItem,
-  SearchBar
+  Dropdown, SearchBar, GoogleMap
 };

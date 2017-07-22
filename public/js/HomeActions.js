@@ -40,18 +40,17 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(90);
+	module.exports = __webpack_require__(263);
 
 
 /***/ }),
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */
+
+/***/ 4:
 /***/ (function(module, exports) {
 
 	// shim for using process in browser
@@ -241,81 +240,8 @@
 
 
 /***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */
+
+/***/ 79:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -328,72 +254,8 @@
 	var RESET_LOCATION = exports.RESET_LOCATION = 'rest_location';
 
 /***/ }),
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */
-/***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.resetLocation = exports.updateLocation = exports.fetchLocations = undefined;
-
-	var _config = __webpack_require__(91);
-
-	var _axios = __webpack_require__(92);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _types = __webpack_require__(79);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var fetchLocations = exports.fetchLocations = function fetchLocations(location) {
-		return function (dispatch) {
-			_axios2.default.get("https://maps.googleapis.com/maps/api/place/autocomplete/json", {
-				params: {
-					key: _config.googleApiKey,
-					input: location
-				}
-			}).then(function (result) {
-				dispatch({
-					type: _types.UPDATE_LOCATIONS,
-					payload: result.data.predictions
-				});
-			}).catch(function (error) {
-				alert(error);
-			});
-		};
-	};
-
-	var updateLocation = exports.updateLocation = function updateLocation(text) {
-		return {
-			type: _types.UPDATE_LOCATION,
-			payload: text
-		};
-	};
-
-	var resetLocation = exports.resetLocation = function resetLocation() {
-		var newState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-		return {
-			type: _types.RESET_LOCATION,
-			payload: newState
-		};
-	};
-
-/***/ }),
-/* 91 */
+/***/ 236:
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -406,21 +268,23 @@
 	exports.googleApiKey = googleApiKey;
 
 /***/ }),
-/* 92 */
+
+/***/ 237:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(93);
+	module.exports = __webpack_require__(238);
 
 /***/ }),
-/* 93 */
+
+/***/ 238:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(94);
-	var bind = __webpack_require__(95);
-	var Axios = __webpack_require__(97);
-	var defaults = __webpack_require__(98);
+	var utils = __webpack_require__(239);
+	var bind = __webpack_require__(240);
+	var Axios = __webpack_require__(242);
+	var defaults = __webpack_require__(243);
 
 	/**
 	 * Create an instance of Axios
@@ -453,15 +317,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(115);
-	axios.CancelToken = __webpack_require__(116);
-	axios.isCancel = __webpack_require__(112);
+	axios.Cancel = __webpack_require__(260);
+	axios.CancelToken = __webpack_require__(261);
+	axios.isCancel = __webpack_require__(257);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(117);
+	axios.spread = __webpack_require__(262);
 
 	module.exports = axios;
 
@@ -470,13 +334,14 @@
 
 
 /***/ }),
-/* 94 */
+
+/***/ 239:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bind = __webpack_require__(95);
-	var isBuffer = __webpack_require__(96);
+	var bind = __webpack_require__(240);
+	var isBuffer = __webpack_require__(241);
 
 	/*global toString:true*/
 
@@ -779,7 +644,8 @@
 
 
 /***/ }),
-/* 95 */
+
+/***/ 240:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -796,7 +662,8 @@
 
 
 /***/ }),
-/* 96 */
+
+/***/ 241:
 /***/ (function(module, exports) {
 
 	/*!
@@ -823,17 +690,18 @@
 
 
 /***/ }),
-/* 97 */
+
+/***/ 242:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(98);
-	var utils = __webpack_require__(94);
-	var InterceptorManager = __webpack_require__(109);
-	var dispatchRequest = __webpack_require__(110);
-	var isAbsoluteURL = __webpack_require__(113);
-	var combineURLs = __webpack_require__(114);
+	var defaults = __webpack_require__(243);
+	var utils = __webpack_require__(239);
+	var InterceptorManager = __webpack_require__(254);
+	var dispatchRequest = __webpack_require__(255);
+	var isAbsoluteURL = __webpack_require__(258);
+	var combineURLs = __webpack_require__(259);
 
 	/**
 	 * Create a new instance of Axios
@@ -915,13 +783,14 @@
 
 
 /***/ }),
-/* 98 */
+
+/***/ 243:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(94);
-	var normalizeHeaderName = __webpack_require__(99);
+	var utils = __webpack_require__(239);
+	var normalizeHeaderName = __webpack_require__(244);
 
 	var DEFAULT_CONTENT_TYPE = {
 	  'Content-Type': 'application/x-www-form-urlencoded'
@@ -937,10 +806,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(100);
+	    adapter = __webpack_require__(245);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(100);
+	    adapter = __webpack_require__(245);
 	  }
 	  return adapter;
 	}
@@ -1014,12 +883,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 99 */
+
+/***/ 244:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(94);
+	var utils = __webpack_require__(239);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -1032,18 +902,19 @@
 
 
 /***/ }),
-/* 100 */
+
+/***/ 245:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(94);
-	var settle = __webpack_require__(101);
-	var buildURL = __webpack_require__(104);
-	var parseHeaders = __webpack_require__(105);
-	var isURLSameOrigin = __webpack_require__(106);
-	var createError = __webpack_require__(102);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(107);
+	var utils = __webpack_require__(239);
+	var settle = __webpack_require__(246);
+	var buildURL = __webpack_require__(249);
+	var parseHeaders = __webpack_require__(250);
+	var isURLSameOrigin = __webpack_require__(251);
+	var createError = __webpack_require__(247);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(252);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -1140,7 +1011,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(108);
+	      var cookies = __webpack_require__(253);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1219,12 +1090,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 101 */
+
+/***/ 246:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(102);
+	var createError = __webpack_require__(247);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -1251,12 +1123,13 @@
 
 
 /***/ }),
-/* 102 */
+
+/***/ 247:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(103);
+	var enhanceError = __webpack_require__(248);
 
 	/**
 	 * Create an Error with the specified message, config, error code, request and response.
@@ -1275,7 +1148,8 @@
 
 
 /***/ }),
-/* 103 */
+
+/***/ 248:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1302,12 +1176,13 @@
 
 
 /***/ }),
-/* 104 */
+
+/***/ 249:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(94);
+	var utils = __webpack_require__(239);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -1376,12 +1251,13 @@
 
 
 /***/ }),
-/* 105 */
+
+/***/ 250:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(94);
+	var utils = __webpack_require__(239);
 
 	/**
 	 * Parse headers into an object
@@ -1419,12 +1295,13 @@
 
 
 /***/ }),
-/* 106 */
+
+/***/ 251:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(94);
+	var utils = __webpack_require__(239);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -1493,7 +1370,8 @@
 
 
 /***/ }),
-/* 107 */
+
+/***/ 252:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1535,12 +1413,13 @@
 
 
 /***/ }),
-/* 108 */
+
+/***/ 253:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(94);
+	var utils = __webpack_require__(239);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -1594,12 +1473,13 @@
 
 
 /***/ }),
-/* 109 */
+
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(94);
+	var utils = __webpack_require__(239);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -1652,15 +1532,16 @@
 
 
 /***/ }),
-/* 110 */
+
+/***/ 255:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(94);
-	var transformData = __webpack_require__(111);
-	var isCancel = __webpack_require__(112);
-	var defaults = __webpack_require__(98);
+	var utils = __webpack_require__(239);
+	var transformData = __webpack_require__(256);
+	var isCancel = __webpack_require__(257);
+	var defaults = __webpack_require__(243);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -1737,12 +1618,13 @@
 
 
 /***/ }),
-/* 111 */
+
+/***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(94);
+	var utils = __webpack_require__(239);
 
 	/**
 	 * Transform the data for a request or a response
@@ -1763,7 +1645,8 @@
 
 
 /***/ }),
-/* 112 */
+
+/***/ 257:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1774,7 +1657,8 @@
 
 
 /***/ }),
-/* 113 */
+
+/***/ 258:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1794,7 +1678,8 @@
 
 
 /***/ }),
-/* 114 */
+
+/***/ 259:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1814,7 +1699,8 @@
 
 
 /***/ }),
-/* 115 */
+
+/***/ 260:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1839,12 +1725,13 @@
 
 
 /***/ }),
-/* 116 */
+
+/***/ 261:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(115);
+	var Cancel = __webpack_require__(260);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -1902,7 +1789,8 @@
 
 
 /***/ }),
-/* 117 */
+
+/***/ 262:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1934,5 +1822,62 @@
 	};
 
 
+/***/ }),
+
+/***/ 263:
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.resetLocation = exports.updateLocation = exports.fetchLocations = undefined;
+
+	var _config = __webpack_require__(236);
+
+	var _axios = __webpack_require__(237);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _types = __webpack_require__(79);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var fetchLocations = exports.fetchLocations = function fetchLocations(location) {
+		return function (dispatch) {
+			_axios2.default.get("https://maps.googleapis.com/maps/api/place/autocomplete/json", {
+				params: {
+					key: _config.googleApiKey,
+					input: location
+				}
+			}).then(function (result) {
+				dispatch({
+					type: _types.UPDATE_LOCATIONS,
+					payload: result.data.predictions
+				});
+			}).catch(function (error) {
+				alert(error);
+			});
+		};
+	};
+
+	var updateLocation = exports.updateLocation = function updateLocation(text) {
+		return {
+			type: _types.UPDATE_LOCATION,
+			payload: text
+		};
+	};
+
+	var resetLocation = exports.resetLocation = function resetLocation() {
+		var newState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+		return {
+			type: _types.RESET_LOCATION,
+			payload: newState
+		};
+	};
+
 /***/ })
-/******/ ]);
+
+/******/ });

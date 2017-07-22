@@ -1,0 +1,12 @@
+@import "/css/Main.css";
+
+body {
+  background-color: #212121;
+}
+
+.header {
+  margin: 0 0 8vh 0;
+  text-align: center;
+  color: white;
+  font-size: 4em;
+}

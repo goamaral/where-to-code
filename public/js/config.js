@@ -45,15 +45,22 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(81);
+	module.exports = __webpack_require__(191);
 
 
 /***/ }),
 
-/***/ 81:
+/***/ 191:
 /***/ (function(module, exports) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var googleApiKey = "AIzaSyCAjlPRHyUbmRYr6P_yzfog4QwQ-ZMoXOM";
+
+	exports.googleApiKey = googleApiKey;
 
 /***/ })
 

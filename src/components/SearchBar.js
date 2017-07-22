@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Dropdown } from 'components/Dropdown';
 import { Column } from 'components/flexGrid';
 
-class SearchBar extends Component {
+export default class SearchBar extends Component {
   state = {
     dropdownVisible: false
   };
@@ -46,5 +46,3 @@ class SearchBar extends Component {
     return style;
   }
 }
-
-export { SearchBar };

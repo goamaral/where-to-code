@@ -45,12 +45,12 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(85);
+	module.exports = __webpack_require__(40);
 
 
 /***/ }),
 
-/***/ 85:
+/***/ 40:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -62,15 +62,6 @@
 	  width: '50vw',
 	  height: '70vh',
 	  border: '0'
-	};
-
-	var HeaderStyle = exports.HeaderStyle = {
-	  margin: '3vh 3vw',
-	  fontSize: '2.5em'
-	};
-
-	var DivStyle = exports.DivStyle = {
-	  height: '80vh'
 	};
 
 /***/ })

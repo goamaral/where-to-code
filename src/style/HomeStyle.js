@@ -1,15 +1,3 @@
-export const HeaderStyle = {
-  margin: '0 0 8vh 0',
-  textAlign: 'center',
-  color: 'white',
-  fontSize: '4em',
-  margin: '20px'
-};
-
-export const CoreStyle = {
-  height: '80vh'
-};
-
 export const SearchBarStyle = {
   input: {
     padding: '10px',

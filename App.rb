@@ -2,7 +2,7 @@ require 'sinatra'
 
 class App < Sinatra::Base
   get '/' do
-    erb :index
+    erb :home
   end
 
   get '/location/:location' do

@@ -1,16 +1,18 @@
-import LocationRoute from 'routes/LocationRoute';
-import App from 'App';
 import ReactDOM from 'react-dom';
-import React from 'react';
+import React, { Component } from 'react';
+import { googleApiKey } from 'config';
 
-var app = () => {
-  return (
-    <App>
-      <LocationRoute />
-    </App>
-  );
+import { GoogleMap } from 'components';
+
+class View extends Component {
+  render() {
+    return (
+      <GoogleMap ApiKey={googleApiKey} address={document.title} />
+    );
+  }
 }
 
 window.onload = () => {
-  ReactDOM.render(React.createElement(app), document.getElementById('root'));
+  var app = () => { return (<View/>); };
+  ReactDOM.render(React.createElement(app), document.getElementsByTagName('map')[0]);
 }
