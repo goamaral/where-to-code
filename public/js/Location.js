@@ -4715,7 +4715,7 @@
 	              lng: res[0].geometry.location.lng()
 	            };
 
-	            _this2.map = new google.maps.Map(div, {
+	            _this2.props.state.map = new google.maps.Map(div, {
 	              zoom: zoom,
 	              center: coord
 	            });
@@ -4730,11 +4730,11 @@
 	    value: function setMarkers() {
 	      return;
 	      var bounds = new google.maps.LatLngBounds();
-	      for (var i = 0; i < markers.length; i++) {
-	        bounds.extend(markers[i].getPosition());
-	      }
+	      this.props.state.markers.map(function (marker) {
+	        bounds.extend(marker.getPosition());
+	      });
 
-	      this.map.fitBounds(bounds);
+	      this.state.map.fitBounds(bounds);
 	    }
 	  }, {
 	    key: 'calculateZoom',
@@ -22428,13 +22428,24 @@
 	  function View() {
 	    _classCallCheck(this, View);
 
-	    return _possibleConstructorReturn(this, (View.__proto__ || Object.getPrototypeOf(View)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (View.__proto__ || Object.getPrototypeOf(View)).call(this));
+
+	    _this.state = {
+	      markers: [],
+	      map: null
+	    };
+	    return _this;
 	  }
 
 	  _createClass(View, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_components.GoogleMap, { ApiKey: _config.googleApiKey, address: document.title });
+	      return _react2.default.createElement(_components.GoogleMap, {
+	        ApiKey: _config.googleApiKey,
+	        address: document.title,
+	        state: this.state,
+	        updateState: this.setState.bind(this)
+	      });
 	    }
 	  }]);
 

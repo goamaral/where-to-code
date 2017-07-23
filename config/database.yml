@@ -1,0 +1,15 @@
+development:
+  adapter: mysql2
+  database: where-to-code
+  username: root
+  password: root
+  host: 127.0.0.1
+  socket: /tmp/mysql.sock
+
+production:
+  adapter: mysql2
+  database: where-to-code
+  username: root
+  password: root
+  host: 127.0.0.1
+  socket: /tmp/mysql.sock

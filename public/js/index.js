@@ -4755,7 +4755,7 @@
 	              lng: res[0].geometry.location.lng()
 	            };
 
-	            _this2.map = new google.maps.Map(div, {
+	            _this2.props.state.map = new google.maps.Map(div, {
 	              zoom: zoom,
 	              center: coord
 	            });
@@ -4770,11 +4770,11 @@
 	    value: function setMarkers() {
 	      return;
 	      var bounds = new google.maps.LatLngBounds();
-	      for (var i = 0; i < markers.length; i++) {
-	        bounds.extend(markers[i].getPosition());
-	      }
+	      this.props.state.markers.map(function (marker) {
+	        bounds.extend(marker.getPosition());
+	      });
 
-	      this.map.fitBounds(bounds);
+	      this.state.map.fitBounds(bounds);
 	    }
 	  }, {
 	    key: 'calculateZoom',

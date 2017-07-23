@@ -27,7 +27,7 @@ export default class GoogleMap extends Component {
             lng: res[0].geometry.location.lng()
           };
 
-          this.map = new google.maps.Map(div, {
+          this.props.state.map = new google.maps.Map(div, {
             zoom: zoom,
             center: coord
           });
@@ -41,11 +41,11 @@ export default class GoogleMap extends Component {
   setMarkers() {
     return;
     var bounds = new google.maps.LatLngBounds();
-    for (var i = 0; i < markers.length; i++) {
-     bounds.extend(markers[i].getPosition());
-    }
+    this.props.state.markers.map((marker) => {
+      bounds.extend(marker.getPosition());
+    });
 
-    this.map.fitBounds(bounds);
+    this.state.map.fitBounds(bounds);
   }
 
   calculateZoom(types) {

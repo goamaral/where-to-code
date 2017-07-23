@@ -45,7 +45,9 @@ class View extends Component {
   			input: location
   		}
   	})
-  	.then(result => { this.setState({ locations: result.data.predictions }) })
+  	.then(result => {
+      this.setState({ locations: result.data.predictions })
+    })
   	.catch((error) => {
   		alert(error);
   	});

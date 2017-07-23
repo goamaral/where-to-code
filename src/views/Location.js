@@ -5,9 +5,22 @@ import { googleApiKey } from 'config';
 import { GoogleMap } from 'components';
 
 class View extends Component {
+  constructor() {
+    super();
+    this.state = {
+      markers: [],
+      map: null
+    };
+  }
+
   render() {
     return (
-      <GoogleMap ApiKey={googleApiKey} address={document.title} />
+      <GoogleMap
+        ApiKey={googleApiKey}
+        address={document.title}
+        state={this.state}
+        updateState={this.setState.bind(this)}
+      />
     );
   }
 }

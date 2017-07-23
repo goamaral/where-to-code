@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'rubygems'
 
 class App < Sinatra::Base
   get '/' do
