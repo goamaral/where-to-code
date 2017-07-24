@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 
-import { MapStyle } from 'style/LocationStyle';
-
 export default class GoogleMap extends Component {
   render() {
     return (
-      <div ref='googleMap' style={MapStyle}></div>
+      <div ref='googleMap' style={this.props.style}></div>
     );
   }
 
@@ -18,8 +16,8 @@ export default class GoogleMap extends Component {
     document.head.appendChild(script);
 
     script.onload = () => {
-      new google.maps.Geocoder().geocode( { 'address': address}, (res, status) => {
-        if (status == google.maps.GeocoderStatus.OK) {
+      new google.maps.Geocoder().geocode( { 'address': address}, (res, sts) => {
+        if (sts == google.maps.GeocoderStatus.OK) {
           var zoom = this.calculateZoom(res[0].types);
 
           var coord = {
@@ -27,14 +25,15 @@ export default class GoogleMap extends Component {
             lng: res[0].geometry.location.lng()
           };
 
-          this.props.state.map = new google.maps.Map(div, {
+          var map = new google.maps.Map(div, {
             zoom: zoom,
-            center: coord
+            center: coord,
+            styles: this.props.CustomFeatures
           });
+
+          this.props.setState({ map: map });
         }
       });
-
-      this.setMarkers();
     }
   }
 

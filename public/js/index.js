@@ -45,7 +45,7 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(188);
+	module.exports = __webpack_require__(187);
 
 
 /***/ }),
@@ -4709,8 +4709,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _LocationStyle = __webpack_require__(40);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4731,7 +4729,7 @@
 	  _createClass(GoogleMap, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement('div', { ref: 'googleMap', style: _LocationStyle.MapStyle });
+	      return _react2.default.createElement('div', { ref: 'googleMap', style: this.props.style });
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -4746,8 +4744,8 @@
 	      document.head.appendChild(script);
 
 	      script.onload = function () {
-	        new google.maps.Geocoder().geocode({ 'address': address }, function (res, status) {
-	          if (status == google.maps.GeocoderStatus.OK) {
+	        new google.maps.Geocoder().geocode({ 'address': address }, function (res, sts) {
+	          if (sts == google.maps.GeocoderStatus.OK) {
 	            var zoom = _this2.calculateZoom(res[0].types);
 
 	            var coord = {
@@ -4755,14 +4753,15 @@
 	              lng: res[0].geometry.location.lng()
 	            };
 
-	            _this2.props.state.map = new google.maps.Map(div, {
+	            var map = new google.maps.Map(div, {
 	              zoom: zoom,
-	              center: coord
+	              center: coord,
+	              styles: _this2.props.CustomFeatures
 	            });
+
+	            _this2.props.setState({ map: map });
 	          }
 	        });
-
-	        _this2.setMarkers();
 	      };
 	    }
 	  }, {
@@ -4802,23 +4801,7 @@
 
 /***/ }),
 
-/***/ 40:
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var MapStyle = exports.MapStyle = {
-	  width: '50vw',
-	  height: '70vh',
-	  border: '0'
-	};
-
-/***/ }),
-
-/***/ 188:
+/***/ 187:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4840,7 +4823,7 @@
 
 	var _List = __webpack_require__(37);
 
-	var _SearchBar = __webpack_require__(189);
+	var _SearchBar = __webpack_require__(188);
 
 	var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
@@ -4857,7 +4840,7 @@
 
 /***/ }),
 
-/***/ 189:
+/***/ 188:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';

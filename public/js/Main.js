@@ -45,12 +45,12 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(219);
+	module.exports = __webpack_require__(220);
 
 
 /***/ }),
 
-/***/ 219:
+/***/ 220:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -58,16 +58,24 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var MapStyle = exports.MapStyle = {
-	  width: '50vw',
-	  height: '70vh',
-	  border: '0'
+	var RowStyle = exports.RowStyle = {
+	  display: 'flex',
+	  flexDirection: 'row',
+	  alignItems: 'center'
 	};
 
-	var CustomFeatures = exports.CustomFeatures = [{
-	  "featureType": "poi",
-	  "stylers": [{ "visibility": "off" }]
-	}];
+	var ColumnStyle = exports.ColumnStyle = {
+	  display: 'flex',
+	  flexDirection: 'column',
+	  alignItems: 'center'
+	};
+
+	var CoreStyle = exports.CoreStyle = {
+	  justifyContent: 'center',
+	  display: 'flex',
+	  flexDirection: 'column',
+	  alignItems: 'center'
+	};
 
 /***/ })
 
