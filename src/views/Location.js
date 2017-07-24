@@ -6,7 +6,7 @@ import { GoogleMap } from 'components';
 import { googleApiKey } from 'config';
 import { greenMarker } from 'data.json';
 import { MapStyle, CustomFeatures } from 'style/LocationStyle';
-import { RowStyle } from 'style/Main';
+import { RowStyle, ColumnStyle } from 'style/Main';
 
 class View extends Component {
   constructor() {
@@ -21,18 +21,21 @@ class View extends Component {
 
   render() {
     return (
-      <div>
-        <GoogleMap
-          ApiKey={googleApiKey}
-          address={document.title}
-          state={this.state}
-          setState={this.setState.bind(this)}
-          style={MapStyle}
-          CustomFeatures={CustomFeatures}
-        />
-        <div style={RowStyle}>
-          <button ref='mapMode'></button>
-          <button ref='newSpot'>Send new spot</button>
+      <div style={RowStyle}>
+        <div style={ColumnStyle}>
+          <GoogleMap
+            ApiKey={googleApiKey}
+            address={document.title}
+            state={this.state}
+            setState={this.setState.bind(this)}
+            style={MapStyle}
+            CustomFeatures={CustomFeatures}
+          />
+
+          <div style={RowStyle}>
+            <button ref='mapMode'></button>
+            <button ref='newSpot'>Add spot</button>
+          </div>
         </div>
       </div>
     );
@@ -58,7 +61,9 @@ class View extends Component {
         var markers = [];
 
         for (var m of res.data.markers) {
-          markers.push(JSON.parse(m));
+          m = JSON.parse(m);
+          m = { ...m, lat: parseFloat(m.lat), lng: parseFloat(m.lng) }
+          markers.push(m);
         }
 
         this.setState({ markers: markers });
@@ -111,8 +116,8 @@ class View extends Component {
                 axios.post('/marker', {
                   country: country,
                   city: city,
-                  lat: location.lat().toPrecision(6),
-                  lng: location.lng().toPrecision(6)
+                  lat: location.lat().toString(),
+                  lng: location.lng().toString()
                 }).then((res) => {
                   this.state.newMarker.setMap(null);
                   this.setState({ addingMarker: false, newMarker: null, markers: null });

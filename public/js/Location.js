@@ -4725,17 +4725,6 @@
 	      };
 	    }
 	  }, {
-	    key: 'setMarkers',
-	    value: function setMarkers() {
-	      return;
-	      var bounds = new google.maps.LatLngBounds();
-	      this.props.state.markers.map(function (marker) {
-	        bounds.extend(marker.getPosition());
-	      });
-
-	      this.state.map.fitBounds(bounds);
-	    }
-	  }, {
 	    key: 'calculateZoom',
 	    value: function calculateZoom(types) {
 	      if (types.includes('route') || types.includes('street_number') || types.includes('street_address')) {
@@ -23887,6 +23876,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _reactDom = __webpack_require__(41);
@@ -23941,23 +23932,27 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        _react2.default.createElement(_components.GoogleMap, {
-	          ApiKey: _config.googleApiKey,
-	          address: document.title,
-	          state: this.state,
-	          setState: this.setState.bind(this),
-	          style: _LocationStyle.MapStyle,
-	          CustomFeatures: _LocationStyle.CustomFeatures
-	        }),
+	        { style: _Main.RowStyle },
 	        _react2.default.createElement(
 	          'div',
-	          { style: _Main.RowStyle },
-	          _react2.default.createElement('button', { ref: 'mapMode' }),
+	          { style: _Main.ColumnStyle },
+	          _react2.default.createElement(_components.GoogleMap, {
+	            ApiKey: _config.googleApiKey,
+	            address: document.title,
+	            state: this.state,
+	            setState: this.setState.bind(this),
+	            style: _LocationStyle.MapStyle,
+	            CustomFeatures: _LocationStyle.CustomFeatures
+	          }),
 	          _react2.default.createElement(
-	            'button',
-	            { ref: 'newSpot' },
-	            'Send new spot'
+	            'div',
+	            { style: _Main.RowStyle },
+	            _react2.default.createElement('button', { ref: 'mapMode' }),
+	            _react2.default.createElement(
+	              'button',
+	              { ref: 'newSpot' },
+	              'Add spot'
+	            )
 	          )
 	        )
 	      );
@@ -23992,7 +23987,9 @@
 	          for (var _iterator = res.data.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	            var m = _step.value;
 
-	            markers.push(JSON.parse(m));
+	            m = JSON.parse(m);
+	            m = _extends({}, m, { lat: parseFloat(m.lat), lng: parseFloat(m.lng) });
+	            markers.push(m);
 	          }
 	        } catch (err) {
 	          _didIteratorError = true;
@@ -24063,8 +24060,8 @@
 	                  _axios2.default.post('/marker', {
 	                    country: country,
 	                    city: city,
-	                    lat: location.lat().toPrecision(6),
-	                    lng: location.lng().toPrecision(6)
+	                    lat: location.lat().toString(),
+	                    lng: location.lng().toString()
 	                  }).then(function (res) {
 	                    _this3.state.newMarker.setMap(null);
 	                    _this3.setState({ addingMarker: false, newMarker: null, markers: null });
@@ -24181,7 +24178,6 @@
 	  height: '70vh',
 	  border: '0'
 	};
-
 	var CustomFeatures = exports.CustomFeatures = [{
 	  "featureType": "poi",
 	  "stylers": [{ "visibility": "off" }]
@@ -24198,21 +24194,12 @@
 	});
 	var RowStyle = exports.RowStyle = {
 	  display: 'flex',
-	  flexDirection: 'row',
-	  alignItems: 'center'
+	  flexDirection: 'row'
 	};
 
 	var ColumnStyle = exports.ColumnStyle = {
 	  display: 'flex',
-	  flexDirection: 'column',
-	  alignItems: 'center'
-	};
-
-	var CoreStyle = exports.CoreStyle = {
-	  justifyContent: 'center',
-	  display: 'flex',
-	  flexDirection: 'column',
-	  alignItems: 'center'
+	  flexDirection: 'column'
 	};
 
 /***/ })

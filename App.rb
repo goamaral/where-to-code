@@ -26,13 +26,11 @@ class App < Sinatra::Base
   post '/markers' do
     res = JSON.parse(request.body.read)
 
-    addresses = Address.all.select do |address|
-      address[:country] == res['country'] and address[:city] == res['city']
-    end
+    address = Address.find_or_create_by(country: res['country'], city: res['city'])
 
     out = []
 
-    for a in addresses.first.markers.all.to_a do
+    for a in address.markers.all.to_a do
       out.push(a.to_json)
     end
 
@@ -42,21 +40,13 @@ class App < Sinatra::Base
   post '/marker' do
     res = JSON.parse(request.body.read)
 
-    addresses = Address.all.select do |address|
-      address[:country] == res['country'] and address[:city] == res['city']
-    end
-
-    if addresses.length == 0
-      address = Address.create(country: res['country'], city: res['city'])
-    else
-      address = addresses.first
-    end
+    address = Address.find_or_create_by(country: res['country'], city: res['city'])
 
     markers = address.markers.all.select do |marker|
       marker[:lat] == res['lat'].to_f and marker[:lng] == res['lng'].to_f
     end
 
-    if markers.length == 0
+    if !address.markers.exists?(:lat => res['lat'], :lng => res['lng'])
       address.markers.create(lat: res['lat'], lng: res['lng'])
       return 'Spot Added'
     else

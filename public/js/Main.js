@@ -60,21 +60,12 @@
 	});
 	var RowStyle = exports.RowStyle = {
 	  display: 'flex',
-	  flexDirection: 'row',
-	  alignItems: 'center'
+	  flexDirection: 'row'
 	};
 
 	var ColumnStyle = exports.ColumnStyle = {
 	  display: 'flex',
-	  flexDirection: 'column',
-	  alignItems: 'center'
-	};
-
-	var CoreStyle = exports.CoreStyle = {
-	  justifyContent: 'center',
-	  display: 'flex',
-	  flexDirection: 'column',
-	  alignItems: 'center'
+	  flexDirection: 'column'
 	};
 
 /***/ })

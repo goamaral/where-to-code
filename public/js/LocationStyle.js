@@ -63,7 +63,6 @@
 	  height: '70vh',
 	  border: '0'
 	};
-
 	var CustomFeatures = exports.CustomFeatures = [{
 	  "featureType": "poi",
 	  "stylers": [{ "visibility": "off" }]

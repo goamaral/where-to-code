@@ -37,16 +37,6 @@ export default class GoogleMap extends Component {
     }
   }
 
-  setMarkers() {
-    return;
-    var bounds = new google.maps.LatLngBounds();
-    this.props.state.markers.map((marker) => {
-      bounds.extend(marker.getPosition());
-    });
-
-    this.state.map.fitBounds(bounds);
-  }
-
   calculateZoom(types) {
     if (types.includes('route') || types.includes('street_number') || types.includes('street_address')) {
       return 16;

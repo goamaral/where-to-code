@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20170723224034) do
   end
 
   create_table "markers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.float "lat", limit: 24
-    t.float "lng", limit: 24
+    t.string "lat"
+    t.string "lng"
     t.integer "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

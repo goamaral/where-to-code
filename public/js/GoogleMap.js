@@ -4438,17 +4438,6 @@
 	      };
 	    }
 	  }, {
-	    key: 'setMarkers',
-	    value: function setMarkers() {
-	      return;
-	      var bounds = new google.maps.LatLngBounds();
-	      this.props.state.markers.map(function (marker) {
-	        bounds.extend(marker.getPosition());
-	      });
-
-	      this.state.map.fitBounds(bounds);
-	    }
-	  }, {
 	    key: 'calculateZoom',
 	    value: function calculateZoom(types) {
 	      if (types.includes('route') || types.includes('street_number') || types.includes('street_address')) {
