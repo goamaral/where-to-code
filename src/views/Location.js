@@ -57,7 +57,6 @@ class View extends Component {
       .then((res) => {
         var markers = [];
 
-        console.log('post request');
         for (var m of res.data.markers) {
           markers.push(JSON.parse(m));
         }
@@ -134,7 +133,6 @@ class View extends Component {
     if (this.state.markers == null) {
       this.fetchMarkers();
     } else if (this.state.markers.length != 0) {
-      console.log('markers');
       for (var m of this.state.markers) {
         var coor = {
           lat: m.lat,

@@ -23984,7 +23984,6 @@
 	      _axios2.default.post('/markers', params).then(function (res) {
 	        var markers = [];
 
-	        console.log('post request');
 	        var _iteratorNormalCompletion = true;
 	        var _didIteratorError = false;
 	        var _iteratorError = undefined;
@@ -24089,7 +24088,6 @@
 	      if (this.state.markers == null) {
 	        this.fetchMarkers();
 	      } else if (this.state.markers.length != 0) {
-	        console.log('markers');
 	        var _iteratorNormalCompletion2 = true;
 	        var _didIteratorError2 = false;
 	        var _iteratorError2 = undefined;
