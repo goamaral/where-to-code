@@ -24210,7 +24210,7 @@
 	        placeForm.style.display = 'none';
 	        placeList.style.display = 'block';
 	      } else {
-	        mainButton.textContent = 'Show Spots Info';
+	        mainButton.textContent = 'Show Spots';
 	        placeForm.style.display = 'block';
 	        placeList.style.display = 'none';
 	      }

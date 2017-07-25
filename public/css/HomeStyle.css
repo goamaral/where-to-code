@@ -5,8 +5,13 @@ body {
 }
 
 .header {
-  margin: 0 0 8vh 0;
   text-align: center;
   color: white;
-  font-size: 4em;
+}
+
+.hero-body {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
