@@ -21,8 +21,8 @@ class View extends Component {
 
   render() {
     return (
-      <div style={RowStyle}>
-        <div style={ColumnStyle}>
+      <div className="row">
+        <div className="col-6 hero-body">
           <GoogleMap
             ApiKey={googleApiKey}
             address={document.title}
@@ -32,69 +32,91 @@ class View extends Component {
             CustomFeatures={CustomFeatures}
           />
 
-          <div style={RowStyle}>
-            <button ref='mapMode'></button>
-            <button ref='newSpot'>Add spot</button>
+          <button
+            style={{width: '100%'}}
+            onClick={this.mapModeClickHandler.bind(this)}
+            className="btn btn-secondary mt-3"
+            ref='mapMode'>
+            Add Spot
+          </button>
+        </div>
+
+        <div ref='placeList' className="col-6 pr-5 hero-body">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Spots</th>
+                <th>Morning</th>
+                <th>Afternoon</th>
+                <th>Night</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+
+        <div ref='placeForm' style={{ display: 'none' }} className="col-6 pr-5 hero-body">
+          <h3 className="mb-3">New Spot</h3>
+
+          <div className="mb-3">
+            <h5>Name</h5>
+
+            <input
+              className="form-control"
+              ref='NameInput'
+            />
           </div>
+
+          <div className="mb-3">
+            <h5>Schedule</h5>
+
+            <label className="form-check-label col-12">
+              <input
+                className="form-check-input mr-2"
+                type="checkbox"
+                ref='MorningCheckbox'
+              />
+              Morning
+            </label>
+
+            <label className="form-check-label col-12">
+              <input
+                className="form-check-input mr-2"
+                type="checkbox"
+                ref='AfternoonCheckbox'
+              />
+              Afternoon
+            </label>
+
+            <label className="form-check-label col-12">
+              <input
+                className="form-check-input mr-2"
+                type="checkbox"
+                ref='NightCheckbox'
+              />
+              Night
+            </label>
+          </div>
+
+          <button
+            onClick={this.submitClickHandler.bind(this)}
+            className="btn btn-secondary"
+            style={{width: '100%'}}>
+            Submit
+          </button>
         </div>
       </div>
     );
   }
 
-  fetchMarkers() {
-    var location = document.title.replace(' ','').split(',');
+  submitClickHandler() {
+    var MorningCheckbox = this.refs.MorningCheckbox;
+    var AfternoonCheckbox = this.refs.AfternoonCheckbox;
+    var NightCheckbox = this.refs.NightCheckbox;
+    var NameInput = this.refs.NameInput;
 
-    if (location.length == 1) {
-      var params = {
-        city: null,
-        country: location[0]
-      }
-    } else {
-      var params = {
-        city: location[0],
-        country: location[1]
-      }
-    }
-
-    axios.post('/markers', params)
-      .then((res) => {
-        var markers = [];
-
-        for (var m of res.data.markers) {
-          m = JSON.parse(m);
-          m = { ...m, lat: parseFloat(m.lat), lng: parseFloat(m.lng) }
-          markers.push(m);
-        }
-
-        this.setState({ markers: markers });
-      });
-  }
-
-  updateButtons() {
-    var mainButton = this.refs.mapMode;
-    var newButton = this.refs.newSpot;
-
-    if (!this.state.addingMarker) {
-      newButton.style.display = 'none';
-      mainButton.textContent = 'Add Spot';
-    } else {
-      newButton.style.display = 'block';
-      mainButton.textContent = 'Show Spots Info';
-    }
-  }
-
-  componentDidMount() {
-    var mainButton = this.refs.mapMode;
-    var newButton = this.refs.newSpot;
-
-    this.updateButtons();
-
-    mainButton.onclick = () => {
-      this.setState({ addingMarker: !this.state.addingMarker });
-      this.updateButtons();
-    }
-
-    newButton.onclick = () => {
+    if (NameInput.value != '' && NightCheckbox.checked || MorningCheckbox.checked || AfternoonCheckbox.checked) {
       if (this.state.newMarker != null) {
         var location = this.state.newMarker.internalPosition;
 
@@ -117,7 +139,11 @@ class View extends Component {
                   country: country,
                   city: city,
                   lat: location.lat().toString(),
-                  lng: location.lng().toString()
+                  lng: location.lng().toString(),
+                  name: NameInput.value,
+                  morning: MorningCheckbox.checked,
+                  afternoon: AfternoonCheckbox.checked,
+                  night: NightCheckbox.checked
                 }).then((res) => {
                   this.state.newMarker.setMap(null);
                   this.setState({ addingMarker: false, newMarker: null, markers: null });
@@ -126,8 +152,93 @@ class View extends Component {
             });
           }
         });
+      } else {
+        alert('No marker placed');
+        return;
+      }
+    } else {
+      alert('Please fill the new spot form');
+      return;
+    }
+  }
+
+  fetchMarkers() {
+    var location = document.title.replace(' ','').split(',');
+
+    if (location.length == 1) {
+      var params = {
+        city: null,
+        country: location[0]
+      }
+    } else {
+      var params = {
+        city: location[0],
+        country: location[1]
       }
     }
+
+    axios.post('/markers', params)
+      .then((res) => {
+        var markers = [];
+        var tbody = this.refs.placeList.childNodes[0].childNodes[1];
+
+        while (tbody.firstChild) {
+          tbody.removeChild(tbody.firstChild);
+        }
+
+        for (var m of res.data.markers) {
+          m = JSON.parse(m);
+          m = { ...m, lat: parseFloat(m.lat), lng: parseFloat(m.lng) }
+          markers.push(m);
+
+          var tr = document.createElement('tr');
+
+          var name = document.createElement('td');
+          name.innerHTML = m.name;
+          tr.appendChild(name);
+
+          var img = document.createElement('img');
+          img.src = "https://d30y9cdsu7xlg0.cloudfront.net/png/6156-200.png";
+          img.style.height = '30px';
+
+          var morning = document.createElement('td');
+          if (m.morning) morning.appendChild(img.cloneNode());
+          tr.appendChild(morning);
+
+          var afternoon = document.createElement('td');
+          if (m.afternoon) afternoon.appendChild(img.cloneNode());
+          tr.appendChild(afternoon);
+
+          var night = document.createElement('td');
+          if (m.night) night.appendChild(img.cloneNode());
+          tr.appendChild(night);
+
+          tbody.appendChild(tr);
+        }
+
+        this.setState({ markers: markers });
+      });
+  }
+
+  updateButtons() {
+    var mainButton = this.refs.mapMode;
+    var placeForm = this.refs.placeForm;
+    var placeList = this.refs.placeList;
+
+    if (!this.state.addingMarker) {
+      mainButton.textContent = 'Add Spot';
+      placeForm.style.display = 'none';
+      placeList.style.display = 'block';
+    } else {
+      mainButton.textContent = 'Show Spots Info';
+      placeForm.style.display = 'block';
+      placeList.style.display = 'none';
+    }
+  }
+
+  mapModeClickHandler() {
+    this.setState({ addingMarker: !this.state.addingMarker });
+    this.updateButtons();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -182,5 +293,5 @@ class View extends Component {
 
 window.onload = () => {
   var app = () => { return (<View/>); };
-  ReactDOM.render(React.createElement(app), document.getElementsByTagName('map')[0]);
+  ReactDOM.render(React.createElement(app), document.getElementsByTagName('mount')[0]);
 }

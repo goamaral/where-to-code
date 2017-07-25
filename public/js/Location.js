@@ -23932,10 +23932,10 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { style: _Main.RowStyle },
+	        { className: 'row' },
 	        _react2.default.createElement(
 	          'div',
-	          { style: _Main.ColumnStyle },
+	          { className: 'col-6 hero-body' },
 	          _react2.default.createElement(_components.GoogleMap, {
 	            ApiKey: _config.googleApiKey,
 	            address: document.title,
@@ -23945,102 +23945,136 @@
 	            CustomFeatures: _LocationStyle.CustomFeatures
 	          }),
 	          _react2.default.createElement(
-	            'div',
-	            { style: _Main.RowStyle },
-	            _react2.default.createElement('button', { ref: 'mapMode' }),
+	            'button',
+	            {
+	              style: { width: '100%' },
+	              onClick: this.mapModeClickHandler.bind(this),
+	              className: 'btn btn-secondary mt-3',
+	              ref: 'mapMode' },
+	            'Add Spot'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { ref: 'placeList', className: 'col-6 pr-5 hero-body' },
+	          _react2.default.createElement(
+	            'table',
+	            { className: 'table' },
 	            _react2.default.createElement(
-	              'button',
-	              { ref: 'newSpot' },
-	              'Add spot'
+	              'thead',
+	              null,
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'th',
+	                  null,
+	                  'Spots'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  null,
+	                  'Morning'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  null,
+	                  'Afternoon'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  null,
+	                  'Night'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement('tbody', null)
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { ref: 'placeForm', style: { display: 'none' }, className: 'col-6 pr-5 hero-body' },
+	          _react2.default.createElement(
+	            'h3',
+	            { className: 'mb-3' },
+	            'New Spot'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'mb-3' },
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              'Name'
+	            ),
+	            _react2.default.createElement('input', {
+	              className: 'form-control',
+	              ref: 'NameInput'
+	            })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'mb-3' },
+	            _react2.default.createElement(
+	              'h5',
+	              null,
+	              'Schedule'
+	            ),
+	            _react2.default.createElement(
+	              'label',
+	              { className: 'form-check-label col-12' },
+	              _react2.default.createElement('input', {
+	                className: 'form-check-input mr-2',
+	                type: 'checkbox',
+	                ref: 'MorningCheckbox'
+	              }),
+	              'Morning'
+	            ),
+	            _react2.default.createElement(
+	              'label',
+	              { className: 'form-check-label col-12' },
+	              _react2.default.createElement('input', {
+	                className: 'form-check-input mr-2',
+	                type: 'checkbox',
+	                ref: 'AfternoonCheckbox'
+	              }),
+	              'Afternoon'
+	            ),
+	            _react2.default.createElement(
+	              'label',
+	              { className: 'form-check-label col-12' },
+	              _react2.default.createElement('input', {
+	                className: 'form-check-input mr-2',
+	                type: 'checkbox',
+	                ref: 'NightCheckbox'
+	              }),
+	              'Night'
 	            )
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            {
+	              onClick: this.submitClickHandler.bind(this),
+	              className: 'btn btn-secondary',
+	              style: { width: '100%' } },
+	            'Submit'
 	          )
 	        )
 	      );
 	    }
 	  }, {
-	    key: 'fetchMarkers',
-	    value: function fetchMarkers() {
+	    key: 'submitClickHandler',
+	    value: function submitClickHandler() {
 	      var _this2 = this;
 
-	      var location = document.title.replace(' ', '').split(',');
+	      var MorningCheckbox = this.refs.MorningCheckbox;
+	      var AfternoonCheckbox = this.refs.AfternoonCheckbox;
+	      var NightCheckbox = this.refs.NightCheckbox;
+	      var NameInput = this.refs.NameInput;
 
-	      if (location.length == 1) {
-	        var params = {
-	          city: null,
-	          country: location[0]
-	        };
-	      } else {
-	        var params = {
-	          city: location[0],
-	          country: location[1]
-	        };
-	      }
-
-	      _axios2.default.post('/markers', params).then(function (res) {
-	        var markers = [];
-
-	        var _iteratorNormalCompletion = true;
-	        var _didIteratorError = false;
-	        var _iteratorError = undefined;
-
-	        try {
-	          for (var _iterator = res.data.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	            var m = _step.value;
-
-	            m = JSON.parse(m);
-	            m = _extends({}, m, { lat: parseFloat(m.lat), lng: parseFloat(m.lng) });
-	            markers.push(m);
-	          }
-	        } catch (err) {
-	          _didIteratorError = true;
-	          _iteratorError = err;
-	        } finally {
-	          try {
-	            if (!_iteratorNormalCompletion && _iterator.return) {
-	              _iterator.return();
-	            }
-	          } finally {
-	            if (_didIteratorError) {
-	              throw _iteratorError;
-	            }
-	          }
-	        }
-
-	        _this2.setState({ markers: markers });
-	      });
-	    }
-	  }, {
-	    key: 'updateButtons',
-	    value: function updateButtons() {
-	      var mainButton = this.refs.mapMode;
-	      var newButton = this.refs.newSpot;
-
-	      if (!this.state.addingMarker) {
-	        newButton.style.display = 'none';
-	        mainButton.textContent = 'Add Spot';
-	      } else {
-	        newButton.style.display = 'block';
-	        mainButton.textContent = 'Show Spots Info';
-	      }
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this3 = this;
-
-	      var mainButton = this.refs.mapMode;
-	      var newButton = this.refs.newSpot;
-
-	      this.updateButtons();
-
-	      mainButton.onclick = function () {
-	        _this3.setState({ addingMarker: !_this3.state.addingMarker });
-	        _this3.updateButtons();
-	      };
-
-	      newButton.onclick = function () {
-	        if (_this3.state.newMarker != null) {
-	          var location = _this3.state.newMarker.internalPosition;
+	      if (NameInput.value != '' && NightCheckbox.checked || MorningCheckbox.checked || AfternoonCheckbox.checked) {
+	        if (this.state.newMarker != null) {
+	          var location = this.state.newMarker.internalPosition;
 
 	          new google.maps.Geocoder().geocode({ 'latLng': location }, function (res, sts) {
 	            if (sts == google.maps.GeocoderStatus.OK) {
@@ -24061,17 +24095,131 @@
 	                    country: country,
 	                    city: city,
 	                    lat: location.lat().toString(),
-	                    lng: location.lng().toString()
+	                    lng: location.lng().toString(),
+	                    name: NameInput.value,
+	                    morning: MorningCheckbox.checked,
+	                    afternoon: AfternoonCheckbox.checked,
+	                    night: NightCheckbox.checked
 	                  }).then(function (res) {
-	                    _this3.state.newMarker.setMap(null);
-	                    _this3.setState({ addingMarker: false, newMarker: null, markers: null });
+	                    _this2.state.newMarker.setMap(null);
+	                    _this2.setState({ addingMarker: false, newMarker: null, markers: null });
 	                  });
 	                }
 	              });
 	            }
 	          });
+	        } else {
+	          alert('No marker placed');
+	          return;
 	        }
-	      };
+	      } else {
+	        alert('Please fill the new spot form');
+	        return;
+	      }
+	    }
+	  }, {
+	    key: 'fetchMarkers',
+	    value: function fetchMarkers() {
+	      var _this3 = this;
+
+	      var location = document.title.replace(' ', '').split(',');
+
+	      if (location.length == 1) {
+	        var params = {
+	          city: null,
+	          country: location[0]
+	        };
+	      } else {
+	        var params = {
+	          city: location[0],
+	          country: location[1]
+	        };
+	      }
+
+	      _axios2.default.post('/markers', params).then(function (res) {
+	        var markers = [];
+	        var tbody = _this3.refs.placeList.childNodes[0].childNodes[1];
+
+	        while (tbody.firstChild) {
+	          tbody.removeChild(tbody.firstChild);
+	        }
+
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
+
+	        try {
+	          for (var _iterator = res.data.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	            var m = _step.value;
+
+	            m = JSON.parse(m);
+	            m = _extends({}, m, { lat: parseFloat(m.lat), lng: parseFloat(m.lng) });
+	            markers.push(m);
+
+	            var tr = document.createElement('tr');
+
+	            var name = document.createElement('td');
+	            name.innerHTML = m.name;
+	            tr.appendChild(name);
+
+	            var img = document.createElement('img');
+	            img.src = "https://d30y9cdsu7xlg0.cloudfront.net/png/6156-200.png";
+	            img.style.height = '30px';
+
+	            var morning = document.createElement('td');
+	            if (m.morning) morning.appendChild(img.cloneNode());
+	            tr.appendChild(morning);
+
+	            var afternoon = document.createElement('td');
+	            if (m.afternoon) afternoon.appendChild(img.cloneNode());
+	            tr.appendChild(afternoon);
+
+	            var night = document.createElement('td');
+	            if (m.night) night.appendChild(img.cloneNode());
+	            tr.appendChild(night);
+
+	            tbody.appendChild(tr);
+	          }
+	        } catch (err) {
+	          _didIteratorError = true;
+	          _iteratorError = err;
+	        } finally {
+	          try {
+	            if (!_iteratorNormalCompletion && _iterator.return) {
+	              _iterator.return();
+	            }
+	          } finally {
+	            if (_didIteratorError) {
+	              throw _iteratorError;
+	            }
+	          }
+	        }
+
+	        _this3.setState({ markers: markers });
+	      });
+	    }
+	  }, {
+	    key: 'updateButtons',
+	    value: function updateButtons() {
+	      var mainButton = this.refs.mapMode;
+	      var placeForm = this.refs.placeForm;
+	      var placeList = this.refs.placeList;
+
+	      if (!this.state.addingMarker) {
+	        mainButton.textContent = 'Add Spot';
+	        placeForm.style.display = 'none';
+	        placeList.style.display = 'block';
+	      } else {
+	        mainButton.textContent = 'Show Spots Info';
+	        placeForm.style.display = 'block';
+	        placeList.style.display = 'none';
+	      }
+	    }
+	  }, {
+	    key: 'mapModeClickHandler',
+	    value: function mapModeClickHandler() {
+	      this.setState({ addingMarker: !this.state.addingMarker });
+	      this.updateButtons();
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -24155,7 +24303,7 @@
 	  var app = function app() {
 	    return _react2.default.createElement(View, null);
 	  };
-	  _reactDom2.default.render(_react2.default.createElement(app), document.getElementsByTagName('map')[0]);
+	  _reactDom2.default.render(_react2.default.createElement(app), document.getElementsByTagName('mount')[0]);
 	};
 
 /***/ }),
@@ -24174,8 +24322,8 @@
 	  value: true
 	});
 	var MapStyle = exports.MapStyle = {
-	  width: '50vw',
-	  height: '70vh',
+	  width: '100%',
+	  height: '100%',
 	  border: '0'
 	};
 	var CustomFeatures = exports.CustomFeatures = [{

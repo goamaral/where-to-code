@@ -43,11 +43,23 @@ class App < Sinatra::Base
     address = Address.find_or_create_by(country: res['country'], city: res['city'])
 
     markers = address.markers.all.select do |marker|
-      marker[:lat] == res['lat'].to_f and marker[:lng] == res['lng'].to_f
+      marker[:lat] == res['lat'] \
+      and marker[:lng] == res['lng'] \
+      and marker[:name] == res['name'] \
+      and marker[:morning] == res['morning'] \
+      and marker[:afternoon] == res['afternoon'] \
+      and marker[:night] == res['night']
     end
 
     if !address.markers.exists?(:lat => res['lat'], :lng => res['lng'])
-      address.markers.create(lat: res['lat'], lng: res['lng'])
+      address.markers.create(
+        :lat => res['lat'], \
+        :lng => res['lng'], \
+        :name => res['name'], \
+        :morning => res['morning'], \
+        :afternoon => res['afternoon'], \
+        :night => res['night'] \
+      )
       return 'Spot Added'
     else
       return 'Spot Already Exists'

@@ -20,6 +20,10 @@ ActiveRecord::Schema.define(version: 20170723224034) do
   create_table "markers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "lat"
     t.string "lng"
+    t.string "name"
+    t.boolean "morning"
+    t.boolean "afternoon"
+    t.boolean "night"
     t.integer "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

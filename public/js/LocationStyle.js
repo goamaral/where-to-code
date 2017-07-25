@@ -59,8 +59,8 @@
 	  value: true
 	});
 	var MapStyle = exports.MapStyle = {
-	  width: '50vw',
-	  height: '70vh',
+	  width: '100%',
+	  height: '100%',
 	  border: '0'
 	};
 	var CustomFeatures = exports.CustomFeatures = [{
