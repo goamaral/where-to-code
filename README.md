@@ -1,6 +1,8 @@
 # Where to code
 **Goal**  Find places where to code
 
+**Status**  In development
+
 **Structure**
 + Starting Page
   - Simple search bar for locations
