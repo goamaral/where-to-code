@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 export default class GoogleMap extends Component {
   render() {
     return (
-      <div ref='googleMap' style={this.props.style}></div>
+      <div className={this.props.className} ref='googleMap' style={this.props.style}></div>
     );
   }
 

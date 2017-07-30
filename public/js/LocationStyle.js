@@ -45,12 +45,12 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(219);
+	module.exports = __webpack_require__(220);
 
 
 /***/ }),
 
-/***/ 219:
+/***/ 220:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -60,7 +60,7 @@
 	});
 	var MapStyle = exports.MapStyle = {
 	  width: '100%',
-	  height: '100%',
+	  height: '70vh',
 	  border: '0'
 	};
 	var CustomFeatures = exports.CustomFeatures = [{

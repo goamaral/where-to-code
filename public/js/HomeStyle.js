@@ -45,12 +45,12 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(189);
+	module.exports = __webpack_require__(190);
 
 
 /***/ }),
 
-/***/ 189:
+/***/ 190:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -62,26 +62,24 @@
 	  input: {
 	    padding: '10px',
 	    textAlign: 'center',
-	    fontSize: '1.3em',
+	    fontSize: '1rem',
 	    border: '1px solid #BDBDBD',
 	    backgroundColor: 'white',
 	    width: '40vw',
 	    height: '40px'
 	  },
-	  dropdown: {
-	    list: {
-	      width: '40vw',
-	      backgroundColor: 'white',
-	      borderRadius: '0 0 5px 5px'
-	    },
-	    listItemStyle: {
-	      padding: '10px 15px',
-	      marginBottom: '-1px',
-	      width: '100%',
-	      borderTop: '1px solid #BDBDBD',
-	      listStyleType: 'none',
-	      textAlign: 'center'
-	    }
+	  list: {
+	    width: '40vw',
+	    backgroundColor: 'white',
+	    borderRadius: '0 0 5px 5px'
+	  },
+	  listItem: {
+	    padding: '10px 15px',
+	    marginBottom: '-1px',
+	    width: '100%',
+	    borderTop: '1px solid #BDBDBD',
+	    listStyleType: 'none',
+	    textAlign: 'center'
 	  }
 	};
 

@@ -1,9 +1,13 @@
 @import "/css/Main.css";
 
-.hero-body {
-  height: 70vh;
-}
-
 .table td, .table th {
   text-align: center;
+}
+
+.header {
+  padding-bottom: 1rem;
+}
+
+.hero-body {
+  padding: 1rem 2rem;
 }

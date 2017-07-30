@@ -9,20 +9,17 @@ import { MapStyle, CustomFeatures } from 'style/LocationStyle';
 import { RowStyle, ColumnStyle } from 'style/Main';
 
 class View extends Component {
-  constructor() {
-    super();
-    this.state = {
-      map: null,
-      newMarker: null,
-      addingMarker: false,
-      markers: null
-    };
-  }
+  state = {
+    map: null,
+    newMarker: null,
+    addingMarker: false,
+    markers: null
+  };
 
   render() {
     return (
-      <div className="row">
-        <div className="col-6 hero-body">
+      <div className="columns" style={{ height: '100%' }}>
+        <div className="column">
           <GoogleMap
             ApiKey={googleApiKey}
             address={document.title}
@@ -32,23 +29,21 @@ class View extends Component {
             CustomFeatures={CustomFeatures}
           />
 
-          <button
-            style={{width: '100%'}}
-            onClick={this.mapModeClickHandler.bind(this)}
-            className="btn btn-secondary mt-3"
-            ref='mapMode'>
+          <button style={{ width: '100%', marginTop: '1rem' }}
+           onClick={this.mapModeClickHandler.bind(this)}
+           className="button" ref='mapMode'>
             Add Spot
           </button>
         </div>
 
-        <div ref='placeList' className="col-6 pr-5 hero-body">
-          <table className="table">
+        <div ref='placeList' className="column">
+          <table className="table is-striped is-fullwidth">
             <thead>
               <tr>
                 <th>Spots</th>
-                <th>Morning</th>
-                <th>Afternoon</th>
-                <th>Night</th>
+                <th>Schedule</th>
+                <th>Wifi</th>
+                <th>Rating</th>
               </tr>
             </thead>
             <tbody>
@@ -56,52 +51,68 @@ class View extends Component {
           </table>
         </div>
 
-        <div ref='placeForm' style={{ display: 'none' }} className="col-6 pr-5 hero-body">
-          <h3 className="mb-3">New Spot</h3>
+        <div ref='placeForm' style={{ display: 'none' }} className="column">
+          <h3 className="is-size-4" style={{ marginBottom: '1rem' }}>New Spot</h3>
 
-          <div className="mb-3">
-            <h5>Name</h5>
+          <div style={{ marginBottom: '1rem' }}>
+            <label className='label'>Name</label>
 
-            <input
-              className="form-control"
-              ref='NameInput'
-            />
+            <input className="input" ref='NameInput' />
           </div>
 
-          <div className="mb-3">
-            <h5>Schedule</h5>
+          <div style={{ marginBottom: '1rem' }}>
+            <label className='label'>Schedule</label>
 
-            <label className="form-check-label col-12">
-              <input
-                className="form-check-input mr-2"
-                type="checkbox"
-                ref='MorningCheckbox'
-              />
-              Morning
-            </label>
+            <div className='columns'>
+              <div className='column'>
+                <div className="field has-addons">
+                  <div className="control">
+                    <p className="button">Opening</p>
+                  </div>
 
-            <label className="form-check-label col-12">
-              <input
-                className="form-check-input mr-2"
-                type="checkbox"
-                ref='AfternoonCheckbox'
-              />
-              Afternoon
-            </label>
+                  <div className="control select">
+                    <select ref='openingHour'>
+                      { generateHours() }
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-            <label className="form-check-label col-12">
-              <input
-                className="form-check-input mr-2"
-                type="checkbox"
-                ref='NightCheckbox'
-              />
-              Night
-            </label>
+              <div className='column'>
+                <div className="field has-addons">
+                  <div className="control">
+                    <p className="button">Closing</p>
+                  </div>
+
+                  <div className="control select">
+                    <select ref='closingHour'>
+                      { generateHours() }
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ marginBottom: '1rem' }}>
+            <div className='columns'>
+              <div className='column'>
+                <label className='checkbox'>
+                  Wifi available
+                  <input ref='wifiAvailable' style={{ marginLeft: '0.5rem' }} type="checkbox" />
+                </label>
+              </div>
+
+              <div className='column' style={{ display: 'block' }}>
+
+              </div>
+            </div>
+
           </div>
 
           <button
             onClick={this.submitClickHandler.bind(this)}
-            className="btn btn-secondary"
+            className="button"
             style={{width: '100%'}}>
             Submit
           </button>
@@ -110,13 +121,65 @@ class View extends Component {
     );
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.addingMarker != prevState.addingMarker) {
+      this.updateButtons();
+    }
+
+    if (this.state.markers == null) {
+      this.fetchMarkers();
+    } else if (this.state.markers.length != 0) {
+      for (var m of this.state.markers) {
+        var coor = {
+          lat: m.lat,
+          lng: m.lng
+        }
+
+        new google.maps.Marker({
+            position: coor,
+            map: this.state.map
+          });
+      }
+    }
+
+    if (this.state.map != null) {
+      this.state.map.addListener('click', ev => {
+        if (this.state.addingMarker) {
+          if (this.state.map.getZoom() >= 17) {
+            var coor = {
+              lat: ev.latLng.lat(),
+              lng: ev.latLng.lng()
+            };
+
+            var marker = new google.maps.Marker({
+                icon: greenMarker,
+                position: coor,
+                map: this.state.map
+            });
+
+            if (this.state.newMarker != null) {
+              this.state.newMarker.setMap(null);
+            }
+
+            this.setState({ newMarker: marker });
+          } else {
+            alert('Please zoom for more acurate marking');
+          }
+        }
+      });
+    }
+  }
+
+  mapModeClickHandler() {
+    this.setState({ addingMarker: !this.state.addingMarker });
+    this.updateButtons();
+  }
+
   submitClickHandler() {
-    var MorningCheckbox = this.refs.MorningCheckbox;
-    var AfternoonCheckbox = this.refs.AfternoonCheckbox;
-    var NightCheckbox = this.refs.NightCheckbox;
     var NameInput = this.refs.NameInput;
 
-    if (NameInput.value != '' && NightCheckbox.checked || MorningCheckbox.checked || AfternoonCheckbox.checked) {
+    if (NameInput.value != '' && NightCheckbox.checked
+     || MorningCheckbox.checked || AfternoonCheckbox.checked) {
       if (this.state.newMarker != null) {
         var location = this.state.newMarker.internalPosition;
 
@@ -159,6 +222,22 @@ class View extends Component {
     } else {
       alert('Please fill the new spot form');
       return;
+    }
+  }
+
+  updateButtons() {
+    var mainButton = this.refs.mapMode;
+    var placeForm = this.refs.placeForm;
+    var placeList = this.refs.placeList;
+
+    if (!this.state.addingMarker) {
+      mainButton.textContent = 'Add Spot';
+      placeForm.style.display = 'none';
+      placeList.style.display = 'block';
+    } else {
+      mainButton.textContent = 'Show Spots';
+      placeForm.style.display = 'block';
+      placeList.style.display = 'none';
     }
   }
 
@@ -219,76 +298,18 @@ class View extends Component {
         this.setState({ markers: markers });
       });
   }
+}
 
-  updateButtons() {
-    var mainButton = this.refs.mapMode;
-    var placeForm = this.refs.placeForm;
-    var placeList = this.refs.placeList;
+function generateHours() {
+  var numbers = [];
 
-    if (!this.state.addingMarker) {
-      mainButton.textContent = 'Add Spot';
-      placeForm.style.display = 'none';
-      placeList.style.display = 'block';
-    } else {
-      mainButton.textContent = 'Show Spots';
-      placeForm.style.display = 'block';
-      placeList.style.display = 'none';
-    }
-  }
+  for (var i = 1; i <= 24; ++i) numbers.push(i);
 
-  mapModeClickHandler() {
-    this.setState({ addingMarker: !this.state.addingMarker });
-    this.updateButtons();
-  }
+  var out = numbers.map((item) => {
+    return (<option key={item}>{item}</option>);
+  });
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.addingMarker != prevState.addingMarker) {
-      this.updateButtons();
-    }
-
-    if (this.state.markers == null) {
-      this.fetchMarkers();
-    } else if (this.state.markers.length != 0) {
-      for (var m of this.state.markers) {
-        var coor = {
-          lat: m.lat,
-          lng: m.lng
-        }
-
-        new google.maps.Marker({
-            position: coor,
-            map: this.state.map
-          });
-      }
-    }
-
-    if (this.state.map != null) {
-      this.state.map.addListener('click', ev => {
-        if (this.state.addingMarker) {
-          if (this.state.map.getZoom() >= 17) {
-            var coor = {
-              lat: ev.latLng.lat(),
-              lng: ev.latLng.lng()
-            };
-
-            var marker = new google.maps.Marker({
-                icon: greenMarker,
-                position: coor,
-                map: this.state.map
-            });
-
-            if (this.state.newMarker != null) {
-              this.state.newMarker.setMap(null);
-            }
-
-            this.setState({ newMarker: marker });
-          } else {
-            alert('Please zoom for more acurate marking');
-          }
-        }
-      });
-    }
-  }
+  return out;
 }
 
 window.onload = () => {

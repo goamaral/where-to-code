@@ -1,12 +1,13 @@
 @import "/css/Main.css";
 
-body {
+html {
   background-color: #212121;
 }
 
 .header {
   text-align: center;
   color: white;
+  margin-bottom: 3rem;
 }
 
 .hero-body {

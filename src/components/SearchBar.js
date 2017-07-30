@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { Dropdown } from 'components/Dropdown';
 import { Column } from 'components/flexGrid';
+import { List, ListItem } from 'components/List';
 
 export default class SearchBar extends Component {
   state = {
     dropdownVisible: false
   };
+
+  static defaultProps = {
+    className: {}
+  }
 
   render() {
     return (
@@ -16,14 +20,23 @@ export default class SearchBar extends Component {
           value={this.props.state}
           style={{ ...this.props.style.input, ...this.generateInputStyle() }}
           onChange={this.onChange.bind(this)}
+          className={this.props.className.input}
         />
-        <Dropdown
+        <List
+          style={{ ...this.generateListStyle(), ...this.props.style.list }}
+          className={this.props.className.list}
           data={this.props.data}
-          visible={this.state.dropdownVisible}
-          style={this.props.style.dropdown}
+          itemStyle={this.props.style.listItem}
+          itemClassName={this.props.className.listItem}
         />
       </Column>
     );
+  }
+
+  generateListStyle() {
+    if (this.state.dropdownVisible) {
+      return { display: 'block' }
+    } else return { display: 'none' }
   }
 
   onChange(ev) {

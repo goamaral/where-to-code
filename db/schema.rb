@@ -21,9 +21,8 @@ ActiveRecord::Schema.define(version: 20170723224034) do
     t.string "lat"
     t.string "lng"
     t.string "name"
-    t.boolean "morning"
-    t.boolean "afternoon"
-    t.boolean "night"
+    t.string "opening"
+    t.string "closing"
     t.integer "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
