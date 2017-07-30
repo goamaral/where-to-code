@@ -68,6 +68,14 @@
 	  "stylers": [{ "visibility": "off" }]
 	}];
 
+	var mb1 = exports.mb1 = {
+	  marginBottom: '1rem'
+	};
+
+	var MaxWidth = exports.MaxWidth = {
+	  width: '100%'
+	};
+
 /***/ })
 
 /******/ });

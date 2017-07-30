@@ -11,3 +11,11 @@ export const CustomFeatures = [
     ]
   }
 ]
+
+export const mb1 = {
+  marginBottom: '1rem'
+}
+
+export const MaxWidth = {
+  width: '100%'
+}

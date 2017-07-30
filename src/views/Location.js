@@ -5,7 +5,7 @@ import axios from 'axios';
 import { GoogleMap } from 'components';
 import { googleApiKey } from 'config';
 import { greenMarker } from 'data.json';
-import { MapStyle, CustomFeatures } from 'style/LocationStyle';
+import { MapStyle, CustomFeatures, MaxWidth, mb1 } from 'style/LocationStyle';
 import { RowStyle, ColumnStyle } from 'style/Main';
 
 class View extends Component {
@@ -29,7 +29,7 @@ class View extends Component {
             CustomFeatures={CustomFeatures}
           />
 
-          <button style={{ width: '100%', marginTop: '1rem' }}
+          <button style={{ ...MaxWidth, marginTop: '1rem' }}
            onClick={this.mapModeClickHandler.bind(this)}
            className="button" ref='mapMode'>
             Add Spot
@@ -52,15 +52,15 @@ class View extends Component {
         </div>
 
         <div ref='placeForm' style={{ display: 'none' }} className="column">
-          <h3 className="is-size-4" style={{ marginBottom: '1rem' }}>New Spot</h3>
+          <h3 className="is-size-4" style={mb1}>New Spot</h3>
 
-          <div style={{ marginBottom: '1rem' }}>
+          <div style={mb1}>
             <label className='label'>Name</label>
 
             <input className="input" ref='NameInput' />
           </div>
 
-          <div style={{ marginBottom: '1rem' }}>
+          <div style={mb1}>
             <label className='label'>Schedule</label>
 
             <div className='columns'>
@@ -94,7 +94,7 @@ class View extends Component {
             </div>
           </div>
 
-          <div style={{ marginBottom: '1rem' }}>
+          <div style={mb1}>
             <div className='columns'>
               <div className='column'>
                 <label className='checkbox'>
@@ -113,7 +113,7 @@ class View extends Component {
           <button
             onClick={this.submitClickHandler.bind(this)}
             className="button"
-            style={{width: '100%'}}>
+            style={MaxWidth}>
             Submit
           </button>
         </div>
@@ -177,9 +177,11 @@ class View extends Component {
 
   submitClickHandler() {
     var NameInput = this.refs.NameInput;
+    var openingHour = this.refs.openingHour;
+    var closingHour = this.refs.closingHour;
+    var wifiAvailable = this.refs.wifiAvailable;
 
-    if (NameInput.value != '' && NightCheckbox.checked
-     || MorningCheckbox.checked || AfternoonCheckbox.checked) {
+    if (NameInput.value != '') {
       if (this.state.newMarker != null) {
         var location = this.state.newMarker.internalPosition;
 
@@ -198,15 +200,26 @@ class View extends Component {
 
                 var city = res[0].address_components[count-1].long_name;
 
+                console.log({
+                  country: country,
+                  city: city,
+                  lat: location.lat().toString(),
+                  lng: location.lng().toString(),
+                  name: NameInput.value,
+                  opening: openingHour.value,
+                  closing: closingHour.value,
+                  wifi: wifiAvailable.checked
+                });
+
                 axios.post('/marker', {
                   country: country,
                   city: city,
                   lat: location.lat().toString(),
                   lng: location.lng().toString(),
                   name: NameInput.value,
-                  morning: MorningCheckbox.checked,
-                  afternoon: AfternoonCheckbox.checked,
-                  night: NightCheckbox.checked
+                  opening: openingHour.value,
+                  closing: closingHour.value,
+                  wifi: wifiAvailable.value
                 }).then((res) => {
                   this.state.newMarker.setMap(null);
                   this.setState({ addingMarker: false, newMarker: null, markers: null });
@@ -276,21 +289,27 @@ class View extends Component {
           name.innerHTML = m.name;
           tr.appendChild(name);
 
+          var schedule = document.createElement('td');
+          schedule.innerHTML = m.opening.toString() + ' - ' + m.closing.toString();
+          tr.appendChild(schedule);
+
           var img = document.createElement('img');
           img.src = "https://d30y9cdsu7xlg0.cloudfront.net/png/6156-200.png";
           img.style.height = '30px';
 
-          var morning = document.createElement('td');
-          if (m.morning) morning.appendChild(img.cloneNode());
-          tr.appendChild(morning);
+          var wifi = document.createElement('td');
+          if (m.wifi) {
+            wifi.appendChild(img);
+          }
+          tr.appendChild(wifi);
 
-          var afternoon = document.createElement('td');
-          if (m.afternoon) afternoon.appendChild(img.cloneNode());
-          tr.appendChild(afternoon);
-
-          var night = document.createElement('td');
-          if (m.night) night.appendChild(img.cloneNode());
-          tr.appendChild(night);
+          var rating = document.createElement('td');
+          if (m.rating == 0) {
+            rating.innerHTML = 'No rating';
+          } else {
+            rating.innerHTML = m.rating.toFixed(1).toString() + ' / 5.0'
+          }
+          tr.appendChild(rating);
 
           tbody.appendChild(tr);
         }

@@ -24263,7 +24263,7 @@
 	          }),
 	          _react2.default.createElement(
 	            'button',
-	            { style: { width: '100%', marginTop: '1rem' },
+	            { style: _extends({}, _LocationStyle.MaxWidth, { marginTop: '1rem' }),
 	              onClick: this.mapModeClickHandler.bind(this),
 	              className: 'button', ref: 'mapMode' },
 	            'Add Spot'
@@ -24311,12 +24311,12 @@
 	          { ref: 'placeForm', style: { display: 'none' }, className: 'column' },
 	          _react2.default.createElement(
 	            'h3',
-	            { className: 'is-size-4', style: { marginBottom: '1rem' } },
+	            { className: 'is-size-4', style: _LocationStyle.mb1 },
 	            'New Spot'
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { style: { marginBottom: '1rem' } },
+	            { style: _LocationStyle.mb1 },
 	            _react2.default.createElement(
 	              'label',
 	              { className: 'label' },
@@ -24326,7 +24326,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { style: { marginBottom: '1rem' } },
+	            { style: _LocationStyle.mb1 },
 	            _react2.default.createElement(
 	              'label',
 	              { className: 'label' },
@@ -24391,7 +24391,7 @@
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { style: { marginBottom: '1rem' } },
+	            { style: _LocationStyle.mb1 },
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'columns' },
@@ -24413,7 +24413,7 @@
 	            {
 	              onClick: this.submitClickHandler.bind(this),
 	              className: 'button',
-	              style: { width: '100%' } },
+	              style: _LocationStyle.MaxWidth },
 	            'Submit'
 	          )
 	        )
@@ -24504,8 +24504,11 @@
 	      var _this3 = this;
 
 	      var NameInput = this.refs.NameInput;
+	      var openingHour = this.refs.openingHour;
+	      var closingHour = this.refs.closingHour;
+	      var wifiAvailable = this.refs.wifiAvailable;
 
-	      if (NameInput.value != '' && NightCheckbox.checked || MorningCheckbox.checked || AfternoonCheckbox.checked) {
+	      if (NameInput.value != '') {
 	        if (this.state.newMarker != null) {
 	          var location = this.state.newMarker.internalPosition;
 
@@ -24524,15 +24527,26 @@
 
 	                  var city = res[0].address_components[count - 1].long_name;
 
+	                  console.log({
+	                    country: country,
+	                    city: city,
+	                    lat: location.lat().toString(),
+	                    lng: location.lng().toString(),
+	                    name: NameInput.value,
+	                    opening: openingHour.value,
+	                    closing: closingHour.value,
+	                    wifi: wifiAvailable.checked
+	                  });
+
 	                  _axios2.default.post('/marker', {
 	                    country: country,
 	                    city: city,
 	                    lat: location.lat().toString(),
 	                    lng: location.lng().toString(),
 	                    name: NameInput.value,
-	                    morning: MorningCheckbox.checked,
-	                    afternoon: AfternoonCheckbox.checked,
-	                    night: NightCheckbox.checked
+	                    opening: openingHour.value,
+	                    closing: closingHour.value,
+	                    wifi: wifiAvailable.value
 	                  }).then(function (res) {
 	                    _this3.state.newMarker.setMap(null);
 	                    _this3.setState({ addingMarker: false, newMarker: null, markers: null });
@@ -24612,21 +24626,27 @@
 	            name.innerHTML = m.name;
 	            tr.appendChild(name);
 
+	            var schedule = document.createElement('td');
+	            schedule.innerHTML = m.opening.toString() + ' - ' + m.closing.toString();
+	            tr.appendChild(schedule);
+
 	            var img = document.createElement('img');
 	            img.src = "https://d30y9cdsu7xlg0.cloudfront.net/png/6156-200.png";
 	            img.style.height = '30px';
 
-	            var morning = document.createElement('td');
-	            if (m.morning) morning.appendChild(img.cloneNode());
-	            tr.appendChild(morning);
+	            var wifi = document.createElement('td');
+	            if (m.wifi) {
+	              wifi.appendChild(img);
+	            }
+	            tr.appendChild(wifi);
 
-	            var afternoon = document.createElement('td');
-	            if (m.afternoon) afternoon.appendChild(img.cloneNode());
-	            tr.appendChild(afternoon);
-
-	            var night = document.createElement('td');
-	            if (m.night) night.appendChild(img.cloneNode());
-	            tr.appendChild(night);
+	            var rating = document.createElement('td');
+	            if (m.rating == 0) {
+	              rating.innerHTML = 'No rating';
+	            } else {
+	              rating.innerHTML = m.rating.toFixed(1).toString() + ' / 5.0';
+	            }
+	            tr.appendChild(rating);
 
 	            tbody.appendChild(tr);
 	          }
@@ -24700,6 +24720,14 @@
 	  "featureType": "poi",
 	  "stylers": [{ "visibility": "off" }]
 	}];
+
+	var mb1 = exports.mb1 = {
+	  marginBottom: '1rem'
+	};
+
+	var MaxWidth = exports.MaxWidth = {
+	  width: '100%'
+	};
 
 /***/ }),
 /* 221 */

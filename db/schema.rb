@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20170723224034) do
     t.string "name"
     t.string "opening"
     t.string "closing"
+    t.boolean "wifi"
+    t.float "rating", limit: 24
+    t.integer "votes"
     t.integer "address_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -6,6 +6,9 @@ class CreateMarkers < ActiveRecord::Migration[5.1]
       t.string :name
       t.string :opening
       t.string :closing
+      t.boolean :wifi
+      t.float :rating
+      t.integer :votes
       t.integer :address_id
 
       t.timestamps
