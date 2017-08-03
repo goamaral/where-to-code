@@ -54,10 +54,14 @@ class View extends Component {
         <div ref='placeForm' style={{ display: 'none' }} className="column">
           <h3 className="is-size-4" style={mb1}>New Spot</h3>
 
+          <div ref='mapWarning' style={{ ...mb1, display: 'none' }}></div>
+
           <div style={mb1}>
             <label className='label'>Name</label>
 
             <input className="input" ref='NameInput' />
+
+            <div ref='nameWarning' style={{ ...mb1, display: 'none' }}></div>
           </div>
 
           <div style={mb1}>
@@ -113,7 +117,7 @@ class View extends Component {
           <button
             onClick={this.submitClickHandler.bind(this)}
             className="button"
-            style={MaxWidth}>
+            style={{ ...MaxWidth, ...mb1 }}>
             Submit
           </button>
         </div>
@@ -163,7 +167,7 @@ class View extends Component {
 
             this.setState({ newMarker: marker });
           } else {
-            alert('Please zoom for more acurate marking');
+            this.displayWarning(this.refs.mapWarning, 'Please zoom for more acurate marking');
           }
         }
       });
@@ -180,8 +184,15 @@ class View extends Component {
     var openingHour = this.refs.openingHour;
     var closingHour = this.refs.closingHour;
     var wifiAvailable = this.refs.wifiAvailable;
+    var warnings = [];
+    var formFilled = true;
 
-    if (NameInput.value != '') {
+    if (NameInput.value == '') {
+      warnings.push('name');
+      formFilled = false;
+    }
+
+    if (formFilled) {
       if (this.state.newMarker != null) {
         var location = this.state.newMarker.internalPosition;
 
@@ -200,17 +211,6 @@ class View extends Component {
 
                 var city = res[0].address_components[count-1].long_name;
 
-                console.log({
-                  country: country,
-                  city: city,
-                  lat: location.lat().toString(),
-                  lng: location.lng().toString(),
-                  name: NameInput.value,
-                  opening: openingHour.value,
-                  closing: closingHour.value,
-                  wifi: wifiAvailable.checked
-                });
-
                 axios.post('/marker', {
                   country: country,
                   city: city,
@@ -219,7 +219,7 @@ class View extends Component {
                   name: NameInput.value,
                   opening: openingHour.value,
                   closing: closingHour.value,
-                  wifi: wifiAvailable.value
+                  wifi: wifiAvailable.checked
                 }).then((res) => {
                   this.state.newMarker.setMap(null);
                   this.setState({ addingMarker: false, newMarker: null, markers: null });
@@ -229,12 +229,12 @@ class View extends Component {
           }
         });
       } else {
-        alert('No marker placed');
-        return;
+        this.displayWarning(this.refs.mapWarning, 'Marker not placed');
       }
     } else {
-      alert('Please fill the new spot form');
-      return;
+      for (var warn of warnings) {
+        if (warn == 'name') this.displayWarning(this.refs.nameWarning, 'Fill the spot name');
+      }
     }
   }
 
@@ -316,6 +316,30 @@ class View extends Component {
 
         this.setState({ markers: markers });
       });
+  }
+
+  displayWarning(elem, msg) {
+    elem.style.display = 'block';
+    elem.innerHTML = '';
+    elem.animate({ opacity: [0,1] }, { duration: 10, fill: 'forwards' });
+    var label = document.createElement('label');
+    label.innerHTML = msg;
+    elem.appendChild(label);
+    label.style.color = '#ff3333';
+
+    setTimeout(() => {
+      elem.animate({
+        opacity: [1,0]
+      },
+      {
+        duration: 1000,
+        fill: 'forwards'
+      });
+
+      setTimeout(() => {
+        elem.style.display = 'none';
+      }, 900);
+    }, 3000);
   }
 }
 

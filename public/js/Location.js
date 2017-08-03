@@ -24314,6 +24314,7 @@
 	            { className: 'is-size-4', style: _LocationStyle.mb1 },
 	            'New Spot'
 	          ),
+	          _react2.default.createElement('div', { ref: 'mapWarning', style: _extends({}, _LocationStyle.mb1, { display: 'none' }) }),
 	          _react2.default.createElement(
 	            'div',
 	            { style: _LocationStyle.mb1 },
@@ -24322,7 +24323,8 @@
 	              { className: 'label' },
 	              'Name'
 	            ),
-	            _react2.default.createElement('input', { className: 'input', ref: 'NameInput' })
+	            _react2.default.createElement('input', { className: 'input', ref: 'NameInput' }),
+	            _react2.default.createElement('div', { ref: 'nameWarning', style: _extends({}, _LocationStyle.mb1, { display: 'none' }) })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -24413,7 +24415,7 @@
 	            {
 	              onClick: this.submitClickHandler.bind(this),
 	              className: 'button',
-	              style: _LocationStyle.MaxWidth },
+	              style: _extends({}, _LocationStyle.MaxWidth, _LocationStyle.mb1) },
 	            'Submit'
 	          )
 	        )
@@ -24486,7 +24488,7 @@
 
 	              _this2.setState({ newMarker: marker });
 	            } else {
-	              alert('Please zoom for more acurate marking');
+	              _this2.displayWarning(_this2.refs.mapWarning, 'Please zoom for more acurate marking');
 	            }
 	          }
 	        });
@@ -24507,8 +24509,15 @@
 	      var openingHour = this.refs.openingHour;
 	      var closingHour = this.refs.closingHour;
 	      var wifiAvailable = this.refs.wifiAvailable;
+	      var warnings = [];
+	      var formFilled = true;
 
-	      if (NameInput.value != '') {
+	      if (NameInput.value == '') {
+	        warnings.push('name');
+	        formFilled = false;
+	      }
+
+	      if (formFilled) {
 	        if (this.state.newMarker != null) {
 	          var location = this.state.newMarker.internalPosition;
 
@@ -24527,17 +24536,6 @@
 
 	                  var city = res[0].address_components[count - 1].long_name;
 
-	                  console.log({
-	                    country: country,
-	                    city: city,
-	                    lat: location.lat().toString(),
-	                    lng: location.lng().toString(),
-	                    name: NameInput.value,
-	                    opening: openingHour.value,
-	                    closing: closingHour.value,
-	                    wifi: wifiAvailable.checked
-	                  });
-
 	                  _axios2.default.post('/marker', {
 	                    country: country,
 	                    city: city,
@@ -24546,7 +24544,7 @@
 	                    name: NameInput.value,
 	                    opening: openingHour.value,
 	                    closing: closingHour.value,
-	                    wifi: wifiAvailable.value
+	                    wifi: wifiAvailable.checked
 	                  }).then(function (res) {
 	                    _this3.state.newMarker.setMap(null);
 	                    _this3.setState({ addingMarker: false, newMarker: null, markers: null });
@@ -24556,12 +24554,33 @@
 	            }
 	          });
 	        } else {
-	          alert('No marker placed');
-	          return;
+	          this.displayWarning(this.refs.mapWarning, 'Marker not placed');
 	        }
 	      } else {
-	        alert('Please fill the new spot form');
-	        return;
+	        var _iteratorNormalCompletion2 = true;
+	        var _didIteratorError2 = false;
+	        var _iteratorError2 = undefined;
+
+	        try {
+	          for (var _iterator2 = warnings[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	            var warn = _step2.value;
+
+	            if (warn == 'name') this.displayWarning(this.refs.nameWarning, 'Fill the spot name');
+	          }
+	        } catch (err) {
+	          _didIteratorError2 = true;
+	          _iteratorError2 = err;
+	        } finally {
+	          try {
+	            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	              _iterator2.return();
+	            }
+	          } finally {
+	            if (_didIteratorError2) {
+	              throw _iteratorError2;
+	            }
+	          }
+	        }
 	      }
 	    }
 	  }, {
@@ -24608,13 +24627,13 @@
 	          tbody.removeChild(tbody.firstChild);
 	        }
 
-	        var _iteratorNormalCompletion2 = true;
-	        var _didIteratorError2 = false;
-	        var _iteratorError2 = undefined;
+	        var _iteratorNormalCompletion3 = true;
+	        var _didIteratorError3 = false;
+	        var _iteratorError3 = undefined;
 
 	        try {
-	          for (var _iterator2 = res.data.markers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	            var m = _step2.value;
+	          for (var _iterator3 = res.data.markers[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	            var m = _step3.value;
 
 	            m = JSON.parse(m);
 	            m = _extends({}, m, { lat: parseFloat(m.lat), lng: parseFloat(m.lng) });
@@ -24651,22 +24670,46 @@
 	            tbody.appendChild(tr);
 	          }
 	        } catch (err) {
-	          _didIteratorError2 = true;
-	          _iteratorError2 = err;
+	          _didIteratorError3 = true;
+	          _iteratorError3 = err;
 	        } finally {
 	          try {
-	            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	              _iterator2.return();
+	            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+	              _iterator3.return();
 	            }
 	          } finally {
-	            if (_didIteratorError2) {
-	              throw _iteratorError2;
+	            if (_didIteratorError3) {
+	              throw _iteratorError3;
 	            }
 	          }
 	        }
 
 	        _this4.setState({ markers: markers });
 	      });
+	    }
+	  }, {
+	    key: 'displayWarning',
+	    value: function displayWarning(elem, msg) {
+	      elem.style.display = 'block';
+	      elem.innerHTML = '';
+	      elem.animate({ opacity: [0, 1] }, { duration: 10, fill: 'forwards' });
+	      var label = document.createElement('label');
+	      label.innerHTML = msg;
+	      elem.appendChild(label);
+	      label.style.color = '#ff3333';
+
+	      setTimeout(function () {
+	        elem.animate({
+	          opacity: [1, 0]
+	        }, {
+	          duration: 1000,
+	          fill: 'forwards'
+	        });
+
+	        setTimeout(function () {
+	          elem.style.display = 'none';
+	        }, 900);
+	      }, 3000);
 	    }
 	  }]);
 
@@ -24714,7 +24757,8 @@
 	var MapStyle = exports.MapStyle = {
 	  width: '100%',
 	  height: '70vh',
-	  border: '0'
+	  border: '0',
+	  borderRadius: '3px'
 	};
 	var CustomFeatures = exports.CustomFeatures = [{
 	  "featureType": "poi",
