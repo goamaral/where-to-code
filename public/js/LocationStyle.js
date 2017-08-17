@@ -45,37 +45,23 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(220);
+	module.exports = __webpack_require__(219);
 
 
 /***/ }),
 
-/***/ 220:
+/***/ 219:
 /***/ (function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var MapStyle = exports.MapStyle = {
-	  width: '100%',
-	  height: '70vh',
-	  border: '0',
-	  borderRadius: '3px'
-	};
 	var CustomFeatures = exports.CustomFeatures = [{
 	  "featureType": "poi",
 	  "stylers": [{ "visibility": "off" }]
 	}];
-
-	var mb1 = exports.mb1 = {
-	  marginBottom: '1rem'
-	};
-
-	var MaxWidth = exports.MaxWidth = {
-	  width: '100%'
-	};
 
 /***/ })
 

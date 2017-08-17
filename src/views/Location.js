@@ -2,277 +2,47 @@ import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { GoogleMap } from 'components';
 import { googleApiKey } from 'config';
 import { greenMarker } from 'data.json';
-import { MapStyle, CustomFeatures, MaxWidth, mb1 } from 'style/LocationStyle';
-import { RowStyle, ColumnStyle } from 'style/Main';
+import { CustomFeatures } from 'style/LocationStyle';
 
-class View extends Component {
-  state = {
+function Global() {
+  this.vars = {
     map: null,
     newMarker: null,
     addingMarker: false,
     markers: null
   };
 
-  render() {
-    return (
-      <div className="columns" style={{ height: '100%' }}>
-        <div className="column">
-          <GoogleMap
-            ApiKey={googleApiKey}
-            address={document.title}
-            state={this.state}
-            setState={this.setState.bind(this)}
-            style={MapStyle}
-            CustomFeatures={CustomFeatures}
-          />
-
-          <button style={{ ...MaxWidth, marginTop: '1rem' }}
-           onClick={this.mapModeClickHandler.bind(this)}
-           className="button" ref='mapMode'>
-            Add Spot
-          </button>
-        </div>
-
-        <div ref='placeList' className="column">
-          <table className="table is-striped is-fullwidth">
-            <thead>
-              <tr>
-                <th>Spots</th>
-                <th>Schedule</th>
-                <th>Wifi</th>
-                <th>Rating</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-        </div>
-
-        <div ref='placeForm' style={{ display: 'none' }} className="column">
-          <h3 className="is-size-4" style={mb1}>New Spot</h3>
-
-          <div ref='mapWarning' style={{ ...mb1, display: 'none' }}></div>
-
-          <div style={mb1}>
-            <label className='label'>Name</label>
-
-            <input className="input" ref='NameInput' />
-
-            <div ref='nameWarning' style={{ ...mb1, display: 'none' }}></div>
-          </div>
-
-          <div style={mb1}>
-            <label className='label'>Schedule</label>
-
-            <div className='columns'>
-              <div className='column'>
-                <div className="field has-addons">
-                  <div className="control">
-                    <p className="button">Opening</p>
-                  </div>
-
-                  <div className="control select">
-                    <select ref='openingHour'>
-                      { generateHours() }
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div className='column'>
-                <div className="field has-addons">
-                  <div className="control">
-                    <p className="button">Closing</p>
-                  </div>
-
-                  <div className="control select">
-                    <select ref='closingHour'>
-                      { generateHours() }
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style={mb1}>
-            <div className='columns'>
-              <div className='column'>
-                <label className='checkbox'>
-                  Wifi available
-                  <input ref='wifiAvailable' style={{ marginLeft: '0.5rem' }} type="checkbox" />
-                </label>
-              </div>
-
-              <div className='column' style={{ display: 'block' }}>
-
-              </div>
-            </div>
-
-          </div>
-
-          <button
-            onClick={this.submitClickHandler.bind(this)}
-            className="button"
-            style={{ ...MaxWidth, ...mb1 }}>
-            Submit
-          </button>
-        </div>
-      </div>
-    );
+  this.update = function(obj) {
+    this.vars = { ...this.vars, ...obj };
   }
+}
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.addingMarker != prevState.addingMarker) {
-      this.updateButtons();
+// Global variables object
+var global = new Global();
+
+function fetchMarkers() {
+  var location = document.title.replace(' ','').split(','),
+      placeList = document.getElementById('placeList');
+
+  if (location.length == 1) {
+    var params = {
+      city: null,
+      country: location[0]
     }
-
-    if (this.state.markers == null) {
-      this.fetchMarkers();
-    } else if (this.state.markers.length != 0) {
-      for (var m of this.state.markers) {
-        var coor = {
-          lat: m.lat,
-          lng: m.lng
-        }
-
-        new google.maps.Marker({
-            position: coor,
-            map: this.state.map
-          });
-      }
-    }
-
-    if (this.state.map != null) {
-      this.state.map.addListener('click', ev => {
-        if (this.state.addingMarker) {
-          if (this.state.map.getZoom() >= 17) {
-            var coor = {
-              lat: ev.latLng.lat(),
-              lng: ev.latLng.lng()
-            };
-
-            var marker = new google.maps.Marker({
-                icon: greenMarker,
-                position: coor,
-                map: this.state.map
-            });
-
-            if (this.state.newMarker != null) {
-              this.state.newMarker.setMap(null);
-            }
-
-            this.setState({ newMarker: marker });
-          } else {
-            this.displayWarning(this.refs.mapWarning, 'Please zoom for more acurate marking');
-          }
-        }
-      });
+  } else {
+    var params = {
+      city: location[0],
+      country: location[1]
     }
   }
 
-  mapModeClickHandler() {
-    this.setState({ addingMarker: !this.state.addingMarker });
-    this.updateButtons();
-  }
-
-  submitClickHandler() {
-    var NameInput = this.refs.NameInput;
-    var openingHour = this.refs.openingHour;
-    var closingHour = this.refs.closingHour;
-    var wifiAvailable = this.refs.wifiAvailable;
-    var warnings = [];
-    var formFilled = true;
-
-    if (NameInput.value == '') {
-      warnings.push('name');
-      formFilled = false;
-    }
-
-    if (formFilled) {
-      if (this.state.newMarker != null) {
-        var location = this.state.newMarker.internalPosition;
-
-        new google.maps.Geocoder().geocode({'latLng': location}, (res, sts) => {
-          if(sts == google.maps.GeocoderStatus.OK) {
-            new google.maps.Geocoder().geocode({'placeId': res[0].place_id}, (res, sts) => {
-              if(sts == google.maps.GeocoderStatus.OK) {
-                var count = res[0].address_components.length - 1;
-
-                while (true) {
-                  var country = res[0].address_components[count].long_name;
-                  if (!isNaN(parseInt(country))) {
-                    count -= 1;
-                  } else break;
-                }
-
-                var city = res[0].address_components[count-1].long_name;
-
-                axios.post('/marker', {
-                  country: country,
-                  city: city,
-                  lat: location.lat().toString(),
-                  lng: location.lng().toString(),
-                  name: NameInput.value,
-                  opening: openingHour.value,
-                  closing: closingHour.value,
-                  wifi: wifiAvailable.checked
-                }).then((res) => {
-                  this.state.newMarker.setMap(null);
-                  this.setState({ addingMarker: false, newMarker: null, markers: null });
-                });
-              }
-            });
-          }
-        });
-      } else {
-        this.displayWarning(this.refs.mapWarning, 'Marker not placed');
-      }
-    } else {
-      for (var warn of warnings) {
-        if (warn == 'name') this.displayWarning(this.refs.nameWarning, 'Fill the spot name');
-      }
-    }
-  }
-
-  updateButtons() {
-    var mainButton = this.refs.mapMode;
-    var placeForm = this.refs.placeForm;
-    var placeList = this.refs.placeList;
-
-    if (!this.state.addingMarker) {
-      mainButton.textContent = 'Add Spot';
-      placeForm.style.display = 'none';
-      placeList.style.display = 'block';
-    } else {
-      mainButton.textContent = 'Show Spots';
-      placeForm.style.display = 'block';
-      placeList.style.display = 'none';
-    }
-  }
-
-  fetchMarkers() {
-    var location = document.title.replace(' ','').split(',');
-
-    if (location.length == 1) {
-      var params = {
-        city: null,
-        country: location[0]
-      }
-    } else {
-      var params = {
-        city: location[0],
-        country: location[1]
-      }
-    }
-
+  return new Promise(function(resolve, reject) {
     axios.post('/markers', params)
       .then((res) => {
         var markers = [];
-        var tbody = this.refs.placeList.childNodes[0].childNodes[1];
+        var tbody = placeList.childNodes[0].childNodes[1];
 
         while (tbody.firstChild) {
           tbody.removeChild(tbody.firstChild);
@@ -314,48 +84,249 @@ class View extends Component {
           tbody.appendChild(tr);
         }
 
-        this.setState({ markers: markers });
+        global.update({ markers: markers });
+        resolve();
       });
-  }
-
-  displayWarning(elem, msg) {
-    elem.style.display = 'block';
-    elem.innerHTML = '';
-    elem.animate({ opacity: [0,1] }, { duration: 10, fill: 'forwards' });
-    var label = document.createElement('label');
-    label.innerHTML = msg;
-    elem.appendChild(label);
-    label.style.color = '#ff3333';
-
-    setTimeout(() => {
-      elem.animate({
-        opacity: [1,0]
-      },
-      {
-        duration: 1000,
-        fill: 'forwards'
-      });
-
-      setTimeout(() => {
-        elem.style.display = 'none';
-      }, 900);
-    }, 3000);
-  }
+  });
 }
 
 function generateHours() {
-  var numbers = [];
+  var numbers = [],
+      out     = [];
 
-  for (var i = 1; i <= 24; ++i) numbers.push(i);
-
-  var out = numbers.map((item) => {
-    return (<option key={item}>{item}</option>);
-  });
+  for (var i = 1; i <= 24; ++i) {
+    var el = document.createElement('option');
+    el.innerHTML = i;
+    out.push(el);
+  }
 
   return out;
 }
 
-window.onload = () => {
-  var app = () => { return (<View/>); };
-  ReactDOM.render(React.createElement(app), document.getElementsByTagName('mount')[0]);
+function toggleSpotFormDisplay() {
+  var mainButton = document.getElementById('mapMode'),
+      placeForm  = document.getElementById('placeForm'),
+      placeList  = document.getElementById('placeList');
+
+  if (global.vars.addingMarker) {
+    mainButton.textContent = 'Add Spot';
+    placeForm.style.display = 'none';
+    placeList.style.display = 'block';
+  } else {
+    mainButton.textContent = 'Show Spots';
+    placeForm.style.display = 'block';
+    placeList.style.display = 'none';
+  }
+}
+
+function submitClickHandler() {
+  var NameInput     = document.getElementById('NameInput'),
+      openingHour   = document.getElementById('openingHour'),
+      closingHour   = document.getElementById('closingHour'),
+      wifiAvailable = document.getElementById('wifiAvailable'),
+      mapWarning    = document.getElementById('mapWarning'),
+      nameWarning   = document.getElementById('nameWarning'),
+      warnings      = [],
+      formFilled    = true;
+
+  if (NameInput.value == '') {
+    warnings.push('name');
+    formFilled = false;
+  }
+
+  if (formFilled) {
+    if (global.vars.newMarker != null) {
+      var location = global.vars.newMarker.internalPosition;
+
+      new google.maps.Geocoder().geocode({'latLng': location}, (res, sts) => {
+        if(sts == google.maps.GeocoderStatus.OK) {
+          new google.maps.Geocoder().geocode({'placeId': res[0].place_id}, (res, sts) => {
+            if(sts == google.maps.GeocoderStatus.OK) {
+              var count = res[0].address_components.length - 1;
+
+              while (true) {
+                var country = res[0].address_components[count].long_name;
+                if (!isNaN(parseInt(country))) {
+                  count -= 1;
+                } else break;
+              }
+
+              var city = res[0].address_components[count-1].long_name;
+
+              axios.post('/marker', {
+                country: country,
+                city: city,
+                lat: location.lat().toString(),
+                lng: location.lng().toString(),
+                name: NameInput.value,
+                opening: openingHour.value,
+                closing: closingHour.value,
+                wifi: wifiAvailable.checked
+              }).then((res) => {
+                global.vars.newMarker.setMap(null);
+                global.update({ addingMarker: false, newMarker: null, markers: null });
+              });
+            }
+          });
+        }
+      });
+    } else {
+      displayWarning(mapWarning, 'Marker not placed');
+    }
+  } else {
+    for (var warn of warnings) {
+      if (warn == 'name') displayWarning(nameWarning, 'Fill the spot name');
+    }
+  }
+}
+
+function displayWarning(elem, msg) {
+  elem.style.display = 'block';
+  elem.innerHTML = '';
+
+  elem.animate({ opacity: [0,1] }, { duration: 10, fill: 'forwards' });
+
+  var label = document.createElement('label');
+  label.innerHTML = msg;
+  label.style.color = '#ff3333';
+
+  elem.appendChild(label);
+
+  setTimeout(() => {
+    elem.animate({
+      opacity: [1,0]
+    },
+    {
+      duration: 1000,
+      fill: 'forwards'
+    });
+
+    setTimeout(() => {
+      elem.style.display = 'none';
+    }, 900);
+  }, 3000);
+}
+
+function loadMap() {
+  var address = document.title;
+  var div = document.getElementById('googleMap');
+
+  var script = document.createElement('script');
+  script.src = 'https://maps.googleapis.com/maps/api/js?key=' + googleApiKey;
+  document.head.appendChild(script);
+
+  return new Promise(function(success, failure) {
+    script.onload = function() {
+      new google.maps.Geocoder().geocode( { 'address': address}, (res, sts) => {
+        if (sts == google.maps.GeocoderStatus.OK) {
+          var zoom = calculateZoom(res[0].types);
+
+          var coord = {
+            lat: res[0].geometry.location.lat(),
+            lng: res[0].geometry.location.lng()
+          };
+
+          var map = new google.maps.Map(div, {
+            zoom: zoom,
+            center: coord,
+            styles: CustomFeatures
+          });
+
+          global.update({ map: map });
+          success();
+        } else {
+          failure('sts != google.maps.GeocoderStatus.OK');
+        }
+      });
+    }
+  });
+
+  function calculateZoom(types) {
+    if (types.includes('route') || types.includes('street_number') || types.includes('street_address')) {
+      return 16;
+    } else if (types.includes('neighborhood')) {
+      return 14;
+    } else if (types.includes('sublocality') || types.includes('administrative_area_level_2')) {
+      return 10;
+    } else if (types.includes('administrative_area_level_1')) {
+      return 6;
+    } else if (types.includes('country')) {
+      return 4;
+    } else if (types.includes('postal_code') || types.includes('locality')) {
+      return 13;
+    }
+    else alert('Invalid location');
+  }
+}
+
+function appendChildren(parent, nodes) {
+  for (var node of nodes) {
+    parent.appendChild(node);
+  }
+}
+
+window.onload = function() {
+  // Elements
+  var mapModeButton     = document.getElementById('mapMode'),
+      openingHourSelect = document.getElementById('openingHour'),
+      closingHourSelect = document.getElementById('closingHour'),
+      submitButton      = document.getElementById('submit'),
+      googleMap         = document.getElementsByTagName('googleMap')[0];
+
+  // Generate hours options
+  appendChildren(openingHourSelect, generateHours());
+  appendChildren(closingHourSelect, generateHours());
+
+  // Buttons click event listeners
+  mapModeButton.onclick = toggleSpotFormDisplay;
+  submitButton.onclick  = submitClickHandler;
+
+  // Google map
+  loadMap()
+    .then(() => {
+    // Google map click event listener
+    global.vars.map.addListener('click', ev => {
+      if (global.vars.addingMarker) {
+        if (global.vars.map.getZoom() >= 17) {
+          var coor = {
+            lat: ev.latLng.lat(),
+            lng: ev.latLng.lng()
+          };
+
+          var marker = new google.maps.Marker({
+              icon: greenMarker,
+              position: coor,
+              map: global.vars.map
+          });
+
+          if (global.vars.newMarker != null) {
+            global.vars.newMarker.setMap(null);
+          }
+
+          global.update({ newMarker: marker });
+        } else {
+          var mapWarning = document.getElementById('mapWarning');
+          displayWarning(mapWarning, 'Please zoom for more acurate marking');
+        }
+      }
+    });
+
+    // Fetch markers
+    fetchMarkers()
+      .then(() => {
+        if (global.vars.markers.length != 0) {
+          for (var m of global.vars.markers) {
+            var coor = {
+              lat: m.lat,
+              lng: m.lng
+            }
+
+            new google.maps.Marker({
+                position: coor,
+                map: global.vars.map
+              });
+          }
+        }
+      });
+  });
 }

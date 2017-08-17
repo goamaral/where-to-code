@@ -9,7 +9,91 @@
  	<body>
     <div class="hero-body">
       <h2 class="is-size-3 header"><%= @location %></h2>
-      <mount></mount>
+
+      <div class="columns full-height">
+        <div class="column">
+          <div class='map' id='googleMap'></div>
+
+          <button class="button full-width mt1" id='mapMode'>Add Spot</button>
+        </div>
+
+        <div id='placeList' class="column">
+          <table class="table is-striped is-fullwidth">
+            <thead>
+              <tr>
+                <th>Spots</th>
+                <th>Schedule</th>
+                <th>Wifi</th>
+                <th>Rating</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+
+        <div id='placeForm' class="column hidden">
+          <h3 class="is-size-4 mb1">New Spot</h3>
+
+          <div id='mapWarning' class='mb1 hidden'></div>
+
+          <div class='mb1'>
+            <label class="label">Name</label>
+
+            <input class="input" id='nameInput' />
+
+            <div id='nameWarning' class='mb1 hidden'></div>
+          </div>
+
+          <div class='mb1'>
+            <label class='label'>Schedule</label>
+
+            <div class='columns'>
+              <div class='column'>
+                <div class="field has-addons">
+                  <div class="control">
+                    <p class="button">Opening</p>
+                  </div>
+
+                  <div class="control select">
+                    <select id='openingHour'></select>
+                  </div>
+                </div>
+              </div>
+
+              <div class='column'>
+                <div class="field has-addons">
+                  <div class="control">
+                    <p class="button">Closing</p>
+                  </div>
+
+                  <div class="control select">
+                    <select id='closingHour'></select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class='mb1'>
+            <div class='columns'>
+              <div class='column'>
+                <label class='checkbox'>
+                  Wifi available
+                  <input id='wifiAvailable' type="checkbox" />
+                </label>
+              </div>
+
+              <div class='column block'>
+
+              </div>
+            </div>
+
+          </div>
+
+          <button class="button full-width mb1" id='submit'>Submit</button>
+        </div>
+      </div>
     </div>
   </body>
 </html>

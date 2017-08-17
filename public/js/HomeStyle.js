@@ -45,12 +45,12 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(190);
+	module.exports = __webpack_require__(189);
 
 
 /***/ }),
 
-/***/ 190:
+/***/ 189:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -68,11 +68,13 @@
 	    width: '40vw',
 	    height: '40px'
 	  },
+
 	  list: {
 	    width: '40vw',
 	    backgroundColor: 'white',
 	    borderRadius: '0 0 5px 5px'
 	  },
+
 	  listItem: {
 	    padding: '10px 15px',
 	    marginBottom: '-1px',

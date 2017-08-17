@@ -86,10 +86,8 @@
 	      return _react2.default.createElement('div', { className: this.props.className, ref: 'googleMap', style: this.props.style });
 	    }
 	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-
+	    key: 'loadMap',
+	    value: function loadMap() {
 	      var address = this.props.address;
 	      var div = this.refs.googleMap;
 
@@ -97,26 +95,30 @@
 	      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + this.props.ApiKey;
 	      document.head.appendChild(script);
 
-	      script.onload = function () {
-	        new google.maps.Geocoder().geocode({ 'address': address }, function (res, sts) {
-	          if (sts == google.maps.GeocoderStatus.OK) {
-	            var zoom = _this2.calculateZoom(res[0].types);
+	      return new new Promise(function (resolve, reject) {
+	        var _this2 = this;
 
-	            var coord = {
-	              lat: res[0].geometry.location.lat(),
-	              lng: res[0].geometry.location.lng()
-	            };
+	        script.onload = function () {
+	          new google.maps.Geocoder().geocode({ 'address': address }, function (res, sts) {
+	            if (sts == google.maps.GeocoderStatus.OK) {
+	              var zoom = _this2.calculateZoom(res[0].types);
 
-	            var map = new google.maps.Map(div, {
-	              zoom: zoom,
-	              center: coord,
-	              styles: _this2.props.CustomFeatures
-	            });
+	              var coord = {
+	                lat: res[0].geometry.location.lat(),
+	                lng: res[0].geometry.location.lng()
+	              };
 
-	            _this2.props.setState({ map: map });
-	          }
-	        });
-	      };
+	              var map = new google.maps.Map(div, {
+	                zoom: zoom,
+	                center: coord,
+	                styles: _this2.props.CustomFeatures
+	              });
+
+	              _this2.props.update({ map: map });
+	            }
+	          });
+	        };
+	      })();
 	    }
 	  }, {
 	    key: 'calculateZoom',

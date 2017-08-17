@@ -8,11 +8,13 @@ export const SearchBarStyle = {
     width: '40vw',
     height: '40px'
   },
+
   list: {
     width: '40vw',
     backgroundColor: 'white',
     borderRadius: '0 0 5px 5px'
   },
+  
   listItem: {
     padding: '10px 15px',
     marginBottom: '-1px',
