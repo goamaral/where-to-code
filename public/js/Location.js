@@ -23728,15 +23728,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _server = __webpack_require__(218);
+
+	var _server2 = _interopRequireDefault(_server);
+
 	var _axios = __webpack_require__(191);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
 	var _config = __webpack_require__(190);
 
-	var _data = __webpack_require__(218);
+	var _data = __webpack_require__(222);
 
-	var _LocationStyle = __webpack_require__(219);
+	var _LocationStyle = __webpack_require__(223);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23775,7 +23779,7 @@
 	  return new Promise(function (resolve, reject) {
 	    _axios2.default.post('/markers', params).then(function (res) {
 	      var markers = [];
-	      var tbody = placeList.childNodes[0].childNodes[1];
+	      var tbody = placeList.childNodes[1].childNodes[3];
 
 	      while (tbody.firstChild) {
 	        tbody.removeChild(tbody.firstChild);
@@ -23793,35 +23797,38 @@
 	          m = _extends({}, m, { lat: parseFloat(m.lat), lng: parseFloat(m.lng) });
 	          markers.push(m);
 
-	          var tr = document.createElement('tr');
+	          var data = function data() {
+	            return _react2.default.createElement(
+	              'tr',
+	              null,
+	              _react2.default.createElement(
+	                'td',
+	                null,
+	                m.name
+	              ),
+	              _react2.default.createElement(
+	                'td',
+	                null,
+	                m.opening.toString() + ' - ' + m.closing.toString()
+	              ),
+	              _react2.default.createElement(
+	                'td',
+	                null,
+	                wifiImage()
+	              ),
+	              _react2.default.createElement(
+	                'td',
+	                null,
+	                spotRating()
+	              )
+	            );
+	          };
 
-	          var name = document.createElement('td');
-	          name.innerHTML = m.name;
-	          tr.appendChild(name);
+	          var html = _server2.default.renderToStaticMarkup(_react2.default.createElement(data)),
+	              t = document.createElement('template');
+	          t.innerHTML = html;
 
-	          var schedule = document.createElement('td');
-	          schedule.innerHTML = m.opening.toString() + ' - ' + m.closing.toString();
-	          tr.appendChild(schedule);
-
-	          var img = document.createElement('img');
-	          img.src = "https://d30y9cdsu7xlg0.cloudfront.net/png/6156-200.png";
-	          img.style.height = '30px';
-
-	          var wifi = document.createElement('td');
-	          if (m.wifi) {
-	            wifi.appendChild(img);
-	          }
-	          tr.appendChild(wifi);
-
-	          var rating = document.createElement('td');
-	          if (m.rating == 0) {
-	            rating.innerHTML = 'No rating';
-	          } else {
-	            rating.innerHTML = m.rating.toFixed(1).toString() + ' / 5.0';
-	          }
-	          tr.appendChild(rating);
-
-	          tbody.appendChild(tr);
+	          tbody.appendChild(t.content.firstChild);
 	        }
 	      } catch (err) {
 	        _didIteratorError = true;
@@ -23840,6 +23847,25 @@
 
 	      global.update({ markers: markers });
 	      resolve();
+
+	      // Spot rating function
+	      function spotRating() {
+	        if (m.rating == 0) {
+	          return 'No rating';
+	        } else {
+	          return m.rating.toFixed(1).toString() + ' / 5.0';
+	        }
+	      }
+
+	      // Wifi image
+	      function wifiImage() {
+	        if (m.wifi) {
+	          return _react2.default.createElement('img', {
+	            src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/6156-200.png',
+	            style: { height: '30px' }
+	          });
+	        }
+	      }
 	    });
 	  });
 	}
@@ -23862,7 +23888,9 @@
 	      placeForm = document.getElementById('placeForm'),
 	      placeList = document.getElementById('placeList');
 
-	  if (global.vars.addingMarker) {
+	  global.vars.addingMarker = !global.vars.addingMarker;
+
+	  if (!global.vars.addingMarker) {
 	    mainButton.textContent = 'Add Spot';
 	    placeForm.style.display = 'none';
 	    placeList.style.display = 'block';
@@ -23874,7 +23902,7 @@
 	}
 
 	function submitClickHandler() {
-	  var NameInput = document.getElementById('NameInput'),
+	  var NameInput = document.getElementById('nameInput'),
 	      openingHour = document.getElementById('openingHour'),
 	      closingHour = document.getElementById('closingHour'),
 	      wifiAvailable = document.getElementById('wifiAvailable'),
@@ -24146,12 +24174,172 @@
 
 /***/ }),
 /* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(219);
+
+
+/***/ }),
+/* 219 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 */
+
+	'use strict';
+
+	var ReactDefaultInjection = __webpack_require__(10);
+	var ReactServerRendering = __webpack_require__(220);
+	var ReactVersion = __webpack_require__(177);
+
+	ReactDefaultInjection.inject();
+
+	var ReactDOMServer = {
+	  renderToString: ReactServerRendering.renderToString,
+	  renderToStaticMarkup: ReactServerRendering.renderToStaticMarkup,
+	  version: ReactVersion
+	};
+
+	module.exports = ReactDOMServer;
+
+/***/ }),
+/* 220 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 */
+	'use strict';
+
+	var _prodInvariant = __webpack_require__(6);
+
+	var React = __webpack_require__(94);
+	var ReactDOMContainerInfo = __webpack_require__(173);
+	var ReactDefaultBatchingStrategy = __webpack_require__(146);
+	var ReactInstrumentation = __webpack_require__(37);
+	var ReactMarkupChecksum = __webpack_require__(175);
+	var ReactReconciler = __webpack_require__(34);
+	var ReactServerBatchingStrategy = __webpack_require__(221);
+	var ReactServerRenderingTransaction = __webpack_require__(139);
+	var ReactUpdates = __webpack_require__(31);
+
+	var emptyObject = __webpack_require__(98);
+	var instantiateReactComponent = __webpack_require__(124);
+	var invariant = __webpack_require__(8);
+
+	var pendingTransactions = 0;
+
+	/**
+	 * @param {ReactElement} element
+	 * @return {string} the HTML markup
+	 */
+	function renderToStringImpl(element, makeStaticMarkup) {
+	  var transaction;
+	  try {
+	    ReactUpdates.injection.injectBatchingStrategy(ReactServerBatchingStrategy);
+
+	    transaction = ReactServerRenderingTransaction.getPooled(makeStaticMarkup);
+
+	    pendingTransactions++;
+
+	    return transaction.perform(function () {
+	      var componentInstance = instantiateReactComponent(element, true);
+	      var markup = ReactReconciler.mountComponent(componentInstance, transaction, null, ReactDOMContainerInfo(), emptyObject, 0 /* parentDebugID */
+	      );
+	      if (process.env.NODE_ENV !== 'production') {
+	        ReactInstrumentation.debugTool.onUnmountComponent(componentInstance._debugID);
+	      }
+	      if (!makeStaticMarkup) {
+	        markup = ReactMarkupChecksum.addChecksumToMarkup(markup);
+	      }
+	      return markup;
+	    }, null);
+	  } finally {
+	    pendingTransactions--;
+	    ReactServerRenderingTransaction.release(transaction);
+	    // Revert to the DOM batching strategy since these two renderers
+	    // currently share these stateful modules.
+	    if (!pendingTransactions) {
+	      ReactUpdates.injection.injectBatchingStrategy(ReactDefaultBatchingStrategy);
+	    }
+	  }
+	}
+
+	/**
+	 * Render a ReactElement to its initial HTML. This should only be used on the
+	 * server.
+	 * See https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring
+	 */
+	function renderToString(element) {
+	  !React.isValidElement(element) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'renderToString(): You must pass a valid ReactElement.') : _prodInvariant('46') : void 0;
+	  return renderToStringImpl(element, false);
+	}
+
+	/**
+	 * Similar to renderToString, except this doesn't create extra DOM attributes
+	 * such as data-react-id that React uses internally.
+	 * See https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostaticmarkup
+	 */
+	function renderToStaticMarkup(element) {
+	  !React.isValidElement(element) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'renderToStaticMarkup(): You must pass a valid ReactElement.') : _prodInvariant('47') : void 0;
+	  return renderToStringImpl(element, true);
+	}
+
+	module.exports = {
+	  renderToString: renderToString,
+	  renderToStaticMarkup: renderToStaticMarkup
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ }),
+/* 221 */
+/***/ (function(module, exports) {
+
+	/**
+	 * Copyright 2014-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 */
+
+	'use strict';
+
+	var ReactServerBatchingStrategy = {
+	  isBatchingUpdates: false,
+	  batchedUpdates: function (callback) {
+	    // Don't do anything here. During the server rendering we don't want to
+	    // schedule any updates. We will simply ignore them.
+	  }
+	};
+
+	module.exports = ReactServerBatchingStrategy;
+
+/***/ }),
+/* 222 */
 /***/ (function(module, exports) {
 
 	module.exports = {"redMarker":"http://maps.google.com/mapfiles/ms/icons/red-dot.png","blueMarker":"http://maps.google.com/mapfiles/ms/icons/blue-dot.png","greenMarker":"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
 
 /***/ }),
-/* 219 */
+/* 223 */
 /***/ (function(module, exports) {
 
 	"use strict";

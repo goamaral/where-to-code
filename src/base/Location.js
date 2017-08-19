@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
-import React, { Component } from 'react';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server'
 import axios from 'axios';
 
 import { googleApiKey } from 'config';
@@ -42,7 +43,7 @@ function fetchMarkers() {
     axios.post('/markers', params)
       .then((res) => {
         var markers = [];
-        var tbody = placeList.childNodes[0].childNodes[1];
+        var tbody = placeList.childNodes[1].childNodes[3];
 
         while (tbody.firstChild) {
           tbody.removeChild(tbody.firstChild);
@@ -53,39 +54,47 @@ function fetchMarkers() {
           m = { ...m, lat: parseFloat(m.lat), lng: parseFloat(m.lng) }
           markers.push(m);
 
-          var tr = document.createElement('tr');
-
-          var name = document.createElement('td');
-          name.innerHTML = m.name;
-          tr.appendChild(name);
-
-          var schedule = document.createElement('td');
-          schedule.innerHTML = m.opening.toString() + ' - ' + m.closing.toString();
-          tr.appendChild(schedule);
-
-          var img = document.createElement('img');
-          img.src = "https://d30y9cdsu7xlg0.cloudfront.net/png/6156-200.png";
-          img.style.height = '30px';
-
-          var wifi = document.createElement('td');
-          if (m.wifi) {
-            wifi.appendChild(img);
+          var data = function() {
+            return(
+              <tr>
+                <td>{ m.name }</td>
+                <td>{ m.opening.toString() + ' - ' + m.closing.toString() }</td>
+                <td>{ wifiImage() }</td>
+                <td>{ spotRating() }</td>
+              </tr>
+            );
           }
-          tr.appendChild(wifi);
 
-          var rating = document.createElement('td');
-          if (m.rating == 0) {
-            rating.innerHTML = 'No rating';
-          } else {
-            rating.innerHTML = m.rating.toFixed(1).toString() + ' / 5.0'
-          }
-          tr.appendChild(rating);
+          var html = ReactDOMServer.renderToStaticMarkup(React.createElement(data)),
+              t    = document.createElement('template');
+              t.innerHTML = html;
 
-          tbody.appendChild(tr);
+          tbody.appendChild(t.content.firstChild);
         }
 
         global.update({ markers: markers });
         resolve();
+
+        // Spot rating function
+        function spotRating() {
+          if (m.rating == 0) {
+            return 'No rating';
+          } else {
+            return m.rating.toFixed(1).toString() + ' / 5.0'
+          }
+        }
+
+        // Wifi image
+        function wifiImage() {
+          if (m.wifi) {
+            return (
+              <img
+                src="https://d30y9cdsu7xlg0.cloudfront.net/png/6156-200.png"
+                style={{ height: '30px' }}
+              />
+            );
+          }
+        }
       });
   });
 }
@@ -108,7 +117,9 @@ function toggleSpotFormDisplay() {
       placeForm  = document.getElementById('placeForm'),
       placeList  = document.getElementById('placeList');
 
-  if (global.vars.addingMarker) {
+  global.vars.addingMarker = !global.vars.addingMarker;
+
+  if (!global.vars.addingMarker) {
     mainButton.textContent = 'Add Spot';
     placeForm.style.display = 'none';
     placeList.style.display = 'block';
@@ -120,7 +131,7 @@ function toggleSpotFormDisplay() {
 }
 
 function submitClickHandler() {
-  var NameInput     = document.getElementById('NameInput'),
+  var NameInput     = document.getElementById('nameInput'),
       openingHour   = document.getElementById('openingHour'),
       closingHour   = document.getElementById('closingHour'),
       wifiAvailable = document.getElementById('wifiAvailable'),
