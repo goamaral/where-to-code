@@ -23902,7 +23902,7 @@
 	}
 
 	function submitClickHandler() {
-	  var NameInput = document.getElementById('nameInput'),
+	  var nameInput = document.getElementById('nameInput'),
 	      openingHour = document.getElementById('openingHour'),
 	      closingHour = document.getElementById('closingHour'),
 	      wifiAvailable = document.getElementById('wifiAvailable'),
@@ -23911,7 +23911,7 @@
 	      warnings = [],
 	      formFilled = true;
 
-	  if (NameInput.value == '') {
+	  if (nameInput.value == '') {
 	    warnings.push('name');
 	    formFilled = false;
 	  }
@@ -23940,7 +23940,7 @@
 	                city: city,
 	                lat: location.lat().toString(),
 	                lng: location.lng().toString(),
-	                name: NameInput.value,
+	                name: nameInput.value,
 	                opening: openingHour.value,
 	                closing: closingHour.value,
 	                wifi: wifiAvailable.checked
