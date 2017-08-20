@@ -45,23 +45,43 @@
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(225);
+	module.exports = __webpack_require__(226);
 
 
 /***/ }),
 
-/***/ 225:
+/***/ 226:
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var CustomFeatures = exports.CustomFeatures = [{
-	  "featureType": "poi",
-	  "stylers": [{ "visibility": "off" }]
-	}];
+	var fade = exports.fade = function fade(elem, delay, tdelay) {
+	  elem.style.display = 'block';
+	  fadeIn(elem, tdelay).then(function () {
+	    setTimeout(function () {
+	      fadeOut(elem, tdelay).then(function () {
+	        elem.style.display = 'none';
+	      });
+	    }, delay);
+	  });
+	};
+
+	var fadeIn = exports.fadeIn = function fadeIn(elem, tdelay) {
+	  return new Promise(function (resolve, reject) {
+	    elem.animate({ opacity: [0, 1] }, { duration: tdelay, fill: 'forwards' });
+	    setTimeout(resolve, tdelay);
+	  });
+	};
+
+	var fadeOut = exports.fadeOut = function fadeOut(elem, tdelay) {
+	  return new Promise(function (resolve, reject) {
+	    elem.animate({ opacity: [1, 0] }, { duration: tdelay, fill: 'forwards' });
+	    setTimeout(resolve, tdelay);
+	  });
+	};
 
 /***/ })
 

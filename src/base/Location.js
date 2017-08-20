@@ -1,11 +1,11 @@
-import ReactDOM from 'react-dom';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server'
 import axios from 'axios';
+import React from 'react';
 
 import { googleApiKey } from 'config';
-import { greenMarker } from 'data.json';
+import { greenMarker } from 'data';
 import { CustomFeatures } from 'style/LocationStyle';
+import { reactNodeToNativeNode } from 'helpers';
+import { fade } from 'animation';
 
 function Global() {
   this.vars = {
@@ -40,7 +40,7 @@ function fetchMarkers() {
   }
 
   return new Promise(function(resolve, reject) {
-    axios.post('/markers', params)
+    axios.post('/json/markers', params)
       .then((res) => {
         var markers = [];
         var tbody = placeList.childNodes[1].childNodes[3];
@@ -65,11 +65,7 @@ function fetchMarkers() {
             );
           }
 
-          var html = ReactDOMServer.renderToStaticMarkup(React.createElement(data)),
-              t    = document.createElement('template');
-              t.innerHTML = html;
-
-          tbody.appendChild(t.content.firstChild);
+          tbody.appendChild(reactNodeToNativeNode(data));
         }
 
         global.update({ markers: markers });
@@ -192,10 +188,7 @@ function submitClickHandler() {
 }
 
 function displayWarning(elem, msg) {
-  elem.style.display = 'block';
   elem.innerHTML = '';
-
-  elem.animate({ opacity: [0,1] }, { duration: 10, fill: 'forwards' });
 
   var label = document.createElement('label');
   label.innerHTML = msg;
@@ -203,19 +196,7 @@ function displayWarning(elem, msg) {
 
   elem.appendChild(label);
 
-  setTimeout(() => {
-    elem.animate({
-      opacity: [1,0]
-    },
-    {
-      duration: 1000,
-      fill: 'forwards'
-    });
-
-    setTimeout(() => {
-      elem.style.display = 'none';
-    }, 900);
-  }, 3000);
+  fade(elem, 3000, 500);
 }
 
 function loadMap() {

@@ -25,20 +25,6 @@ class App < Sinatra::Base
     erb :location
   end
 
-  post '/markers' do
-    res = JSON.parse(request.body.read)
-
-    address = Address.find_or_create_by(country: res['country'], city: res['city'])
-
-    out = []
-
-    for a in address.markers.all.to_a do
-      out.push(a.to_json)
-    end
-
-    return { :markers => out }.to_json
-  end
-
   post '/marker' do
     res = JSON.parse(request.body.read)
 
@@ -67,5 +53,17 @@ class App < Sinatra::Base
     else
       return 'Updated'
     end
+  end
+
+  post '/json/countries' do
+    return Country.all.to_a.to_json
+  end
+
+  post '/json/markers' do
+    res = JSON.parse(request.body.read)
+
+    address = Address.find_or_create_by(city: res['city'])
+
+    return address.markers.all.to_a.to_json
   end
 end
