@@ -28,3 +28,9 @@ html body {
 .block {
   display: block;
 }
+
+.row-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

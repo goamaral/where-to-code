@@ -4741,6 +4741,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _reactDom = __webpack_require__(39);
@@ -4757,11 +4759,9 @@
 
 	var _components = __webpack_require__(212);
 
-	var _HomeStyle = __webpack_require__(216);
+	var _config = __webpack_require__(216);
 
-	var _config = __webpack_require__(217);
-
-	var _helpers = __webpack_require__(218);
+	var _helpers = __webpack_require__(217);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4774,47 +4774,175 @@
 	var countriesSearchBar = function (_Component) {
 	  _inherits(countriesSearchBar, _Component);
 
-	  function countriesSearchBar() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
-	    _classCallCheck(this, countriesSearchBar);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = countriesSearchBar.__proto__ || Object.getPrototypeOf(countriesSearchBar)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
-	      suggestions: []
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
-	  }
-
 	  _createClass(countriesSearchBar, [{
 	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
 
-	      _axios2.default.post('/json/countries').then(function (res) {
-	        _this2.setState({ suggestions: res.data });
+	    // Lifecycle methods
+	    value: function componentDidMount() {
+	      this.fetchCountries();
+	    }
+
+	    // State updaters
+
+	  }, {
+	    key: 'updateInputState',
+	    value: function updateInputState(type, payload) {
+	      this.setState(function (prevState, props) {
+	        switch (type) {
+	          case 'country':
+	            return { input: _extends({}, prevState.input, { country: payload }) };
+	          case 'city':
+	            return { input: _extends({}, prevState.input, { city: payload }) };
+	        }
 	      });
 	    }
+
+	    // Render
+
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_components.SearchBar, {
-	        style: _HomeStyle.SearchBarStyle,
-	        placeholder: 'Please insert country',
-	        suggestions: this.state.suggestions
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'columns' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'column' },
+	          _react2.default.createElement(_components.SearchBar, {
+	            placeholder: 'Country',
+	            className: 'mb1',
+	            suggestions: this.state.suggestions.country,
+	            state: this.state.input.country,
+	            updateState: function updateState(value) {
+	              _this2.updateInputState('country', value);
+	            },
+	            store: this.store.country,
+	            updateStore: function updateStore(payload) {
+	              _this2.updateStore('country', payload);
+	            }
+	          }),
+	          _react2.default.createElement(_components.SearchBar, {
+	            placeholder: 'City',
+	            className: 'mb1',
+	            suggestions: this.state.suggestions.city,
+	            state: this.state.input.city,
+	            updateState: function updateState(value) {
+	              _this2.updateInputState('city', value);
+	            },
+	            store: this.store.city,
+	            updateStore: function updateStore(payload) {
+	              _this2.updateStore('city', payload);
+	            }
+	          }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'row-center' },
+	            _react2.default.createElement(
+	              'a',
+	              { onClick: this.onClickSubmitButton.bind(this),
+	                className: 'button is-warning full-width' },
+	              'Lets go'
+	            )
+	          )
+	        )
+	      );
+	    }
+
+	    // Event handlers
+
+	  }, {
+	    key: 'onClickSubmitButton',
+	    value: function onClickSubmitButton() {
+	      window.location.pathname = '/location/' + this.store.city.value + ', ' + this.store.country.value;
+	    }
+
+	    // Helpers
+
+	  }, {
+	    key: 'updateStore',
+	    value: function updateStore(type, payload) {
+	      switch (type) {
+	        case 'country':
+	          this.store.country = payload;
+	          this.updateStore('city', '');
+	          this.updateInputState('city', '');
+	          this.fetchCities(payload.value);
+	          return;
+	        case 'city':
+	          this.store.city = payload;
+	          return;
+	      }
+	    }
+
+	    // Data fetching
+
+	  }, {
+	    key: 'fetchCountries',
+	    value: function fetchCountries() {
+	      var _this3 = this;
+
+	      _axios2.default.post('/json/countries').then(function (res) {
+	        _this3.setState(function (prevState, props) {
+	          return {
+	            suggestions: _extends({}, prevState.suggestions, { country: res.data })
+	          };
+	        });
 	      });
 	    }
+	  }, {
+	    key: 'fetchCities',
+	    value: function fetchCities(country) {
+	      var _this4 = this;
+
+	      _axios2.default.post('/json/cities', { country: country }).then(function (res) {
+	        _this4.setState(function (prevState, props) {
+	          return {
+	            suggestions: _extends({}, prevState.suggestions, { city: res.data })
+	          };
+	        });
+	      });
+	    }
+
+	    // Constructor
+
 	  }]);
+
+	  function countriesSearchBar() {
+	    _classCallCheck(this, countriesSearchBar);
+
+	    var _this = _possibleConstructorReturn(this, (countriesSearchBar.__proto__ || Object.getPrototypeOf(countriesSearchBar)).call(this));
+
+	    _this.state = {
+	      suggestions: {
+	        country: [],
+	        city: []
+	      },
+	      input: {
+	        country: '',
+	        city: ''
+	      }
+	    };
+
+	    _this.store = {
+	      country: {
+	        filled: false,
+	        value: ''
+	      },
+	      city: {
+	        filled: false,
+	        value: ''
+	      }
+	    };
+	    return _this;
+	  }
 
 	  return countriesSearchBar;
 	}(_react.Component);
 
 	window.onload = function () {
-	  _reactDom2.default.render(_react2.default.createElement(countriesSearchBar), document.getElementById('root'));
+	  _reactDom2.default.render(_react2.default.createElement(countriesSearchBar), document.getElementById('searchBars'));
 	};
 
 /***/ }),
@@ -23984,7 +24112,8 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { style: _extends({}, this.style.column, this.props.style) },
+	        { className: this.props.className,
+	          style: _extends({}, this.style.column, this.props.style) },
 	        this.props.children
 	      );
 	    }
@@ -24046,6 +24175,8 @@
 	});
 	exports.ListItem = exports.List = undefined;
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -24065,36 +24196,50 @@
 	var List = function (_Component) {
 	  _inherits(List, _Component);
 
-	  function List() {
-	    _classCallCheck(this, List);
-
-	    return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
-	  }
-
 	  _createClass(List, [{
+	    key: 'render',
+
+	    // Render
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _flexGrid.Column,
+	        { style: _extends({}, this.style, this.props.style), className: this.props.className },
+	        this.renderData()
+	      );
+	    }
+
+	    // Helpers
+
+	  }, {
 	    key: 'renderData',
 	    value: function renderData() {
 	      var _this2 = this;
 
 	      return this.props.data.map(function (item, key) {
 	        return _react2.default.createElement(ListItem, {
-	          style: _this2.props.itemStyle,
 	          key: parseInt(key, 10),
 	          data: item,
-	          className: _this2.props.itemClassName
+	          className: _this2.props.classNameItem
 	        });
 	      });
 	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        _flexGrid.Column,
-	        { style: this.props.style, className: this.props.className },
-	        this.renderData()
-	      );
-	    }
+
+	    // Constructor
+
 	  }]);
+
+	  function List() {
+	    _classCallCheck(this, List);
+
+	    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
+
+	    _this.style = {
+	      width: '100%',
+	      backgroundColor: 'white',
+	      borderRadius: '0 0 5px 5px'
+	    };
+	    return _this;
+	  }
 
 	  return List;
 	}(_react.Component);
@@ -24102,22 +24247,38 @@
 	var ListItem = function (_Component2) {
 	  _inherits(ListItem, _Component2);
 
-	  function ListItem() {
-	    _classCallCheck(this, ListItem);
-
-	    return _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).apply(this, arguments));
-	  }
-
 	  _createClass(ListItem, [{
 	    key: 'render',
+
+	    // Render
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'li',
-	        { style: this.props.style, className: this.props.className },
+	        { className: this.props.className,
+	          style: this.style },
 	        this.props.data
 	      );
 	    }
+
+	    // Constructor
+
 	  }]);
+
+	  function ListItem() {
+	    _classCallCheck(this, ListItem);
+
+	    var _this3 = _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call(this));
+
+	    _this3.style = {
+	      padding: '10px 15px',
+	      marginBottom: '-1px',
+	      width: '100%',
+	      borderTop: '1px solid #BDBDBD',
+	      listStyleType: 'none',
+	      textAlign: 'center'
+	    };
+	    return _this3;
+	  }
 
 	  return ListItem;
 	}(_react.Component);
@@ -24158,68 +24319,127 @@
 	var SearchBar = function (_Component) {
 	  _inherits(SearchBar, _Component);
 
-	  function SearchBar() {
-	    _classCallCheck(this, SearchBar);
-
-	    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this));
-
-	    _this.state = {
-	      dropdownVisible: false,
-	      value: ''
-	    };
-	    return _this;
-	  }
-
 	  _createClass(SearchBar, [{
 	    key: 'render',
+
+	    // Render
 	    value: function render() {
 	      return _react2.default.createElement(
 	        _flexGrid.Column,
-	        null,
+	        { className: this.props.className, style: { width: '100%' } },
 	        _react2.default.createElement('input', {
 	          type: 'text',
+	          value: this.props.state,
 	          placeholder: this.props.placeholder,
-	          value: this.value,
-	          style: _extends({}, this.props.style.input, this.generateInputStyle()),
+	          style: this.generateInputStyle(),
+	          className: this.props.classNameInput,
 	          onChange: this.onChange.bind(this),
-	          className: this.props.className.input
+	          onFocus: this.onFocus.bind(this),
+	          onBlur: this.onBlur.bind(this)
 	        }),
 	        _react2.default.createElement(_List.List, {
-	          style: _extends({}, this.generateListStyle(), this.props.style.list),
-	          className: this.props.className.list,
-	          data: this.filteredSuggestions(),
-	          itemStyle: this.props.style.listItem,
-	          itemClassName: this.props.className.listItem
+	          style: this.generateListStyle(),
+	          className: this.props.classNameList,
+	          itemClassName: this.props.classNameItem,
+	          data: this.filteredSuggestions()
 	        })
 	      );
 	    }
-	  }, {
-	    key: 'generateListStyle',
-	    value: function generateListStyle() {
-	      if (this.state.dropdownVisible) {
-	        return { display: 'block' };
-	      } else return { display: 'none' };
-	    }
+
+	    // Event handling
+
 	  }, {
 	    key: 'onChange',
 	    value: function onChange(ev) {
-	      var val = ev.target.value;
-	      this.setState({ value: val });
-	      this.toggleVisibility(val);
+	      this.props.updateState(ev.target.value);
 	    }
+	  }, {
+	    key: 'onFocus',
+	    value: function onFocus() {
+	      if (!this.state.dropdownVisible && this.filteredSuggestions().length != 0) {
+	        this.setState({ dropdownVisible: true });
+	      }
+	    }
+	  }, {
+	    key: 'onBlur',
+	    value: function onBlur(ev) {
+	      var _this2 = this;
+
+	      // Helpers
+	      var correctState = function correctState(store) {
+	        if (!store.filled) {
+	          _this2.props.updateState('');
+	        } else if (store.filled && store.value != _this2.props.state.value) {
+	          _this2.props.updateState(store.value);
+	        }
+	      };
+
+	      // Main
+	      if (this.state.dropdownVisible) {
+	        this.setState({ dropdownVisible: false });
+	      }
+
+	      if (this.state.storeUpdatePromise != null) {
+	        this.state.storeUpdatePromise.then(function (store) {
+	          correctState(store);
+	          _this2.setState({ storeUpdatePromise: null });
+	        });
+	      } else {
+	        correctState(this.props.store);
+	      }
+	    }
+
+	    // Helpers
+
 	  }, {
 	    key: 'filteredSuggestions',
 	    value: function filteredSuggestions() {
-	      var _this2 = this;
+	      var _this3 = this;
 
-	      // Can be more efficient ( have to detect char deletion or insertion ). On insetion use current filtered on deletion use prev filtered
+	      // Can be more efficient ( have to detect char deletion or insertion ).
+	      // On insetion use current filtered on deletion use prev filtered
+
+	      // Helpers
+	      var valueIsPresent = function valueIsPresent(target) {
+	        var t = target.toLowerCase();
+	        var v = _this3.props.state.toLowerCase();
+
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
+
+	        try {
+	          for (var _iterator = v[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	            var l = _step.value;
+
+	            if (!t.includes(l)) return false;
+	          }
+	        } catch (err) {
+	          _didIteratorError = true;
+	          _iteratorError = err;
+	        } finally {
+	          try {
+	            if (!_iteratorNormalCompletion && _iterator.return) {
+	              _iterator.return();
+	            }
+	          } finally {
+	            if (_didIteratorError) {
+	              throw _iteratorError;
+	            }
+	          }
+	        }
+
+	        return true;
+	      };
+
+	      // Main
 	      var counter = 0;
 	      var filtered = [];
 
 	      this.props.suggestions.some(function (_ref) {
 	        var name = _ref.name;
 
-	        if (_this2.valueIsPresent(name)) {
+	        if (valueIsPresent(name)) {
 	          ++counter;
 	          filtered.push(name);
 	        }
@@ -24230,68 +24450,84 @@
 	      return filtered.map(function (item) {
 	        return _react2.default.createElement(
 	          'a',
-	          null,
+	          { onMouseDown: _this3.suggectionSelectionHandler.bind(_this3) },
 	          item
 	        );
 	      });
 	    }
 	  }, {
-	    key: 'valueIsPresent',
-	    value: function valueIsPresent(target) {
-	      var t = target.toLowerCase();
-	      var v = this.state.value.toLowerCase();
-	      var _iteratorNormalCompletion = true;
-	      var _didIteratorError = false;
-	      var _iteratorError = undefined;
+	    key: 'suggectionSelectionHandler',
+	    value: function suggectionSelectionHandler(ev) {
+	      var _this4 = this;
 
-	      try {
-	        for (var _iterator = v[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	          var l = _step.value;
-
-	          if (!t.includes(l)) return false;
-	        }
-	      } catch (err) {
-	        _didIteratorError = true;
-	        _iteratorError = err;
-	      } finally {
-	        try {
-	          if (!_iteratorNormalCompletion && _iterator.return) {
-	            _iterator.return();
-	          }
-	        } finally {
-	          if (_didIteratorError) {
-	            throw _iteratorError;
-	          }
-	        }
-	      }
-
-	      return true;
+	      this.setState({
+	        storeUpdatePromise: new Promise(function (resolve, reject) {
+	          _this4.props.updateStore({ filled: true, value: ev.target.innerHTML });
+	          resolve({ filled: true, value: ev.target.innerHTML });
+	        })
+	      });
 	    }
-	  }, {
-	    key: 'toggleVisibility',
-	    value: function toggleVisibility(value) {
-	      if (value === '') {
-	        this.setState({ dropdownVisible: false });
-	      } else this.setState({ dropdownVisible: true });
-	    }
+
+	    // Style generators
+
 	  }, {
 	    key: 'generateInputStyle',
 	    value: function generateInputStyle() {
-	      var style = { margin: '0 0 -1px 0', borderRadius: '5px', outline: 'none' };
-	      if (this.state.dropdownVisible) {
-	        style.borderRadius = '5px 5px 0 0';
-	      }
+	      var style = _extends({}, this.style, {
+	        margin: '0 0 -1px 0',
+	        borderRadius: '5px',
+	        outline: 'none'
+	      });
+
+	      if (this.state.dropdownVisible) style.borderRadius = '5px 5px 0 0';
 
 	      return style;
 	    }
+	  }, {
+	    key: 'generateListStyle',
+	    value: function generateListStyle() {
+	      if (this.state.dropdownVisible) return { display: 'block' };
+
+	      return { display: 'none' };
+	    }
+
+	    // Constructor
+
 	  }]);
+
+	  function SearchBar() {
+	    _classCallCheck(this, SearchBar);
+
+	    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this));
+
+	    _this.state = {
+	      dropdownVisible: false,
+	      storeUpdatePromise: null
+	    };
+
+	    _this.style = {
+	      width: '100%',
+	      padding: '10px',
+	      textAlign: 'center',
+	      fontSize: '1rem',
+	      border: '1px solid #BDBDBD',
+	      backgroundColor: 'white',
+	      height: '40px'
+	    };
+	    return _this;
+	  }
+
+	  // Default props
+
 
 	  return SearchBar;
 	}(_react.Component);
 
 	SearchBar.defaultProps = {
-	  // Fill defaultProps
-	  className: {}
+	  className: '',
+	  classNameInput: '',
+	  classNameList: '',
+	  classNameItem: ''
 	};
 	exports.default = SearchBar;
 
@@ -24299,46 +24535,10 @@
 /* 216 */
 /***/ (function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var SearchBarStyle = exports.SearchBarStyle = {
-	  input: {
-	    padding: '10px',
-	    textAlign: 'center',
-	    fontSize: '1rem',
-	    border: '1px solid #BDBDBD',
-	    backgroundColor: 'white',
-	    width: '40vw',
-	    height: '40px'
-	  },
-
-	  list: {
-	    width: '40vw',
-	    backgroundColor: 'white',
-	    borderRadius: '0 0 5px 5px'
-	  },
-
-	  listItem: {
-	    padding: '10px 15px',
-	    marginBottom: '-1px',
-	    width: '100%',
-	    borderTop: '1px solid #BDBDBD',
-	    listStyleType: 'none',
-	    textAlign: 'center'
-	  }
-	};
-
-/***/ }),
-/* 217 */
-/***/ (function(module, exports) {
-
 	module.exports = {"googleApiKey":"AIzaSyCAjlPRHyUbmRYr6P_yzfog4QwQ-ZMoXOM"}
 
 /***/ }),
-/* 218 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24352,7 +24552,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _server = __webpack_require__(219);
+	var _server = __webpack_require__(218);
 
 	var _server2 = _interopRequireDefault(_server);
 
@@ -24367,16 +24567,16 @@
 	};
 
 /***/ }),
-/* 219 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(220);
+	module.exports = __webpack_require__(219);
 
 
 /***/ }),
-/* 220 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -24392,7 +24592,7 @@
 	'use strict';
 
 	var ReactDefaultInjection = __webpack_require__(45);
-	var ReactServerRendering = __webpack_require__(221);
+	var ReactServerRendering = __webpack_require__(220);
 	var ReactVersion = __webpack_require__(179);
 
 	ReactDefaultInjection.inject();
@@ -24406,7 +24606,7 @@
 	module.exports = ReactDOMServer;
 
 /***/ }),
-/* 221 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24428,7 +24628,7 @@
 	var ReactInstrumentation = __webpack_require__(69);
 	var ReactMarkupChecksum = __webpack_require__(177);
 	var ReactReconciler = __webpack_require__(66);
-	var ReactServerBatchingStrategy = __webpack_require__(222);
+	var ReactServerBatchingStrategy = __webpack_require__(221);
 	var ReactServerRenderingTransaction = __webpack_require__(141);
 	var ReactUpdates = __webpack_require__(63);
 
@@ -24501,7 +24701,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 222 */
+/* 221 */
 /***/ (function(module, exports) {
 
 	/**

@@ -44,7 +44,7 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(223);
+	module.exports = __webpack_require__(222);
 
 
 /***/ }),
@@ -22644,14 +22644,13 @@
 /* 213 */,
 /* 214 */,
 /* 215 */,
-/* 216 */,
-/* 217 */
+/* 216 */
 /***/ (function(module, exports) {
 
 	module.exports = {"googleApiKey":"AIzaSyCAjlPRHyUbmRYr6P_yzfog4QwQ-ZMoXOM"}
 
 /***/ }),
-/* 218 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22665,7 +22664,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _server = __webpack_require__(219);
+	var _server = __webpack_require__(218);
 
 	var _server2 = _interopRequireDefault(_server);
 
@@ -22680,16 +22679,16 @@
 	};
 
 /***/ }),
-/* 219 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(220);
+	module.exports = __webpack_require__(219);
 
 
 /***/ }),
-/* 220 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/**
@@ -22705,7 +22704,7 @@
 	'use strict';
 
 	var ReactDefaultInjection = __webpack_require__(45);
-	var ReactServerRendering = __webpack_require__(221);
+	var ReactServerRendering = __webpack_require__(220);
 	var ReactVersion = __webpack_require__(179);
 
 	ReactDefaultInjection.inject();
@@ -22719,7 +22718,7 @@
 	module.exports = ReactDOMServer;
 
 /***/ }),
-/* 221 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -22741,7 +22740,7 @@
 	var ReactInstrumentation = __webpack_require__(69);
 	var ReactMarkupChecksum = __webpack_require__(177);
 	var ReactReconciler = __webpack_require__(66);
-	var ReactServerBatchingStrategy = __webpack_require__(222);
+	var ReactServerBatchingStrategy = __webpack_require__(221);
 	var ReactServerRenderingTransaction = __webpack_require__(141);
 	var ReactUpdates = __webpack_require__(63);
 
@@ -22814,7 +22813,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 222 */
+/* 221 */
 /***/ (function(module, exports) {
 
 	/**
@@ -22840,7 +22839,7 @@
 	module.exports = ReactServerBatchingStrategy;
 
 /***/ }),
-/* 223 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22855,28 +22854,28 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _config = __webpack_require__(217);
+	var _config = __webpack_require__(216);
 
-	var _data = __webpack_require__(224);
+	var _data = __webpack_require__(223);
 
-	var _LocationStyle = __webpack_require__(225);
+	var _LocationStyle = __webpack_require__(224);
 
-	var _helpers = __webpack_require__(218);
+	var _helpers = __webpack_require__(217);
 
-	var _animation = __webpack_require__(226);
+	var _animation = __webpack_require__(225);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function Global() {
-	  this.vars = {
+	  this.store = {
 	    map: null,
 	    newMarker: null,
 	    addingMarker: false,
 	    markers: null
 	  };
 
-	  this.update = function (obj) {
-	    this.vars = _extends({}, this.vars, obj);
+	  this.updateStore = function (obj) {
+	    this.store = _extends({}, this.store, obj);
 	  };
 	}
 
@@ -22887,17 +22886,10 @@
 	  var location = document.title.replace(' ', '').split(','),
 	      placeList = document.getElementById('placeList');
 
-	  if (location.length == 1) {
-	    var params = {
-	      city: null,
-	      country: location[0]
-	    };
-	  } else {
-	    var params = {
-	      city: location[0],
-	      country: location[1]
-	    };
-	  }
+	  var params = {
+	    city: location[0],
+	    country: location[1]
+	  };
 
 	  return new Promise(function (resolve, reject) {
 	    _axios2.default.post('/json/markers', params).then(function (res) {
@@ -22908,63 +22900,68 @@
 	        tbody.removeChild(tbody.firstChild);
 	      }
 
-	      var _iteratorNormalCompletion = true;
-	      var _didIteratorError = false;
-	      var _iteratorError = undefined;
+	      console.log(res);
 
-	      try {
-	        for (var _iterator = res.data.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	          var m = _step.value;
+	      if (res.data.length > 0) {
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
 
-	          m = JSON.parse(m);
-	          m = _extends({}, m, { lat: parseFloat(m.lat), lng: parseFloat(m.lng) });
-	          markers.push(m);
-
-	          var data = function data() {
-	            return _react2.default.createElement(
-	              'tr',
-	              null,
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                m.name
-	              ),
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                m.opening.toString() + ' - ' + m.closing.toString()
-	              ),
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                wifiImage()
-	              ),
-	              _react2.default.createElement(
-	                'td',
-	                null,
-	                spotRating()
-	              )
-	            );
-	          };
-
-	          tbody.appendChild((0, _helpers.reactNodeToNativeNode)(data));
-	        }
-	      } catch (err) {
-	        _didIteratorError = true;
-	        _iteratorError = err;
-	      } finally {
 	        try {
-	          if (!_iteratorNormalCompletion && _iterator.return) {
-	            _iterator.return();
+	          for (var _iterator = res.data.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	            var m = _step.value;
+
+	            m = JSON.parse(m);
+	            m = _extends({}, m, { lat: parseFloat(m.lat), lng: parseFloat(m.lng) });
+	            markers.push(m);
+
+	            var data = function data() {
+	              return _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  m.name
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  m.opening.toString() + ' - ' + m.closing.toString()
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  wifiImage()
+	                ),
+	                _react2.default.createElement(
+	                  'td',
+	                  null,
+	                  spotRating()
+	                )
+	              );
+	            };
+
+	            tbody.appendChild((0, _helpers.reactNodeToNativeNode)(data));
 	          }
+	        } catch (err) {
+	          _didIteratorError = true;
+	          _iteratorError = err;
 	        } finally {
-	          if (_didIteratorError) {
-	            throw _iteratorError;
+	          try {
+	            if (!_iteratorNormalCompletion && _iterator.return) {
+	              _iterator.return();
+	            }
+	          } finally {
+	            if (_didIteratorError) {
+	              throw _iteratorError;
+	            }
 	          }
 	        }
 	      }
 
-	      global.update({ markers: markers });
+	      global.updateStore({ markers: markers });
+
 	      resolve();
 
 	      // Spot rating function
@@ -23007,9 +23004,9 @@
 	      placeForm = document.getElementById('placeForm'),
 	      placeList = document.getElementById('placeList');
 
-	  global.vars.addingMarker = !global.vars.addingMarker;
+	  global.store.addingMarker = !global.store.addingMarker;
 
-	  if (!global.vars.addingMarker) {
+	  if (!global.store.addingMarker) {
 	    mainButton.textContent = 'Add Spot';
 	    placeForm.style.display = 'none';
 	    placeList.style.display = 'block';
@@ -23036,8 +23033,8 @@
 	  }
 
 	  if (formFilled) {
-	    if (global.vars.newMarker != null) {
-	      var location = global.vars.newMarker.internalPosition;
+	    if (global.store.newMarker != null) {
+	      var location = global.store.newMarker.internalPosition;
 
 	      new google.maps.Geocoder().geocode({ 'latLng': location }, function (res, sts) {
 	        if (sts == google.maps.GeocoderStatus.OK) {
@@ -23064,8 +23061,8 @@
 	                closing: closingHour.value,
 	                wifi: wifiAvailable.checked
 	              }).then(function (res) {
-	                global.vars.newMarker.setMap(null);
-	                global.update({ addingMarker: false, newMarker: null, markers: null });
+	                global.store.newMarker.setMap(null);
+	                global.updateStore({ addingMarker: false, newMarker: null, markers: null });
 	              });
 	            }
 	          });
@@ -23139,7 +23136,7 @@
 	            styles: _LocationStyle.CustomFeatures
 	          });
 
-	          global.update({ map: map });
+	          global.updateStore({ map: map });
 	          success();
 	        } else {
 	          failure('sts != google.maps.GeocoderStatus.OK');
@@ -23211,9 +23208,9 @@
 	  // Google map
 	  loadMap().then(function () {
 	    // Google map click event listener
-	    global.vars.map.addListener('click', function (ev) {
-	      if (global.vars.addingMarker) {
-	        if (global.vars.map.getZoom() >= 17) {
+	    global.store.map.addListener('click', function (ev) {
+	      if (global.store.addingMarker) {
+	        if (global.store.map.getZoom() >= 17) {
 	          var coor = {
 	            lat: ev.latLng.lat(),
 	            lng: ev.latLng.lng()
@@ -23222,14 +23219,14 @@
 	          var marker = new google.maps.Marker({
 	            icon: _data.greenMarker,
 	            position: coor,
-	            map: global.vars.map
+	            map: global.store.map
 	          });
 
-	          if (global.vars.newMarker != null) {
-	            global.vars.newMarker.setMap(null);
+	          if (global.store.newMarker != null) {
+	            global.store.newMarker.setMap(null);
 	          }
 
-	          global.update({ newMarker: marker });
+	          global.updateStore({ newMarker: marker });
 	        } else {
 	          var mapWarning = document.getElementById('mapWarning');
 	          displayWarning(mapWarning, 'Please zoom for more acurate marking');
@@ -23239,13 +23236,13 @@
 
 	    // Fetch markers
 	    fetchMarkers().then(function () {
-	      if (global.vars.markers.length != 0) {
+	      if (global.store.markers.length != 0) {
 	        var _iteratorNormalCompletion4 = true;
 	        var _didIteratorError4 = false;
 	        var _iteratorError4 = undefined;
 
 	        try {
-	          for (var _iterator4 = global.vars.markers[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+	          for (var _iterator4 = global.store.markers[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
 	            var m = _step4.value;
 
 	            var coor = {
@@ -23255,7 +23252,7 @@
 
 	            new google.maps.Marker({
 	              position: coor,
-	              map: global.vars.map
+	              map: global.store.map
 	            });
 	          }
 	        } catch (err) {
@@ -23278,13 +23275,13 @@
 	};
 
 /***/ }),
-/* 224 */
+/* 223 */
 /***/ (function(module, exports) {
 
 	module.exports = {"redMarker":"http://maps.google.com/mapfiles/ms/icons/red-dot.png","blueMarker":"http://maps.google.com/mapfiles/ms/icons/blue-dot.png","greenMarker":"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
 
 /***/ }),
-/* 225 */
+/* 224 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -23298,7 +23295,7 @@
 	}];
 
 /***/ }),
-/* 226 */
+/* 225 */
 /***/ (function(module, exports) {
 
 	'use strict';

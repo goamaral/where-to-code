@@ -20,31 +20,32 @@ class App < Sinatra::Base
   end
 
   get '/location/:location' do
-    @location = params[:location]
+    @location = params['location']
 
     erb :location
   end
 
   post '/marker' do
-    res = JSON.parse(request.body.read)
+    req = JSON.parse(request.body.read)
 
-    address = Address.find_or_create_by(country: res['country'], city: res['city'])
+    address = Address.find_or_create_by(country: req['country'], city: req['city'])
 
     markers = address.markers.all.select do |marker|
-      marker[:lat] == res['lat'] and marker[:lng] == res['lng'] or marker[:name] == res['name']
+      marker[:lat] == req['lat'] and marker[:lng] == req['lng'] \
+       or marker[:name] == req['name']
     end
 
-    res1 = address.markers.find_by(lat: res['lat'], lng: res['lng'])
-    res2 = address.markers.find_by(name: res['name'])
+    res1 = address.markers.find_by(lat: req['lat'], lng: req['lng'])
+    res2 = address.markers.find_by(name: req['name'])
 
     if res1 == nil and res2 == nil
       address.markers.create(
-        :lat => res['lat'], \
-        :lng => res['lng'], \
-        :name => res['name'], \
-        :opening => res['opening'], \
-        :closing => res['closing'], \
-        :wifi => res['wifi'].to_s == 'true', \
+        :lat => req['lat'], \
+        :lng => req['lng'], \
+        :name => req['name'], \
+        :opening => req['opening'], \
+        :closing => req['closing'], \
+        :wifi => req['wifi'].to_s == 'true', \
         :rating => 0, \
         :votes => 0 \
       )
@@ -59,10 +60,29 @@ class App < Sinatra::Base
     return Country.all.to_a.to_json
   end
 
-  post '/json/markers' do
-    res = JSON.parse(request.body.read)
 
-    address = Address.find_or_create_by(city: res['city'])
+  post '/json/cities' do
+    req = JSON.parse(request.body.read)
+
+    states = Country.find_by(name: req['country']).states.all.to_a
+
+    cities = []
+
+    states.each do |state|
+      if !state.cities.exists?
+        cities.push(state)
+      else
+        cities += state.cities.all
+      end
+    end
+
+    return cities.to_json
+  end
+
+  post '/json/markers' do
+    req = JSON.parse(request.body.read)
+
+    address = Address.find_or_create_by(city: req['city'])
 
     return address.markers.all.to_a.to_json
   end

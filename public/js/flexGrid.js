@@ -4790,7 +4790,8 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { style: _extends({}, this.style.column, this.props.style) },
+	        { className: this.props.className,
+	          style: _extends({}, this.style.column, this.props.style) },
 	        this.props.children
 	      );
 	    }

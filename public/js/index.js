@@ -4901,7 +4901,8 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { style: _extends({}, this.style.column, this.props.style) },
+	        { className: this.props.className,
+	          style: _extends({}, this.style.column, this.props.style) },
 	        this.props.children
 	      );
 	    }
@@ -4964,6 +4965,8 @@
 	});
 	exports.ListItem = exports.List = undefined;
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -4983,36 +4986,50 @@
 	var List = function (_Component) {
 	  _inherits(List, _Component);
 
-	  function List() {
-	    _classCallCheck(this, List);
-
-	    return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
-	  }
-
 	  _createClass(List, [{
+	    key: 'render',
+
+	    // Render
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _flexGrid.Column,
+	        { style: _extends({}, this.style, this.props.style), className: this.props.className },
+	        this.renderData()
+	      );
+	    }
+
+	    // Helpers
+
+	  }, {
 	    key: 'renderData',
 	    value: function renderData() {
 	      var _this2 = this;
 
 	      return this.props.data.map(function (item, key) {
 	        return _react2.default.createElement(ListItem, {
-	          style: _this2.props.itemStyle,
 	          key: parseInt(key, 10),
 	          data: item,
-	          className: _this2.props.itemClassName
+	          className: _this2.props.classNameItem
 	        });
 	      });
 	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        _flexGrid.Column,
-	        { style: this.props.style, className: this.props.className },
-	        this.renderData()
-	      );
-	    }
+
+	    // Constructor
+
 	  }]);
+
+	  function List() {
+	    _classCallCheck(this, List);
+
+	    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
+
+	    _this.style = {
+	      width: '100%',
+	      backgroundColor: 'white',
+	      borderRadius: '0 0 5px 5px'
+	    };
+	    return _this;
+	  }
 
 	  return List;
 	}(_react.Component);
@@ -5020,22 +5037,38 @@
 	var ListItem = function (_Component2) {
 	  _inherits(ListItem, _Component2);
 
-	  function ListItem() {
-	    _classCallCheck(this, ListItem);
-
-	    return _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).apply(this, arguments));
-	  }
-
 	  _createClass(ListItem, [{
 	    key: 'render',
+
+	    // Render
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'li',
-	        { style: this.props.style, className: this.props.className },
+	        { className: this.props.className,
+	          style: this.style },
 	        this.props.data
 	      );
 	    }
+
+	    // Constructor
+
 	  }]);
+
+	  function ListItem() {
+	    _classCallCheck(this, ListItem);
+
+	    var _this3 = _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call(this));
+
+	    _this3.style = {
+	      padding: '10px 15px',
+	      marginBottom: '-1px',
+	      width: '100%',
+	      borderTop: '1px solid #BDBDBD',
+	      listStyleType: 'none',
+	      textAlign: 'center'
+	    };
+	    return _this3;
+	  }
 
 	  return ListItem;
 	}(_react.Component);
@@ -5077,68 +5110,127 @@
 	var SearchBar = function (_Component) {
 	  _inherits(SearchBar, _Component);
 
-	  function SearchBar() {
-	    _classCallCheck(this, SearchBar);
-
-	    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this));
-
-	    _this.state = {
-	      dropdownVisible: false,
-	      value: ''
-	    };
-	    return _this;
-	  }
-
 	  _createClass(SearchBar, [{
 	    key: 'render',
+
+	    // Render
 	    value: function render() {
 	      return _react2.default.createElement(
 	        _flexGrid.Column,
-	        null,
+	        { className: this.props.className, style: { width: '100%' } },
 	        _react2.default.createElement('input', {
 	          type: 'text',
+	          value: this.props.state,
 	          placeholder: this.props.placeholder,
-	          value: this.value,
-	          style: _extends({}, this.props.style.input, this.generateInputStyle()),
+	          style: this.generateInputStyle(),
+	          className: this.props.classNameInput,
 	          onChange: this.onChange.bind(this),
-	          className: this.props.className.input
+	          onFocus: this.onFocus.bind(this),
+	          onBlur: this.onBlur.bind(this)
 	        }),
 	        _react2.default.createElement(_List.List, {
-	          style: _extends({}, this.generateListStyle(), this.props.style.list),
-	          className: this.props.className.list,
-	          data: this.filteredSuggestions(),
-	          itemStyle: this.props.style.listItem,
-	          itemClassName: this.props.className.listItem
+	          style: this.generateListStyle(),
+	          className: this.props.classNameList,
+	          itemClassName: this.props.classNameItem,
+	          data: this.filteredSuggestions()
 	        })
 	      );
 	    }
-	  }, {
-	    key: 'generateListStyle',
-	    value: function generateListStyle() {
-	      if (this.state.dropdownVisible) {
-	        return { display: 'block' };
-	      } else return { display: 'none' };
-	    }
+
+	    // Event handling
+
 	  }, {
 	    key: 'onChange',
 	    value: function onChange(ev) {
-	      var val = ev.target.value;
-	      this.setState({ value: val });
-	      this.toggleVisibility(val);
+	      this.props.updateState(ev.target.value);
 	    }
+	  }, {
+	    key: 'onFocus',
+	    value: function onFocus() {
+	      if (!this.state.dropdownVisible && this.filteredSuggestions().length != 0) {
+	        this.setState({ dropdownVisible: true });
+	      }
+	    }
+	  }, {
+	    key: 'onBlur',
+	    value: function onBlur(ev) {
+	      var _this2 = this;
+
+	      // Helpers
+	      var correctState = function correctState(store) {
+	        if (!store.filled) {
+	          _this2.props.updateState('');
+	        } else if (store.filled && store.value != _this2.props.state.value) {
+	          _this2.props.updateState(store.value);
+	        }
+	      };
+
+	      // Main
+	      if (this.state.dropdownVisible) {
+	        this.setState({ dropdownVisible: false });
+	      }
+
+	      if (this.state.storeUpdatePromise != null) {
+	        this.state.storeUpdatePromise.then(function (store) {
+	          correctState(store);
+	          _this2.setState({ storeUpdatePromise: null });
+	        });
+	      } else {
+	        correctState(this.props.store);
+	      }
+	    }
+
+	    // Helpers
+
 	  }, {
 	    key: 'filteredSuggestions',
 	    value: function filteredSuggestions() {
-	      var _this2 = this;
+	      var _this3 = this;
 
-	      // Can be more efficient ( have to detect char deletion or insertion ). On insetion use current filtered on deletion use prev filtered
+	      // Can be more efficient ( have to detect char deletion or insertion ).
+	      // On insetion use current filtered on deletion use prev filtered
+
+	      // Helpers
+	      var valueIsPresent = function valueIsPresent(target) {
+	        var t = target.toLowerCase();
+	        var v = _this3.props.state.toLowerCase();
+
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
+
+	        try {
+	          for (var _iterator = v[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	            var l = _step.value;
+
+	            if (!t.includes(l)) return false;
+	          }
+	        } catch (err) {
+	          _didIteratorError = true;
+	          _iteratorError = err;
+	        } finally {
+	          try {
+	            if (!_iteratorNormalCompletion && _iterator.return) {
+	              _iterator.return();
+	            }
+	          } finally {
+	            if (_didIteratorError) {
+	              throw _iteratorError;
+	            }
+	          }
+	        }
+
+	        return true;
+	      };
+
+	      // Main
 	      var counter = 0;
 	      var filtered = [];
 
 	      this.props.suggestions.some(function (_ref) {
 	        var name = _ref.name;
 
-	        if (_this2.valueIsPresent(name)) {
+	        if (valueIsPresent(name)) {
 	          ++counter;
 	          filtered.push(name);
 	        }
@@ -5149,68 +5241,84 @@
 	      return filtered.map(function (item) {
 	        return _react2.default.createElement(
 	          'a',
-	          null,
+	          { onMouseDown: _this3.suggectionSelectionHandler.bind(_this3) },
 	          item
 	        );
 	      });
 	    }
 	  }, {
-	    key: 'valueIsPresent',
-	    value: function valueIsPresent(target) {
-	      var t = target.toLowerCase();
-	      var v = this.state.value.toLowerCase();
-	      var _iteratorNormalCompletion = true;
-	      var _didIteratorError = false;
-	      var _iteratorError = undefined;
+	    key: 'suggectionSelectionHandler',
+	    value: function suggectionSelectionHandler(ev) {
+	      var _this4 = this;
 
-	      try {
-	        for (var _iterator = v[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	          var l = _step.value;
-
-	          if (!t.includes(l)) return false;
-	        }
-	      } catch (err) {
-	        _didIteratorError = true;
-	        _iteratorError = err;
-	      } finally {
-	        try {
-	          if (!_iteratorNormalCompletion && _iterator.return) {
-	            _iterator.return();
-	          }
-	        } finally {
-	          if (_didIteratorError) {
-	            throw _iteratorError;
-	          }
-	        }
-	      }
-
-	      return true;
+	      this.setState({
+	        storeUpdatePromise: new Promise(function (resolve, reject) {
+	          _this4.props.updateStore({ filled: true, value: ev.target.innerHTML });
+	          resolve({ filled: true, value: ev.target.innerHTML });
+	        })
+	      });
 	    }
-	  }, {
-	    key: 'toggleVisibility',
-	    value: function toggleVisibility(value) {
-	      if (value === '') {
-	        this.setState({ dropdownVisible: false });
-	      } else this.setState({ dropdownVisible: true });
-	    }
+
+	    // Style generators
+
 	  }, {
 	    key: 'generateInputStyle',
 	    value: function generateInputStyle() {
-	      var style = { margin: '0 0 -1px 0', borderRadius: '5px', outline: 'none' };
-	      if (this.state.dropdownVisible) {
-	        style.borderRadius = '5px 5px 0 0';
-	      }
+	      var style = _extends({}, this.style, {
+	        margin: '0 0 -1px 0',
+	        borderRadius: '5px',
+	        outline: 'none'
+	      });
+
+	      if (this.state.dropdownVisible) style.borderRadius = '5px 5px 0 0';
 
 	      return style;
 	    }
+	  }, {
+	    key: 'generateListStyle',
+	    value: function generateListStyle() {
+	      if (this.state.dropdownVisible) return { display: 'block' };
+
+	      return { display: 'none' };
+	    }
+
+	    // Constructor
+
 	  }]);
+
+	  function SearchBar() {
+	    _classCallCheck(this, SearchBar);
+
+	    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this));
+
+	    _this.state = {
+	      dropdownVisible: false,
+	      storeUpdatePromise: null
+	    };
+
+	    _this.style = {
+	      width: '100%',
+	      padding: '10px',
+	      textAlign: 'center',
+	      fontSize: '1rem',
+	      border: '1px solid #BDBDBD',
+	      backgroundColor: 'white',
+	      height: '40px'
+	    };
+	    return _this;
+	  }
+
+	  // Default props
+
 
 	  return SearchBar;
 	}(_react.Component);
 
 	SearchBar.defaultProps = {
-	  // Fill defaultProps
-	  className: {}
+	  className: '',
+	  classNameInput: '',
+	  classNameList: '',
+	  classNameItem: ''
 	};
 	exports.default = SearchBar;
 

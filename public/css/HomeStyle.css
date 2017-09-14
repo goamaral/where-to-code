@@ -4,15 +4,19 @@ html {
   background-color: #212121;
 }
 
-.header {
+#header {
   text-align: center;
   color: white;
   margin-bottom: 3rem;
 }
 
-.hero-body {
+#hero-body {
   height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+#searchBars {
+  width: 50vw;
 }

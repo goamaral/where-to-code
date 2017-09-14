@@ -30,7 +30,8 @@ class Column extends Component {
 
   render() {
     return (
-      <div style={{ ...this.style.column, ...this.props.style }}>
+      <div className={this.props.className} 
+       style={{ ...this.style.column, ...this.props.style }}>
         { this.props.children }
       </div>
     );

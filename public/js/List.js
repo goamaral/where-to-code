@@ -4790,7 +4790,8 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { style: _extends({}, this.style.column, this.props.style) },
+	        { className: this.props.className,
+	          style: _extends({}, this.style.column, this.props.style) },
 	        this.props.children
 	      );
 	    }
@@ -4853,6 +4854,8 @@
 	});
 	exports.ListItem = exports.List = undefined;
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(2);
@@ -4872,36 +4875,50 @@
 	var List = function (_Component) {
 	  _inherits(List, _Component);
 
-	  function List() {
-	    _classCallCheck(this, List);
-
-	    return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
-	  }
-
 	  _createClass(List, [{
+	    key: 'render',
+
+	    // Render
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _flexGrid.Column,
+	        { style: _extends({}, this.style, this.props.style), className: this.props.className },
+	        this.renderData()
+	      );
+	    }
+
+	    // Helpers
+
+	  }, {
 	    key: 'renderData',
 	    value: function renderData() {
 	      var _this2 = this;
 
 	      return this.props.data.map(function (item, key) {
 	        return _react2.default.createElement(ListItem, {
-	          style: _this2.props.itemStyle,
 	          key: parseInt(key, 10),
 	          data: item,
-	          className: _this2.props.itemClassName
+	          className: _this2.props.classNameItem
 	        });
 	      });
 	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        _flexGrid.Column,
-	        { style: this.props.style, className: this.props.className },
-	        this.renderData()
-	      );
-	    }
+
+	    // Constructor
+
 	  }]);
+
+	  function List() {
+	    _classCallCheck(this, List);
+
+	    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this));
+
+	    _this.style = {
+	      width: '100%',
+	      backgroundColor: 'white',
+	      borderRadius: '0 0 5px 5px'
+	    };
+	    return _this;
+	  }
 
 	  return List;
 	}(_react.Component);
@@ -4909,22 +4926,38 @@
 	var ListItem = function (_Component2) {
 	  _inherits(ListItem, _Component2);
 
-	  function ListItem() {
-	    _classCallCheck(this, ListItem);
-
-	    return _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).apply(this, arguments));
-	  }
-
 	  _createClass(ListItem, [{
 	    key: 'render',
+
+	    // Render
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'li',
-	        { style: this.props.style, className: this.props.className },
+	        { className: this.props.className,
+	          style: this.style },
 	        this.props.data
 	      );
 	    }
+
+	    // Constructor
+
 	  }]);
+
+	  function ListItem() {
+	    _classCallCheck(this, ListItem);
+
+	    var _this3 = _possibleConstructorReturn(this, (ListItem.__proto__ || Object.getPrototypeOf(ListItem)).call(this));
+
+	    _this3.style = {
+	      padding: '10px 15px',
+	      marginBottom: '-1px',
+	      width: '100%',
+	      borderTop: '1px solid #BDBDBD',
+	      listStyleType: 'none',
+	      textAlign: 'center'
+	    };
+	    return _this3;
+	  }
 
 	  return ListItem;
 	}(_react.Component);
