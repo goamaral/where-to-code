@@ -112,7 +112,7 @@ export default class SearchBar extends Component {
     var style = {
       ...this.style,
       margin: '0 0 -1px 0',
-      borderRadius: '5px',
+      borderRadius: '3px',
       outline: 'none'
     };
 

@@ -49,12 +49,10 @@ class countriesSearchBar extends Component {
             updateStore={payload => { this.updateStore('city', payload) }}
           />
 
-          <div className='row-center'>
-            <a onClick={this.onClickSubmitButton.bind(this)}
-             className="button is-warning full-width">
-              Lets go
-            </a>
-          </div>
+          <a onClick={this.onClickSubmitButton.bind(this)}
+           className="button is-warning full-width">
+            Lets go
+          </a>
         </div>
       </div>
     );

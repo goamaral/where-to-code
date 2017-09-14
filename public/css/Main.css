@@ -1,8 +1,8 @@
 @import "/css/bulma.css";
 
 html body {
-    height: 100vh;
-    width: 100vw;
+  height: 100vh;
+  width: 100vw;
 }
 
 .full-height {
@@ -29,8 +29,6 @@ html body {
   display: block;
 }
 
-.row-center {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+.center {
+  margin: auto;
 }

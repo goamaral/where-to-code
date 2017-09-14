@@ -5266,7 +5266,7 @@
 	    value: function generateInputStyle() {
 	      var style = _extends({}, this.style, {
 	        margin: '0 0 -1px 0',
-	        borderRadius: '5px',
+	        borderRadius: '3px',
 	        outline: 'none'
 	      });
 

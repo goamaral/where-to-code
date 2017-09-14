@@ -4837,14 +4837,10 @@
 	            }
 	          }),
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'row-center' },
-	            _react2.default.createElement(
-	              'a',
-	              { onClick: this.onClickSubmitButton.bind(this),
-	                className: 'button is-warning full-width' },
-	              'Lets go'
-	            )
+	            'a',
+	            { onClick: this.onClickSubmitButton.bind(this),
+	              className: 'button is-warning full-width' },
+	            'Lets go'
 	          )
 	        )
 	      );
@@ -24475,7 +24471,7 @@
 	    value: function generateInputStyle() {
 	      var style = _extends({}, this.style, {
 	        margin: '0 0 -1px 0',
-	        borderRadius: '5px',
+	        borderRadius: '3px',
 	        outline: 'none'
 	      });
 
