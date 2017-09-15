@@ -87,8 +87,6 @@ class App < Sinatra::Base
       country: req['country'] \
     )
 
-    puts address.to_s + "\n"
-
     return address.markers.all.to_a.to_json
   end
 end
