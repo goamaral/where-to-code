@@ -22858,11 +22858,9 @@
 
 	var _data = __webpack_require__(223);
 
-	var _LocationStyle = __webpack_require__(224);
-
 	var _helpers = __webpack_require__(217);
 
-	var _animation = __webpack_require__(225);
+	var _animation = __webpack_require__(224);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23061,8 +23059,9 @@
 	                closing: closingHour.value,
 	                wifi: wifiAvailable.checked
 	              }).then(function (res) {
-	                global.store.newMarker.setMap(null);
-	                global.updateStore({ addingMarker: false, newMarker: null, markers: null });
+	                global.updateStore({ addingMarker: false, newMarker: null });
+	                removeMarkersFromMap();
+	                updateMapMarkers();
 	              });
 	            }
 	          });
@@ -23099,6 +23098,74 @@
 	  }
 	}
 
+	function removeMarkersFromMap() {
+	  var _iteratorNormalCompletion3 = true;
+	  var _didIteratorError3 = false;
+	  var _iteratorError3 = undefined;
+
+	  try {
+	    for (var _iterator3 = global.store.markers[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	      var marker = _step3.value;
+
+	      marker.setMap(null);
+	    }
+	  } catch (err) {
+	    _didIteratorError3 = true;
+	    _iteratorError3 = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion3 && _iterator3.return) {
+	        _iterator3.return();
+	      }
+	    } finally {
+	      if (_didIteratorError3) {
+	        throw _iteratorError3;
+	      }
+	    }
+	  }
+	}
+
+	function addMarkersToMap() {
+	  var _iteratorNormalCompletion4 = true;
+	  var _didIteratorError4 = false;
+	  var _iteratorError4 = undefined;
+
+	  try {
+	    for (var _iterator4 = global.store.markers[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+	      var m = _step4.value;
+
+	      var coor = {
+	        lat: m.lat,
+	        lng: m.lng
+	      };
+
+	      new google.maps.Marker({
+	        position: coor,
+	        map: global.store.map
+	      });
+	    }
+	  } catch (err) {
+	    _didIteratorError4 = true;
+	    _iteratorError4 = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion4 && _iterator4.return) {
+	        _iterator4.return();
+	      }
+	    } finally {
+	      if (_didIteratorError4) {
+	        throw _iteratorError4;
+	      }
+	    }
+	  }
+	}
+
+	function updateMapMarkers() {
+	  fetchMarkers().then(function () {
+	    addMarkersToMap();
+	  });
+	}
+
 	function displayWarning(elem, msg) {
 	  elem.innerHTML = '';
 
@@ -23130,10 +23197,15 @@
 	            lng: res[0].geometry.location.lng()
 	          };
 
+	          var features = [{
+	            "featureType": "poi",
+	            "stylers": [{ "visibility": "off" }]
+	          }];
+
 	          var map = new google.maps.Map(div, {
 	            zoom: zoom,
 	            center: coord,
-	            styles: _LocationStyle.CustomFeatures
+	            styles: features
 	          });
 
 	          global.updateStore({ map: map });
@@ -23163,27 +23235,27 @@
 	}
 
 	function appendChildren(parent, nodes) {
-	  var _iteratorNormalCompletion3 = true;
-	  var _didIteratorError3 = false;
-	  var _iteratorError3 = undefined;
+	  var _iteratorNormalCompletion5 = true;
+	  var _didIteratorError5 = false;
+	  var _iteratorError5 = undefined;
 
 	  try {
-	    for (var _iterator3 = nodes[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-	      var node = _step3.value;
+	    for (var _iterator5 = nodes[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+	      var node = _step5.value;
 
 	      parent.appendChild(node);
 	    }
 	  } catch (err) {
-	    _didIteratorError3 = true;
-	    _iteratorError3 = err;
+	    _didIteratorError5 = true;
+	    _iteratorError5 = err;
 	  } finally {
 	    try {
-	      if (!_iteratorNormalCompletion3 && _iterator3.return) {
-	        _iterator3.return();
+	      if (!_iteratorNormalCompletion5 && _iterator5.return) {
+	        _iterator5.return();
 	      }
 	    } finally {
-	      if (_didIteratorError3) {
-	        throw _iteratorError3;
+	      if (_didIteratorError5) {
+	        throw _iteratorError5;
 	      }
 	    }
 	  }
@@ -23234,43 +23306,8 @@
 	      }
 	    });
 
-	    // Fetch markers
-	    fetchMarkers().then(function () {
-	      if (global.store.markers.length != 0) {
-	        var _iteratorNormalCompletion4 = true;
-	        var _didIteratorError4 = false;
-	        var _iteratorError4 = undefined;
-
-	        try {
-	          for (var _iterator4 = global.store.markers[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-	            var m = _step4.value;
-
-	            var coor = {
-	              lat: m.lat,
-	              lng: m.lng
-	            };
-
-	            new google.maps.Marker({
-	              position: coor,
-	              map: global.store.map
-	            });
-	          }
-	        } catch (err) {
-	          _didIteratorError4 = true;
-	          _iteratorError4 = err;
-	        } finally {
-	          try {
-	            if (!_iteratorNormalCompletion4 && _iterator4.return) {
-	              _iterator4.return();
-	            }
-	          } finally {
-	            if (_didIteratorError4) {
-	              throw _iteratorError4;
-	            }
-	          }
-	        }
-	      }
-	    });
+	    // Fetch and add markers
+	    updateMapMarkers();
 	  });
 	};
 
@@ -23282,20 +23319,6 @@
 
 /***/ }),
 /* 224 */
-/***/ (function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var CustomFeatures = exports.CustomFeatures = [{
-	  "featureType": "poi",
-	  "stylers": [{ "visibility": "off" }]
-	}];
-
-/***/ }),
-/* 225 */
 /***/ (function(module, exports) {
 
 	'use strict';

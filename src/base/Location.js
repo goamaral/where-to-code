@@ -3,7 +3,6 @@ import React from 'react';
 
 import { googleApiKey } from 'config';
 import { greenMarker } from 'data';
-import { CustomFeatures } from 'style/LocationStyle';
 import { reactNodeToNativeNode } from 'helpers';
 import { fade } from 'animation';
 
@@ -168,8 +167,9 @@ function submitClickHandler() {
                 closing: closingHour.value,
                 wifi: wifiAvailable.checked
               }).then((res) => {
-                global.store.newMarker.setMap(null);
-                global.updateStore({ addingMarker: false, newMarker: null, markers: null });
+                global.updateStore({ addingMarker: false, newMarker: null });
+                removeMarkersFromMap();
+                updateMapMarkers();
               });
             }
           });
@@ -183,6 +183,33 @@ function submitClickHandler() {
       if (warn == 'name') displayWarning(nameWarning, 'Fill the spot name');
     }
   }
+}
+
+function removeMarkersFromMap() {
+  for (var marker of global.store.markers) {
+    marker.setMap(null);
+  }
+}
+
+function addMarkersToMap() {
+  for (var m of global.store.markers) {
+    var coor = {
+      lat: m.lat,
+      lng: m.lng
+    }
+
+    new google.maps.Marker({
+        position: coor,
+        map: global.store.map
+      });
+  }
+}
+
+function updateMapMarkers(){
+  fetchMarkers()
+    .then(() => {
+      addMarkersToMap();
+    });
 }
 
 function displayWarning(elem, msg) {
@@ -216,10 +243,19 @@ function loadMap() {
             lng: res[0].geometry.location.lng()
           };
 
+          var features = [
+            {
+              "featureType": "poi",
+              "stylers": [
+                { "visibility": "off" }
+              ]
+            }
+          ];
+
           var map = new google.maps.Map(div, {
             zoom: zoom,
             center: coord,
-            styles: CustomFeatures
+            styles: features
           });
 
           global.updateStore({ map: map });
@@ -273,50 +309,35 @@ window.onload = function() {
 
   // Google map
     loadMap()
-    .then(() => {
-    // Google map click event listener
-    global.store.map.addListener('click', ev => {
-      if (global.store.addingMarker) {
-        if (global.store.map.getZoom() >= 17) {
-          var coor = {
-            lat: ev.latLng.lat(),
-            lng: ev.latLng.lng()
-          };
-
-          var marker = new google.maps.Marker({
-              icon: greenMarker,
-              position: coor,
-              map: global.store.map
-          });
-
-          if (global.store.newMarker != null) {
-            global.store.newMarker.setMap(null);
-          }
-
-          global.updateStore({ newMarker: marker });
-        } else {
-          var mapWarning = document.getElementById('mapWarning');
-          displayWarning(mapWarning, 'Please zoom for more acurate marking');
-        }
-      }
-    });
-
-    // Fetch markers
-    fetchMarkers()
       .then(() => {
-        if (global.store.markers.length != 0) {
-          for (var m of global.store.markers) {
-            var coor = {
-              lat: m.lat,
-              lng: m.lng
-            }
+        // Google map click event listener
+        global.store.map.addListener('click', ev => {
+          if (global.store.addingMarker) {
+            if (global.store.map.getZoom() >= 17) {
+              var coor = {
+                lat: ev.latLng.lat(),
+                lng: ev.latLng.lng()
+              };
 
-            new google.maps.Marker({
-                position: coor,
-                map: global.store.map
+              var marker = new google.maps.Marker({
+                  icon: greenMarker,
+                  position: coor,
+                  map: global.store.map
               });
+
+              if (global.store.newMarker != null) {
+                global.store.newMarker.setMap(null);
+              }
+
+              global.updateStore({ newMarker: marker });
+            } else {
+              var mapWarning = document.getElementById('mapWarning');
+              displayWarning(mapWarning, 'Please zoom for more acurate marking');
+            }
           }
-        }
-      });
+        });
+
+        // Fetch and add markers
+        updateMapMarkers();
   });
 }
