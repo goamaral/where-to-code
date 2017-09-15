@@ -22656,9 +22656,11 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-	exports.reactNodeToNativeNode = undefined;
+	exports.Store = exports.appendChildren = exports.reactNodeToNativeNode = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _react = __webpack_require__(2);
 
@@ -22671,11 +22673,48 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var reactNodeToNativeNode = exports.reactNodeToNativeNode = function reactNodeToNativeNode(reactNode) {
-	    var html = _server2.default.renderToStaticMarkup(_react2.default.createElement(reactNode)),
-	        t = document.createElement('template');
-	    t.innerHTML = html;
+	  var html = _server2.default.renderToStaticMarkup(_react2.default.createElement(reactNode)),
+	      t = document.createElement('template');
+	  t.innerHTML = html;
 
-	    return t.content.firstChild;
+	  return t.content.firstChild;
+	};
+
+	var appendChildren = exports.appendChildren = function appendChildren(parent, nodes) {
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var node = _step.value;
+
+	      parent.appendChild(node);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+	};
+
+	var Store = exports.Store = function Store() {
+	  var base = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	  this.store = base;
+
+	  this.updateStore = function (obj) {
+	    this.store = _extends({}, this.store, obj);
+	  };
 	};
 
 /***/ }),
@@ -22844,8 +22883,6 @@
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _axios = __webpack_require__(186);
 
 	var _axios2 = _interopRequireDefault(_axios);
@@ -22864,102 +22901,69 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function Global() {
-	  this.store = {
-	    map: null,
-	    newMarker: null,
-	    addingMarker: false,
-	    markers: null,
-	    mapMarkers: null
-	  };
+	// Global store
+	var global = new _helpers.Store({
+	  map: null,
+	  newMarker: null,
+	  addingMarker: false,
+	  markers: null,
+	  mapMarkers: null
+	});
 
-	  this.updateStore = function (obj) {
-	    this.store = _extends({}, this.store, obj);
-	  };
-	}
+	window.onload = function () {
+	  // Elements
+	  var mapModeButton = document.getElementById('mapMode'),
+	      openingHourSelect = document.getElementById('openingHour'),
+	      closingHourSelect = document.getElementById('closingHour'),
+	      submitButton = document.getElementById('submit'),
+	      googleMap = document.getElementsByTagName('googleMap')[0];
 
-	// Global variables object
-	var global = new Global();
+	  // Generate hours options
+	  (0, _helpers.appendChildren)(openingHourSelect, generateHours());
+	  (0, _helpers.appendChildren)(closingHourSelect, generateHours());
 
-	function updateTableMarkers() {
-	  var tbody = placeList.childNodes[1].childNodes[3];
+	  // Buttons click event listeners
+	  mapModeButton.onclick = toggleSpotFormDisplay;
+	  submitButton.onclick = submitClickHandler;
 
-	  while (tbody.firstChild) {
-	    tbody.removeChild(tbody.firstChild);
-	  }
+	  // Google map
+	  loadMap().then(function () {
+	    // Google map click event listener
+	    global.store.map.addListener('click', function (ev) {
+	      if (global.store.addingMarker) {
+	        if (global.store.map.getZoom() >= 17) {
+	          var coor = {
+	            lat: ev.latLng.lat(),
+	            lng: ev.latLng.lng()
+	          };
 
-	  if (global.store.markers != null && global.store.markers.length != 0) {
-	    var _iteratorNormalCompletion = true;
-	    var _didIteratorError = false;
-	    var _iteratorError = undefined;
+	          var marker = new google.maps.Marker({
+	            icon: _data.greenMarker,
+	            position: coor,
+	            map: global.store.map
+	          });
 
-	    try {
-	      for (var _iterator = global.store.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	        var m = _step.value;
+	          if (global.store.newMarker != null) {
+	            global.store.newMarker.setMap(null);
+	          }
 
-
-	        var data = function data() {
-	          return _react2.default.createElement(
-	            'tr',
-	            null,
-	            _react2.default.createElement(
-	              'td',
-	              null,
-	              m.name
-	            ),
-	            _react2.default.createElement(
-	              'td',
-	              null,
-	              m.opening.toString() + ' - ' + m.closing.toString()
-	            ),
-	            _react2.default.createElement(
-	              'td',
-	              null,
-	              wifiIcon(m)
-	            ),
-	            _react2.default.createElement(
-	              'td',
-	              null,
-	              spotRating(m)
-	            )
-	          );
-	        };
-
-	        tbody.appendChild((0, _helpers.reactNodeToNativeNode)(data));
-	      }
-	    } catch (err) {
-	      _didIteratorError = true;
-	      _iteratorError = err;
-	    } finally {
-	      try {
-	        if (!_iteratorNormalCompletion && _iterator.return) {
-	          _iterator.return();
-	        }
-	      } finally {
-	        if (_didIteratorError) {
-	          throw _iteratorError;
+	          global.updateStore({ newMarker: marker });
+	        } else {
+	          var mapWarning = document.getElementById('mapWarning');
+	          displayWarning(mapWarning, 'Please zoom for more acurate marking');
 	        }
 	      }
-	    }
-	  }
+	    });
 
-	  // Spot rating function
-	  function spotRating(marker) {
-	    if (marker.rating == 0) {
-	      return 'No rating';
-	    } else {
-	      return marker.rating.toFixed(1).toString() + ' / 5.0';
-	    }
-	  }
+	    // Fetch and add markers
+	    fetchMarkers().then(function () {
+	      updateMapMarkers();
+	      updateTableMarkers();
+	    });
+	  });
+	};
 
-	  // Wifi image
-	  function wifiIcon(marker) {
-	    if (marker.wifi) {
-	      return _react2.default.createElement('i', { className: 'fa fa-check fa-fw' });
-	    }
-	  }
-	}
-
+	// Form helpers
 	function generateHours() {
 	  var numbers = [],
 	      out = [];
@@ -23045,6 +23049,8 @@
 
 	                toggleSpotFormDisplay();
 
+	                clearSpotForm();
+
 	                fetchMarkers().then(function () {
 	                  updateMapMarkers();
 	                  updateTableMarkers();
@@ -23058,43 +23064,123 @@
 	      displayWarning(mapWarning, 'Marker not placed');
 	    }
 	  } else {
-	    var _iteratorNormalCompletion2 = true;
-	    var _didIteratorError2 = false;
-	    var _iteratorError2 = undefined;
+	    var _iteratorNormalCompletion = true;
+	    var _didIteratorError = false;
+	    var _iteratorError = undefined;
 
 	    try {
-	      for (var _iterator2 = warnings[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	        var warn = _step2.value;
+	      for (var _iterator = warnings[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	        var warn = _step.value;
 
 	        if (warn == 'name') displayWarning(nameWarning, 'Fill the spot name');
 	      }
 	    } catch (err) {
-	      _didIteratorError2 = true;
-	      _iteratorError2 = err;
+	      _didIteratorError = true;
+	      _iteratorError = err;
 	    } finally {
 	      try {
-	        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	          _iterator2.return();
+	        if (!_iteratorNormalCompletion && _iterator.return) {
+	          _iterator.return();
 	        }
 	      } finally {
-	        if (_didIteratorError2) {
-	          throw _iteratorError2;
+	        if (_didIteratorError) {
+	          throw _iteratorError;
 	        }
 	      }
 	    }
 	  }
 	}
 
-	function removeMarkersFromMap() {
+	function clearSpotForm() {
+	  var placeForm = document.getElementById('placeForm');
+
+	  var parents = [];
+
+	  var _iteratorNormalCompletion2 = true;
+	  var _didIteratorError2 = false;
+	  var _iteratorError2 = undefined;
+
+	  try {
+	    for (var _iterator2 = placeForm.children[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	      var node = _step2.value;
+
+	      if (node.className == 'mb1') {
+	        parents.push(node);
+	      }
+	    }
+	  } catch (err) {
+	    _didIteratorError2 = true;
+	    _iteratorError2 = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	        _iterator2.return();
+	      }
+	    } finally {
+	      if (_didIteratorError2) {
+	        throw _iteratorError2;
+	      }
+	    }
+	  }
+
 	  var _iteratorNormalCompletion3 = true;
 	  var _didIteratorError3 = false;
 	  var _iteratorError3 = undefined;
 
 	  try {
-	    for (var _iterator3 = global.store.mapMarkers[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-	      var marker = _step3.value;
+	    for (var _iterator3 = parents[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	      var node = _step3.value;
+	      var _iteratorNormalCompletion4 = true;
+	      var _didIteratorError4 = false;
+	      var _iteratorError4 = undefined;
 
-	      marker.setMap(null);
+	      try {
+	        for (var _iterator4 = node.children[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+	          var node2 = _step4.value;
+
+	          if (node2.className == 'input') {
+	            node2.value = '';
+	          }if (node2.className == 'columns') {
+	            var _iteratorNormalCompletion5 = true;
+	            var _didIteratorError5 = false;
+	            var _iteratorError5 = undefined;
+
+	            try {
+	              for (var _iterator5 = node2.children[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+	                var node3 = _step5.value;
+
+	                console.log(node3.children[0].children);
+	              }
+	            } catch (err) {
+	              _didIteratorError5 = true;
+	              _iteratorError5 = err;
+	            } finally {
+	              try {
+	                if (!_iteratorNormalCompletion5 && _iterator5.return) {
+	                  _iterator5.return();
+	                }
+	              } finally {
+	                if (_didIteratorError5) {
+	                  throw _iteratorError5;
+	                }
+	              }
+	            }
+	          }
+	        }
+	      } catch (err) {
+	        _didIteratorError4 = true;
+	        _iteratorError4 = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion4 && _iterator4.return) {
+	            _iterator4.return();
+	          }
+	        } finally {
+	          if (_didIteratorError4) {
+	            throw _iteratorError4;
+	          }
+	        }
+	      }
 	    }
 	  } catch (err) {
 	    _didIteratorError3 = true;
@@ -23112,16 +23198,56 @@
 	  }
 	}
 
+	function displayWarning(elem, msg) {
+	  elem.innerHTML = '';
+
+	  var label = document.createElement('label');
+	  label.innerHTML = msg;
+	  label.style.color = '#ff3333';
+
+	  elem.appendChild(label);
+
+	  (0, _animation.fade)(elem, 3000, 500);
+	}
+
+	// Map helpers
+	function removeMarkersFromMap() {
+	  var _iteratorNormalCompletion6 = true;
+	  var _didIteratorError6 = false;
+	  var _iteratorError6 = undefined;
+
+	  try {
+	    for (var _iterator6 = global.store.mapMarkers[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+	      var marker = _step6.value;
+
+	      marker.setMap(null);
+	    }
+	  } catch (err) {
+	    _didIteratorError6 = true;
+	    _iteratorError6 = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion6 && _iterator6.return) {
+	        _iterator6.return();
+	      }
+	    } finally {
+	      if (_didIteratorError6) {
+	        throw _iteratorError6;
+	      }
+	    }
+	  }
+	}
+
 	function updateMapMarkers() {
 	  var mapMarkers = [];
 
-	  var _iteratorNormalCompletion4 = true;
-	  var _didIteratorError4 = false;
-	  var _iteratorError4 = undefined;
+	  var _iteratorNormalCompletion7 = true;
+	  var _didIteratorError7 = false;
+	  var _iteratorError7 = undefined;
 
 	  try {
-	    for (var _iterator4 = global.store.markers[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-	      var m = _step4.value;
+	    for (var _iterator7 = global.store.markers[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+	      var m = _step7.value;
 
 	      var coor = {
 	        lat: parseFloat(m.lat),
@@ -23134,50 +23260,21 @@
 	      }));
 	    }
 	  } catch (err) {
-	    _didIteratorError4 = true;
-	    _iteratorError4 = err;
+	    _didIteratorError7 = true;
+	    _iteratorError7 = err;
 	  } finally {
 	    try {
-	      if (!_iteratorNormalCompletion4 && _iterator4.return) {
-	        _iterator4.return();
+	      if (!_iteratorNormalCompletion7 && _iterator7.return) {
+	        _iterator7.return();
 	      }
 	    } finally {
-	      if (_didIteratorError4) {
-	        throw _iteratorError4;
+	      if (_didIteratorError7) {
+	        throw _iteratorError7;
 	      }
 	    }
 	  }
 
 	  global.updateStore({ mapMarkers: mapMarkers });
-	}
-
-	function fetchMarkers() {
-	  var location = document.title.replace(' ', '').split(','),
-	      placeList = document.getElementById('placeList');
-
-	  var params = {
-	    city: location[0],
-	    country: location[1]
-	  };
-
-	  return new Promise(function (resolve, reject) {
-	    _axios2.default.post('/json/markers', params).then(function (res) {
-	      global.updateStore({ markers: res.data });
-	      resolve();
-	    });
-	  });
-	}
-
-	function displayWarning(elem, msg) {
-	  elem.innerHTML = '';
-
-	  var label = document.createElement('label');
-	  label.innerHTML = msg;
-	  label.style.color = '#ff3333';
-
-	  elem.appendChild(label);
-
-	  (0, _animation.fade)(elem, 3000, 500);
 	}
 
 	function loadMap() {
@@ -23236,85 +23333,102 @@
 	  }
 	}
 
-	function appendChildren(parent, nodes) {
-	  var _iteratorNormalCompletion5 = true;
-	  var _didIteratorError5 = false;
-	  var _iteratorError5 = undefined;
+	// General helpers
+	function fetchMarkers() {
+	  var location = document.title.replace(' ', '').split(','),
+	      placeList = document.getElementById('placeList');
 
-	  try {
-	    for (var _iterator5 = nodes[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-	      var node = _step5.value;
+	  var params = {
+	    city: location[0],
+	    country: location[1]
+	  };
 
-	      parent.appendChild(node);
-	    }
-	  } catch (err) {
-	    _didIteratorError5 = true;
-	    _iteratorError5 = err;
-	  } finally {
+	  return new Promise(function (resolve, reject) {
+	    _axios2.default.post('/json/markers', params).then(function (res) {
+	      global.updateStore({ markers: res.data });
+	      resolve();
+	    });
+	  });
+	}
+
+	function updateTableMarkers() {
+	  var tbody = placeList.childNodes[1].childNodes[3];
+
+	  while (tbody.firstChild) {
+	    tbody.removeChild(tbody.firstChild);
+	  }
+
+	  if (global.store.markers != null && global.store.markers.length != 0) {
+	    var _iteratorNormalCompletion8 = true;
+	    var _didIteratorError8 = false;
+	    var _iteratorError8 = undefined;
+
 	    try {
-	      if (!_iteratorNormalCompletion5 && _iterator5.return) {
-	        _iterator5.return();
+	      for (var _iterator8 = global.store.markers[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+	        var m = _step8.value;
+
+
+	        var data = function data() {
+	          return _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              m.name
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              m.opening.toString() + ' - ' + m.closing.toString()
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              wifiIcon(m)
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              spotRating(m)
+	            )
+	          );
+	        };
+
+	        tbody.appendChild((0, _helpers.reactNodeToNativeNode)(data));
 	      }
+	    } catch (err) {
+	      _didIteratorError8 = true;
+	      _iteratorError8 = err;
 	    } finally {
-	      if (_didIteratorError5) {
-	        throw _iteratorError5;
+	      try {
+	        if (!_iteratorNormalCompletion8 && _iterator8.return) {
+	          _iterator8.return();
+	        }
+	      } finally {
+	        if (_didIteratorError8) {
+	          throw _iteratorError8;
+	        }
 	      }
 	    }
 	  }
+
+	  // Spot rating function
+	  function spotRating(marker) {
+	    if (marker.rating == 0) {
+	      return 'No rating';
+	    } else {
+	      return marker.rating.toFixed(1).toString() + ' / 5.0';
+	    }
+	  }
+
+	  // Wifi image
+	  function wifiIcon(marker) {
+	    if (marker.wifi) {
+	      return _react2.default.createElement('i', { className: 'fa fa-check fa-fw' });
+	    }
+	  }
 	}
-
-	window.onload = function () {
-	  // Elements
-	  var mapModeButton = document.getElementById('mapMode'),
-	      openingHourSelect = document.getElementById('openingHour'),
-	      closingHourSelect = document.getElementById('closingHour'),
-	      submitButton = document.getElementById('submit'),
-	      googleMap = document.getElementsByTagName('googleMap')[0];
-
-	  // Generate hours options
-	  appendChildren(openingHourSelect, generateHours());
-	  appendChildren(closingHourSelect, generateHours());
-
-	  // Buttons click event listeners
-	  mapModeButton.onclick = toggleSpotFormDisplay;
-	  submitButton.onclick = submitClickHandler;
-
-	  // Google map
-	  loadMap().then(function () {
-	    // Google map click event listener
-	    global.store.map.addListener('click', function (ev) {
-	      if (global.store.addingMarker) {
-	        if (global.store.map.getZoom() >= 17) {
-	          var coor = {
-	            lat: ev.latLng.lat(),
-	            lng: ev.latLng.lng()
-	          };
-
-	          var marker = new google.maps.Marker({
-	            icon: _data.greenMarker,
-	            position: coor,
-	            map: global.store.map
-	          });
-
-	          if (global.store.newMarker != null) {
-	            global.store.newMarker.setMap(null);
-	          }
-
-	          global.updateStore({ newMarker: marker });
-	        } else {
-	          var mapWarning = document.getElementById('mapWarning');
-	          displayWarning(mapWarning, 'Please zoom for more acurate marking');
-	        }
-	      }
-	    });
-
-	    // Fetch and add markers
-	    fetchMarkers().then(function () {
-	      updateMapMarkers();
-	      updateTableMarkers();
-	    });
-	  });
-	};
 
 /***/ }),
 /* 223 */

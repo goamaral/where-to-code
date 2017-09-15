@@ -24540,9 +24540,11 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
-	exports.reactNodeToNativeNode = undefined;
+	exports.Store = exports.appendChildren = exports.reactNodeToNativeNode = undefined;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _react = __webpack_require__(2);
 
@@ -24555,11 +24557,48 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var reactNodeToNativeNode = exports.reactNodeToNativeNode = function reactNodeToNativeNode(reactNode) {
-	    var html = _server2.default.renderToStaticMarkup(_react2.default.createElement(reactNode)),
-	        t = document.createElement('template');
-	    t.innerHTML = html;
+	  var html = _server2.default.renderToStaticMarkup(_react2.default.createElement(reactNode)),
+	      t = document.createElement('template');
+	  t.innerHTML = html;
 
-	    return t.content.firstChild;
+	  return t.content.firstChild;
+	};
+
+	var appendChildren = exports.appendChildren = function appendChildren(parent, nodes) {
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = nodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var node = _step.value;
+
+	      parent.appendChild(node);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+	};
+
+	var Store = exports.Store = function Store() {
+	  var base = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	  this.store = base;
+
+	  this.updateStore = function (obj) {
+	    this.store = _extends({}, this.store, obj);
+	  };
 	};
 
 /***/ }),
