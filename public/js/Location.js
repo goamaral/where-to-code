@@ -22869,7 +22869,8 @@
 	    map: null,
 	    newMarker: null,
 	    addingMarker: false,
-	    markers: null
+	    markers: null,
+	    mapMarkers: null
 	  };
 
 	  this.updateStore = function (obj) {
@@ -22880,108 +22881,83 @@
 	// Global variables object
 	var global = new Global();
 
-	function fetchMarkers() {
-	  var location = document.title.replace(' ', '').split(','),
-	      placeList = document.getElementById('placeList');
+	function updateTableMarkers() {
+	  var tbody = placeList.childNodes[1].childNodes[3];
 
-	  var params = {
-	    city: location[0],
-	    country: location[1]
-	  };
+	  while (tbody.firstChild) {
+	    tbody.removeChild(tbody.firstChild);
+	  }
 
-	  return new Promise(function (resolve, reject) {
-	    _axios2.default.post('/json/markers', params).then(function (res) {
-	      var markers = [];
-	      var tbody = placeList.childNodes[1].childNodes[3];
+	  if (global.store.markers != null && global.store.markers.length != 0) {
+	    var _iteratorNormalCompletion = true;
+	    var _didIteratorError = false;
+	    var _iteratorError = undefined;
 
-	      while (tbody.firstChild) {
-	        tbody.removeChild(tbody.firstChild);
+	    try {
+	      for (var _iterator = global.store.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	        var m = _step.value;
+
+
+	        var data = function data() {
+	          return _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              m.name
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              m.opening.toString() + ' - ' + m.closing.toString()
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              wifiIcon(m)
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              spotRating(m)
+	            )
+	          );
+	        };
+
+	        tbody.appendChild((0, _helpers.reactNodeToNativeNode)(data));
 	      }
-
-	      console.log(res);
-
-	      if (res.data.length > 0) {
-	        var _iteratorNormalCompletion = true;
-	        var _didIteratorError = false;
-	        var _iteratorError = undefined;
-
-	        try {
-	          for (var _iterator = res.data.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	            var m = _step.value;
-
-	            m = JSON.parse(m);
-	            m = _extends({}, m, { lat: parseFloat(m.lat), lng: parseFloat(m.lng) });
-	            markers.push(m);
-
-	            var data = function data() {
-	              return _react2.default.createElement(
-	                'tr',
-	                null,
-	                _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  m.name
-	                ),
-	                _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  m.opening.toString() + ' - ' + m.closing.toString()
-	                ),
-	                _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  wifiImage()
-	                ),
-	                _react2.default.createElement(
-	                  'td',
-	                  null,
-	                  spotRating()
-	                )
-	              );
-	            };
-
-	            tbody.appendChild((0, _helpers.reactNodeToNativeNode)(data));
-	          }
-	        } catch (err) {
-	          _didIteratorError = true;
-	          _iteratorError = err;
-	        } finally {
-	          try {
-	            if (!_iteratorNormalCompletion && _iterator.return) {
-	              _iterator.return();
-	            }
-	          } finally {
-	            if (_didIteratorError) {
-	              throw _iteratorError;
-	            }
-	          }
+	    } catch (err) {
+	      _didIteratorError = true;
+	      _iteratorError = err;
+	    } finally {
+	      try {
+	        if (!_iteratorNormalCompletion && _iterator.return) {
+	          _iterator.return();
+	        }
+	      } finally {
+	        if (_didIteratorError) {
+	          throw _iteratorError;
 	        }
 	      }
+	    }
+	  }
 
-	      global.updateStore({ markers: markers });
+	  // Spot rating function
+	  function spotRating(marker) {
+	    if (marker.rating == 0) {
+	      return 'No rating';
+	    } else {
+	      return marker.rating.toFixed(1).toString() + ' / 5.0';
+	    }
+	  }
 
-	      resolve();
-
-	      // Spot rating function
-	      function spotRating() {
-	        if (m.rating == 0) {
-	          return 'No rating';
-	        } else {
-	          return m.rating.toFixed(1).toString() + ' / 5.0';
-	        }
-	      }
-
-	      // Wifi image
-	      function wifiImage() {
-	        if (m.wifi) {
-	          return _react2.default.createElement('img', {
-	            src: 'https://d30y9cdsu7xlg0.cloudfront.net/png/6156-200.png',
-	            style: { height: '30px' }
-	          });
-	        }
-	      }
-	    });
-	  });
+	  // Wifi image
+	  function wifiIcon(marker) {
+	    if (marker.wifi) {
+	      return _react2.default.createElement('i', { className: 'fa fa-check fa-fw' });
+	    }
+	  }
 	}
 
 	function generateHours() {
@@ -23049,7 +23025,7 @@
 
 	              var city = res[0].address_components[count - 1].long_name;
 
-	              _axios2.default.post('/marker', {
+	              var data = {
 	                country: country,
 	                city: city,
 	                lat: location.lat().toString(),
@@ -23058,10 +23034,21 @@
 	                opening: openingHour.value,
 	                closing: closingHour.value,
 	                wifi: wifiAvailable.checked
-	              }).then(function (res) {
-	                global.updateStore({ addingMarker: false, newMarker: null });
+	              };
+
+	              _axios2.default.post('/marker', data).then(function (res) {
+	                global.store.newMarker.setMap(null);
+
+	                global.updateStore({ newMarker: null });
+
 	                removeMarkersFromMap();
-	                updateMapMarkers();
+
+	                toggleSpotFormDisplay();
+
+	                fetchMarkers().then(function () {
+	                  updateMapMarkers();
+	                  updateTableMarkers();
+	                });
 	              });
 	            }
 	          });
@@ -23104,7 +23091,7 @@
 	  var _iteratorError3 = undefined;
 
 	  try {
-	    for (var _iterator3 = global.store.markers[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	    for (var _iterator3 = global.store.mapMarkers[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
 	      var marker = _step3.value;
 
 	      marker.setMap(null);
@@ -23125,7 +23112,9 @@
 	  }
 	}
 
-	function addMarkersToMap() {
+	function updateMapMarkers() {
+	  var mapMarkers = [];
+
 	  var _iteratorNormalCompletion4 = true;
 	  var _didIteratorError4 = false;
 	  var _iteratorError4 = undefined;
@@ -23135,14 +23124,14 @@
 	      var m = _step4.value;
 
 	      var coor = {
-	        lat: m.lat,
-	        lng: m.lng
+	        lat: parseFloat(m.lat),
+	        lng: parseFloat(m.lng)
 	      };
 
-	      new google.maps.Marker({
+	      mapMarkers.push(new google.maps.Marker({
 	        position: coor,
 	        map: global.store.map
-	      });
+	      }));
 	    }
 	  } catch (err) {
 	    _didIteratorError4 = true;
@@ -23158,11 +23147,24 @@
 	      }
 	    }
 	  }
+
+	  global.updateStore({ mapMarkers: mapMarkers });
 	}
 
-	function updateMapMarkers() {
-	  fetchMarkers().then(function () {
-	    addMarkersToMap();
+	function fetchMarkers() {
+	  var location = document.title.replace(' ', '').split(','),
+	      placeList = document.getElementById('placeList');
+
+	  var params = {
+	    city: location[0],
+	    country: location[1]
+	  };
+
+	  return new Promise(function (resolve, reject) {
+	    _axios2.default.post('/json/markers', params).then(function (res) {
+	      global.updateStore({ markers: res.data });
+	      resolve();
+	    });
 	  });
 	}
 
@@ -23307,7 +23309,10 @@
 	    });
 
 	    // Fetch and add markers
-	    updateMapMarkers();
+	    fetchMarkers().then(function () {
+	      updateMapMarkers();
+	      updateTableMarkers();
+	    });
 	  });
 	};
 

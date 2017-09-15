@@ -11,7 +11,8 @@ function Global() {
     map: null,
     newMarker: null,
     addingMarker: false,
-    markers: null
+    markers: null,
+    mapMarkers: null
   };
 
   this.updateStore = function(obj) {
@@ -22,74 +23,48 @@ function Global() {
 // Global variables object
 var global = new Global();
 
-function fetchMarkers() {
-  var location = document.title.replace(' ','').split(','),
-      placeList = document.getElementById('placeList');
+function updateTableMarkers() {
+  var tbody = placeList.childNodes[1].childNodes[3];
 
-  var params = {
-    city: location[0],
-    country: location[1]
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
   }
 
-  return new Promise(function(resolve, reject) {
-    axios.post('/json/markers', params)
-      .then((res) => {
-        var markers = [];
-        var tbody = placeList.childNodes[1].childNodes[3];
+  if (global.store.markers != null && global.store.markers.length != 0) {
+    for (var m of global.store.markers) {
 
-        while (tbody.firstChild) {
-          tbody.removeChild(tbody.firstChild);
-        }
+      var data = function() {
+        return(
+          <tr>
+            <td>{ m.name }</td>
+            <td>{ m.opening.toString() + ' - ' + m.closing.toString() }</td>
+            <td>{ wifiIcon(m) }</td>
+            <td>{ spotRating(m) }</td>
+          </tr>
+        );
+      }
 
-        console.log(res);
+      tbody.appendChild(reactNodeToNativeNode(data));
+    }
+  }
 
-        if (res.data.length > 0) {
-          for (var m of res.data.markers) {
-            m = JSON.parse(m);
-            m = { ...m, lat: parseFloat(m.lat), lng: parseFloat(m.lng) }
-            markers.push(m);
+  // Spot rating function
+  function spotRating(marker) {
+    if (marker.rating == 0) {
+      return 'No rating';
+    } else {
+      return marker.rating.toFixed(1).toString() + ' / 5.0'
+    }
+  }
 
-            var data = function() {
-              return(
-                <tr>
-                  <td>{ m.name }</td>
-                  <td>{ m.opening.toString() + ' - ' + m.closing.toString() }</td>
-                  <td>{ wifiImage() }</td>
-                  <td>{ spotRating() }</td>
-                </tr>
-              );
-            }
-
-            tbody.appendChild(reactNodeToNativeNode(data));
-          }
-        }
-
-        global.updateStore({ markers: markers });
-
-        resolve();
-
-        // Spot rating function
-        function spotRating() {
-          if (m.rating == 0) {
-            return 'No rating';
-          } else {
-            return m.rating.toFixed(1).toString() + ' / 5.0'
-          }
-        }
-
-        // Wifi image
-        function wifiImage() {
-          if (m.wifi) {
-            return (
-              <img
-                src="https://d30y9cdsu7xlg0.cloudfront.net/png/6156-200.png"
-                style={{ height: '30px' }}
-              />
-            );
-          }
-        }
-      });
-  });
+  // Wifi image
+  function wifiIcon(marker) {
+    if (marker.wifi) {
+      return (
+        <i className="fa fa-check fa-fw"></i>
+      );
+    }
+  }
 }
 
 function generateHours() {
@@ -143,9 +118,9 @@ function submitClickHandler() {
       var location = global.store.newMarker.internalPosition;
 
       new google.maps.Geocoder().geocode({'latLng': location}, (res, sts) => {
-        if(sts == google.maps.GeocoderStatus.OK) {
+        if (sts == google.maps.GeocoderStatus.OK) {
           new google.maps.Geocoder().geocode({'placeId': res[0].place_id}, (res, sts) => {
-            if(sts == google.maps.GeocoderStatus.OK) {
+            if (sts == google.maps.GeocoderStatus.OK) {
               var count = res[0].address_components.length - 1;
 
               while (true) {
@@ -157,7 +132,7 @@ function submitClickHandler() {
 
               var city = res[0].address_components[count-1].long_name;
 
-              axios.post('/marker', {
+              var data = {
                 country: country,
                 city: city,
                 lat: location.lat().toString(),
@@ -166,11 +141,24 @@ function submitClickHandler() {
                 opening: openingHour.value,
                 closing: closingHour.value,
                 wifi: wifiAvailable.checked
-              }).then((res) => {
-                global.updateStore({ addingMarker: false, newMarker: null });
-                removeMarkersFromMap();
-                updateMapMarkers();
-              });
+              };
+
+              axios.post('/marker', data)
+                .then((res) => {
+                  global.store.newMarker.setMap(null);
+
+                  global.updateStore({ newMarker: null });
+
+                  removeMarkersFromMap();
+
+                  toggleSpotFormDisplay();
+
+                  fetchMarkers()
+                    .then(() => {
+                      updateMapMarkers();
+                      updateTableMarkers();
+                    });
+                });
             }
           });
         }
@@ -186,30 +174,47 @@ function submitClickHandler() {
 }
 
 function removeMarkersFromMap() {
-  for (var marker of global.store.markers) {
+  for (var marker of global.store.mapMarkers) {
     marker.setMap(null);
   }
 }
 
-function addMarkersToMap() {
+function updateMapMarkers() {
+  var mapMarkers = [];
+
   for (var m of global.store.markers) {
     var coor = {
-      lat: m.lat,
-      lng: m.lng
+      lat: parseFloat(m.lat),
+      lng: parseFloat(m.lng)
     }
 
-    new google.maps.Marker({
+    mapMarkers.push(
+      new google.maps.Marker({
         position: coor,
         map: global.store.map
-      });
+      })
+    );
   }
+
+  global.updateStore({ mapMarkers: mapMarkers });
 }
 
-function updateMapMarkers(){
-  fetchMarkers()
-    .then(() => {
-      addMarkersToMap();
-    });
+function fetchMarkers() {
+  var location = document.title.replace(' ','').split(','),
+      placeList = document.getElementById('placeList');
+
+  var params = {
+    city: location[0],
+    country: location[1]
+  }
+
+  return new Promise(function(resolve, reject) {
+    axios.post('/json/markers', params)
+      .then((res) => {
+        global.updateStore({ markers: res.data });
+        resolve();
+      });
+  });
 }
 
 function displayWarning(elem, msg) {
@@ -338,6 +343,10 @@ window.onload = function() {
         });
 
         // Fetch and add markers
-        updateMapMarkers();
+        fetchMarkers()
+          .then(() => {
+            updateMapMarkers();
+            updateTableMarkers();
+          });
   });
 }

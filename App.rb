@@ -82,7 +82,12 @@ class App < Sinatra::Base
   post '/json/markers' do
     req = JSON.parse(request.body.read)
 
-    address = Address.find_or_create_by(city: req['city'])
+    address = Address.find_or_create_by(
+      city: req['city'], \
+      country: req['country'] \
+    )
+
+    puts address.to_s + "\n"
 
     return address.markers.all.to_a.to_json
   end
