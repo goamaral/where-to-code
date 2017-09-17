@@ -180,27 +180,10 @@ function submitClickHandler() {
 }
 
 function clearSpotForm() {
-  var placeForm = document.getElementById('placeForm');
-
-  var parents = [];
-
-  for (var node of placeForm.children) {
-    if (node.className == 'mb1') {
-      parents.push(node);
-    }
-  }
-
-  for (var node of parents) {
-    for (var node2 of node.children) {
-      if (node2.className == 'input') {
-        node2.value = '';
-      } if (node2.className == 'columns') {
-        for (var node3 of node2.children) {
-          console.log(node3.children[0].children);
-        }
-      }
-    }
-  }
+  document.getElementById('nameInput').value = '';
+  document.getElementById('openingHour').value = '';
+  document.getElementById('closingHour').value = '';
+  document.getElementById('wifiAvailable').checked = false;
 }
 
 function displayWarning(elem, msg) {
