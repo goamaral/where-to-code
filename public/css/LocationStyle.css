@@ -1,7 +1,5 @@
-@import "/css/Main.css";
-
 .table td, .table th {
-  text-align: center;
+    text-align: center;
 }
 
 #header {
@@ -9,7 +7,7 @@
 }
 
 #hero-body {
-  padding: 1rem 2rem;
+    padding: 1rem 2rem;
 }
 
 #googleMap {
