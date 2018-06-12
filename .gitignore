@@ -16,3 +16,5 @@ yarn-error.log*
 
 # api configs
 config.json
+
+Gemfile.lock
