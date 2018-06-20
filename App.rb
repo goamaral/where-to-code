@@ -13,7 +13,7 @@ ActiveRecord::Base.establish_connection(
 # Models
 require './Models/Marker.rb'
 
-class App < Sinatra::Base
+class ApplicationController < Sinatra::Base
   get '/' do
     erb :home
   end
