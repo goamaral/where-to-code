@@ -3,6 +3,7 @@ var watchman = require('gulp-watchman')
 var exit = require('gulp-exit')
 var browserify = require('browserify')
 var source = require('vinyl-source-stream')
+var babelifyCss = require('browserify-css')
 
 gulp.task('default', () => {
     return watchman('js', {
@@ -16,8 +17,9 @@ gulp.task('default', () => {
 var build = () => {
     return browserify('./index.js', { debug: true })
         .transform('babelify', {
-            presets: ["latest"]
+            presets: ["babel-preset-env", "babel-preset-react"],
         })
+        .transform(babelifyCss)
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(gulp.dest('./public/js'))

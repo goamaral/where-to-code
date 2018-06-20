@@ -1,9 +1,12 @@
 import React from 'react'
 
 class Home extends React.Component {
-  store = {
-    input_size: 0,
-    prev_input: ""
+  constructor() {
+    super()
+    this.store = {
+      input_size: 0,
+      prev_input: ""
+    }
   }
 
   on_change_handler(ev) {
@@ -19,3 +22,5 @@ class Home extends React.Component {
     )
   }
 }
+
+export default Home
