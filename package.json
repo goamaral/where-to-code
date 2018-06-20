@@ -1,28 +1,24 @@
 {
   "name": "where-to-code",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "axios": "^0.16.2",
-    "babel-loader": "^7.1.1",
-    "gulp": "^3.9.1",
-    "gulp-print": "^2.0.1",
-    "gulp-watch": "^4.3.11",
-    "json-loader": "^0.5.7",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-redux": "^5.0.5",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
-    "vinyl-named": "^1.1.0",
-    "webpack": "^3.8.1",
-    "webpack-stream": "^4.0.0"
+  "version": "1.0.0",
+  "description": "Find places where to code",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Goamaral/where-to-code.git"
   },
-  "devDependencies": {
-    "babel-core": "^6.25.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^4.2.0"
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Goamaral/where-to-code/issues"
+  },
+  "homepage": "https://github.com/Goamaral/where-to-code#readme",
+  "dependencies": {
+    "browserify": "^16.2.2",
+    "gulp": "^3.9.1",
+    "gulp-exit": "0.0.2",
+    "gulp-watchman": "^2.0.2",
+    "vinyl-source-stream": "^2.0.0"
   }
 }
