@@ -1,0 +1,16 @@
+MARKER
+lat
+lng
+name
+opening
+closing
+wifi
+power_plugs
+rating
+up_votes
+down_votes
+
+USER
+username
+password
+created_at
