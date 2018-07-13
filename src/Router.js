@@ -8,16 +8,16 @@ import './reset.css'
 import { Home } from './screens'
 //import reducer from './reducers'
 
-const store = createStore(reducer)
+//const store = createStore(reducer)
 
 const Router = () => (
-  <Provider store={store}>
+  //<Provider store={store}>
     <BrowserRouter>
       <Switch>
         <Route component={Home} />
       </Switch>
     </BrowserRouter>
-  </Provider>
+  //</Provider>
 )
 
 export default Router

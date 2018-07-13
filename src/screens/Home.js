@@ -5,19 +5,19 @@ class Home extends React.Component {
     super()
     this.store = {
       input_size: 0,
-      prev_input: ""
+      input: ""
     }
   }
 
   on_change_handler(ev) {
-    console.log(ev)
+    this.store.input = ev.target.value
   }
 
   render() {
     return (
       <div>
         <h1>Where to code</h1>
-        <input type="text" onchange={this.on_change_handler.bind(this)}></input>
+        <input type="text" onChange={this.on_change_handler.bind(this)}></input>
       </div>
     )
   }

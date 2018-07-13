@@ -2,8 +2,6 @@
   "name": "where-to-code",
   "version": "1.0.0",
   "description": "Find places where to code",
-  "main": "index.js",
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Goamaral/where-to-code.git"
