@@ -13,8 +13,7 @@
   - Location
   - Conditions
   - Rating
-+ Business model
++ Business strategy
   - Ads
-  - Data mining
-  - Payed place insertion
-  - Premium (?)
+  - Freemium
+  

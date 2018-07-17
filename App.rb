@@ -1,11 +1,12 @@
-require 'bundler/setup'
 require 'sinatra'
 require 'rubygems'
-require 'active_record'
+require 'sinatra/activerecord'
 
 # Models
 #require './Models/Marker.rb'
 
-get '/' do
-  send_file('index.html')
+class App < Sinatra::Base
+  get '/' do
+    send_file('index.html')
+  end
 end

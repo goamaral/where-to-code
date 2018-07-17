@@ -11,6 +11,7 @@ up_votes
 down_votes
 
 USER
+email
 username
 password
 created_at
