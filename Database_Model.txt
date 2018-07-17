@@ -2,10 +2,10 @@ MARKER
 lat
 lng
 name
-opening
-closing
-wifi
-power_plugs
+opens_at
+closes_at
+has_wifi
+has_plugs
 rating
 up_votes
 down_votes
