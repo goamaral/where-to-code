@@ -1,4 +1,7 @@
 # Where to code
+
+**How to run**  rackup
+
 **Goal**  Find places where to code
 
 **Status**  In development

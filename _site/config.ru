@@ -1,2 +1,0 @@
-require "./App"
-run App
