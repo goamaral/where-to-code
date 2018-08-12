@@ -10659,93 +10659,6 @@ module.exports = __webpack_require__(/*! ./modules/_core */ "./node_modules/core
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/*!*************************************************!*\
-  !*** ./node_modules/css-loader/lib/css-base.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/fbjs/lib/ExecutionEnvironment.js":
 /*!*******************************************************!*\
   !*** ./node_modules/fbjs/lib/ExecutionEnvironment.js ***!
@@ -37228,8 +37141,6 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 
-__webpack_require__(/*! ./reset.css */ "./src/reset.css");
-
 var _screens = __webpack_require__(/*! ./screens */ "./src/screens/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -37289,25 +37200,6 @@ window.onload = function () {
 
 /***/ }),
 
-/***/ "./src/reset.css":
-/*!***********************!*\
-  !*** ./src/reset.css ***!
-  \***********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "/* RESET */\nbody, html, #root {\n  margin: 0;\n  padding: 0;\n  height: 100%;\n  font-family: 'Permanent Marker';\n}", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./src/screens/Home.js":
 /*!*****************************!*\
   !*** ./src/screens/Home.js ***!
@@ -37322,58 +37214,133 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Home = function (_React$Component) {
-  _inherits(Home, _React$Component);
-
-  function Home() {
-    _classCallCheck(this, Home);
-
-    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this));
-
-    _this.store = {
-      input_size: 0,
-      input: ""
-    };
-    return _this;
-  }
-
-  _createClass(Home, [{
-    key: "on_change_handler",
-    value: function on_change_handler(ev) {
-      this.store.input = ev.target.value;
+var SearchBox = function SearchBox(props) {
+  var style = {
+    box: {
+      display: 'flex',
+      flexDirection: 'row',
+      paddingTop: '5rem'
+    },
+    input: {
+      width: '30rem',
+      marginRight: '2rem',
+      borderRadius: '0px',
+      border: 'none',
+      textAlign: 'center',
+      color: 'black'
+    },
+    button: {
+      lineHeight: '2rem',
+      fontSize: '1.125rem',
+      width: '8rem',
+      textAlign: 'center',
+      border: '1px solid white',
+      color: 'white'
     }
-  }, {
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        "div",
-        null,
+  };
+
+  return _react2.default.createElement(
+    'div',
+    { style: style.box },
+    _react2.default.createElement('input', {
+      style: style.input,
+      placeholder: props.placeholder,
+      type: 'text',
+      onChange: props.onChange }),
+    _react2.default.createElement(
+      'a',
+      { href: '#', style: style.button },
+      'Search'
+    )
+  );
+};
+
+var Home = function Home() {
+  var store = { input: '' };
+
+  var style = {
+    top: {
+      box: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'end',
+        paddingTop: '2rem',
+        paddingRight: '2rem'
+      },
+      button: {
+        width: '8rem',
+        height: '2rem',
+        textAlign: 'center',
+        color: 'white',
+        lineHeight: '2rem'
+      }
+    },
+    body: {
+      box: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingTop: '6rem'
+      },
+      title: {
+        fontSize: '3.5rem',
+        fontWeight: 'bold',
+        paddingTop: '1rem',
+        paddingBottom: '1rem',
+        color: 'white'
+      }
+    }
+  };
+
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'div',
+      { style: style.top.box },
+      _react2.default.createElement(
+        'a',
+        { href: '#' },
         _react2.default.createElement(
-          "h1",
-          null,
-          "Where to code"
-        ),
-        _react2.default.createElement("input", { type: "text", onChange: this.on_change_handler.bind(this) })
-      );
-    }
-  }]);
-
-  return Home;
-}(_react2.default.Component);
+          'p',
+          { style: style.top.button },
+          'Register'
+        )
+      ),
+      _react2.default.createElement(
+        'a',
+        { href: '#' },
+        _react2.default.createElement(
+          'p',
+          { style: style.top.button },
+          'Login'
+        )
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { style: style.body.box },
+      _react2.default.createElement(
+        'p',
+        { style: style.body.title },
+        'Where to code'
+      ),
+      _react2.default.createElement(SearchBox, {
+        placeholder: 'Search coding spots around an address',
+        store: store.input,
+        onChange: function onChange(ev) {
+          return store.input = ev.target.value;
+        }
+      })
+    )
+  );
+};
 
 exports.default = Home;
 
