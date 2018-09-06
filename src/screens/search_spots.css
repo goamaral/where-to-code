@@ -1,0 +1,57 @@
+#search_spots #top {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-top: 2rem;
+  padding-right: 2rem;
+}
+
+#search_spots #top .button {
+  width: 8rem;
+  height: 2rem;
+  text-align: center;
+  color: white;
+  line-height: 2rem;
+}
+
+#search_spots #body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -3rem;
+}
+
+#search_spots #body .title {
+  font-size: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  font-weight: bold;
+  padding-top: 1rem;
+  color: white;
+}
+
+#search_spots #body .row {
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 4rem;
+}
+
+#search_spots #body .column {
+  width: 25rem;
+}
+
+#search_spots #body .button {
+  border: 1px solid white;
+  height: 2rem;
+  width: 100%;
+  margin-top: 1rem;
+  text-align: center;
+  color: white;
+  line-height: 2rem;
+}
+
+#search_spots #body .map {
+  background-color: darkgreen;
+  height: 25rem;
+  width: 100%;
+}

@@ -85,3 +85,17 @@ a {
 ::placeholder {
   color: '#747474'
 }
+
+a:hover {
+  cursor: pointer;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}

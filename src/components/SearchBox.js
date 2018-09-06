@@ -2,21 +2,23 @@ import React from 'react'
 
 import './search_box.css'
 
-const SearchBox = props => {
-  return (
-    <div id='search_box'>
-      <input
-        className='input'
-        placeholder={props.placeholder}
-        type="text"
-        onChange={props.onChange}>
-      </input>
+class SearchBox extends React.Component {
+  render() {
+    return (
+      <div id='search_box'>
+        <input
+          className='input'
+          placeholder={this.props.placeholder}
+          type="text"
+          ref={this.props.inputRef}>
+        </input>
 
-      <a onClick={ev => { ev.preventDefault; props.onSubmit() }} className='button'>
-          Search
-      </a>
-    </div>
-  )
+        <a onClick={this.props.onSubmit} className='button'>
+            Search
+        </a>
+      </div>
+    )
+  }
 }
 
 export default SearchBox

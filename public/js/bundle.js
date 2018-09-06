@@ -10671,7 +10671,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "#search_box {\n  display: flex;\n  flex-direction: row;\n  padding-top: 5rem;\n}\n\n#search_box .input {\n  width: 30rem;\n  margin-right: 2rem;\n  border: none;\n  text-align: center;\n  color: black;\n}\n\n#search_box .button {\n  line-height: 2rem;\n  font-size: 1.125rem;\n  width: 8rem;\n  text-align: center;\n  border: 1px solid white;\n  color: white;\n}", ""]);
+exports.push([module.i, "#search_box {\n  display: flex;\n  flex-direction: row;\n  padding-top: 5rem;\n}\n\n#search_box .input {\n  width: 30rem;\n  margin-right: 2rem;\n  border: none;\n  text-align: center;\n  color: black;\n}\n\n#search_box .button {\n  line-height: 2rem;\n  width: 8rem;\n  text-align: center;\n  border: 1px solid white;\n  color: white;\n}", ""]);
 
 // exports
 
@@ -10690,7 +10690,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans);", ""]);
 
 // module
-exports.push([module.i, "/* RESET */\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\nbody, html {\n  font-size: 16px;\n  font-family: 'Open Sans';\n}\n\n#background {\n  background-image: url(\"/background.jpg\");\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  filter: brightness(30%);\n  z-index: 0;\n  width: 100vw;\n  height: 100vh;\n  z-index: 0;\n  position: absolute;\n}\n\n#root {\n  z-index: 10;\n  position: relative;\n}\n\ninput {\n  font-family: 'Open Sans';\n}\n\na {\n  color: black;\n  text-decoration: none;\n}\n\n::placeholder {\n  color: '#747474'\n}", ""]);
+exports.push([module.i, "/* RESET */\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\nbody, html {\n  font-size: 16px;\n  font-family: 'Open Sans';\n}\n\n#background {\n  background-image: url(\"/background.jpg\");\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  filter: brightness(30%);\n  z-index: 0;\n  width: 100vw;\n  height: 100vh;\n  z-index: 0;\n  position: absolute;\n}\n\n#root {\n  z-index: 10;\n  position: relative;\n}\n\ninput {\n  font-family: 'Open Sans';\n}\n\na {\n  color: black;\n  text-decoration: none;\n}\n\n::placeholder {\n  color: '#747474'\n}\n\na:hover {\n  cursor: pointer;\n}\n\n.column {\n  display: flex;\n  flex-direction: column;\n}\n\n.row {\n  display: flex;\n  flex-direction: row;\n}", ""]);
 
 // exports
 
@@ -10709,7 +10709,26 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "#home #top {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  padding-top: 2rem;\n  padding-right: 2rem;\n}\n\n#home #top .button {\n  width: 8rem;\n  height: 2rem;\n  text-align: center;\n  color: white;\n  line-height: 2rem;\n}\n\n#home #body {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding-top: 6rem;\n}\n\n#home #body .title {\n  font-size: 3.5rem;\n  font-weight: bold;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n  color: white;\n}", ""]);
+exports.push([module.i, "#home #top {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  padding-top: 2rem;\n  padding-right: 2rem;\n}\n\n#home #top .button {\n  width: 8rem;\n  height: 2rem;\n  text-align: center;\n  color: white;\n  line-height: 2rem;\n}\n\n#home #body {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding-top: 6rem;\n}\n\n#home #body .title {\n  font-size: 3.5rem;\n  font-weight: bold;\n  padding-top: 1rem;\n  margin-bottom: 1rem;\n  color: white;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./src/screens/search_spots.css":
+/*!****************************************************************!*\
+  !*** ./node_modules/css-loader!./src/screens/search_spots.css ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "#search_spots #top {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  padding-top: 2rem;\n  padding-right: 2rem;\n}\n\n#search_spots #top .button {\n  width: 8rem;\n  height: 2rem;\n  text-align: center;\n  color: white;\n  line-height: 2rem;\n}\n\n#search_spots #body {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-top: -3rem;\n}\n\n#search_spots #body .title {\n  font-size: 2rem;\n  height: 2rem;\n  line-height: 2rem;\n  font-weight: bold;\n  padding-top: 1rem;\n  color: white;\n}\n\n#search_spots #body .row {\n  justify-content: space-around;\n  width: 100%;\n  margin-top: 4rem;\n}\n\n#search_spots #body .column {\n  width: 25rem;\n}\n\n#search_spots #body .button {\n  border: 1px solid white;\n  height: 2rem;\n  width: 100%;\n  margin-top: 1rem;\n  text-align: center;\n  color: white;\n  line-height: 2rem;\n}\n\n#search_spots #body .map {\n  background-color: darkgreen;\n  height: 25rem;\n  width: 100%;\n}", ""]);
 
 // exports
 
@@ -37814,7 +37833,7 @@ var Router = function Router() {
       _react2.default.createElement(
         _reactRouterDom.Switch,
         null,
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/search_spots', component: _screens.SpotList }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/search_spots', component: _screens.SearchSpots }),
         _react2.default.createElement(_reactRouterDom.Route, { component: _screens.Home })
       )
     )
@@ -37822,6 +37841,34 @@ var Router = function Router() {
 };
 
 exports.default = Router;
+
+/***/ }),
+
+/***/ "./src/components/Map.js":
+/*!*******************************!*\
+  !*** ./src/components/Map.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Map = function Map(props) {
+  return _react2.default.createElement('div', props);
+};
+
+exports.default = Map;
 
 /***/ }),
 
@@ -37839,6 +37886,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -37847,51 +37896,45 @@ __webpack_require__(/*! ./search_box.css */ "./src/components/search_box.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var SearchBox = function SearchBox(props) {
-  return _react2.default.createElement(
-    'div',
-    { id: 'search_box' },
-    _react2.default.createElement('input', {
-      className: 'input',
-      placeholder: props.placeholder,
-      type: 'text',
-      onChange: props.onChange }),
-    _react2.default.createElement(
-      'a',
-      { onClick: function onClick(ev) {
-          ev.preventDefault;props.onSubmit();
-        }, className: 'button' },
-      'Search'
-    )
-  );
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SearchBox = function (_React$Component) {
+  _inherits(SearchBox, _React$Component);
+
+  function SearchBox() {
+    _classCallCheck(this, SearchBox);
+
+    return _possibleConstructorReturn(this, (SearchBox.__proto__ || Object.getPrototypeOf(SearchBox)).apply(this, arguments));
+  }
+
+  _createClass(SearchBox, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { id: 'search_box' },
+        _react2.default.createElement('input', {
+          className: 'input',
+          placeholder: this.props.placeholder,
+          type: 'text',
+          ref: this.props.inputRef }),
+        _react2.default.createElement(
+          'a',
+          { onClick: this.props.onSubmit, className: 'button' },
+          'Search'
+        )
+      );
+    }
+  }]);
+
+  return SearchBox;
+}(_react2.default.Component);
 
 exports.default = SearchBox;
-
-/***/ }),
-
-/***/ "./src/components/index.js":
-/*!*********************************!*\
-  !*** ./src/components/index.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.SearchBox = undefined;
-
-var _SearchBox = __webpack_require__(/*! ./SearchBox */ "./src/components/SearchBox.js");
-
-var _SearchBox2 = _interopRequireDefault(_SearchBox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.SearchBox = _SearchBox2.default;
 
 /***/ }),
 
@@ -38080,16 +38123,19 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_module
 
 __webpack_require__(/*! ./home.css */ "./src/screens/home.css");
 
-var _components = __webpack_require__(/*! ../components */ "./src/components/index.js");
+var _SearchBox = __webpack_require__(/*! ../components/SearchBox */ "./src/components/SearchBox.js");
+
+var _SearchBox2 = _interopRequireDefault(_SearchBox);
 
 var _actions = __webpack_require__(/*! ../redux/actions */ "./src/redux/actions.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Home = function Home(props) {
-  var store = { input: '' };
+  var searchbox_ref = _react2.default.createRef();
+
   var search_spots = function search_spots() {
-    props.set_location(store.input);
+    props.set_location(searchbox_ref.current.value);
     props.history.push('/search_spots');
   };
 
@@ -38114,16 +38160,13 @@ var Home = function Home(props) {
       'div',
       { id: 'body' },
       _react2.default.createElement(
-        'p',
-        { className: 'title' },
+        'a',
+        { href: '/', className: 'title' },
         'Where to code'
       ),
-      _react2.default.createElement(_components.SearchBox, {
+      _react2.default.createElement(_SearchBox2.default, {
         placeholder: 'Search coding spots around an address',
-        store: store.input,
-        onChange: function onChange(ev) {
-          return store.input = ev.target.value;
-        },
+        inputRef: searchbox_ref,
         onSubmit: search_spots
       })
     )
@@ -38142,10 +38185,10 @@ exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)((0, _reactR
 
 /***/ }),
 
-/***/ "./src/screens/SpotList.js":
-/*!*********************************!*\
-  !*** ./src/screens/SpotList.js ***!
-  \*********************************/
+/***/ "./src/screens/SearchSpots.js":
+/*!************************************!*\
+  !*** ./src/screens/SearchSpots.js ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38160,15 +38203,60 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _Map = __webpack_require__(/*! ../components/Map */ "./src/components/Map.js");
+
+var _Map2 = _interopRequireDefault(_Map);
+
+__webpack_require__(/*! ./search_spots.css */ "./src/screens/search_spots.css");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import './spot_list.css'
-
-var SpotList = function SpotList() {
-  return _react2.default.createElement('div', { id: 'spot_list' });
+var SearchSpots = function SearchSpots() {
+  return _react2.default.createElement(
+    'div',
+    { id: 'search_spots' },
+    _react2.default.createElement(
+      'div',
+      { id: 'top' },
+      _react2.default.createElement(
+        'a',
+        { href: '#', className: 'button' },
+        'Register'
+      ),
+      _react2.default.createElement(
+        'a',
+        { href: '#', className: 'button' },
+        'Login'
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      { id: 'body' },
+      _react2.default.createElement(
+        'a',
+        { href: '/', className: 'title' },
+        'Where to code'
+      ),
+      _react2.default.createElement(
+        'div',
+        { className: 'row' },
+        _react2.default.createElement(
+          'div',
+          { className: 'column' },
+          _react2.default.createElement(_Map2.default, { className: 'map' }),
+          _react2.default.createElement(
+            'a',
+            { className: 'button', href: '/add_spot' },
+            'Add new coding spot'
+          )
+        ),
+        _react2.default.createElement('div', { className: 'column' })
+      )
+    )
+  );
 };
 
-exports.default = SpotList;
+exports.default = SearchSpots;
 
 /***/ }),
 
@@ -38215,20 +38303,50 @@ if(false) {}
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SpotList = exports.Home = undefined;
+exports.SearchSpots = exports.Home = undefined;
 
 var _Home = __webpack_require__(/*! ./Home */ "./src/screens/Home.js");
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _SpotList = __webpack_require__(/*! ./SpotList */ "./src/screens/SpotList.js");
+var _SearchSpots = __webpack_require__(/*! ./SearchSpots */ "./src/screens/SearchSpots.js");
 
-var _SpotList2 = _interopRequireDefault(_SpotList);
+var _SearchSpots2 = _interopRequireDefault(_SearchSpots);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Home = _Home2.default;
-exports.SpotList = _SpotList2.default;
+exports.SearchSpots = _SearchSpots2.default;
+
+/***/ }),
+
+/***/ "./src/screens/search_spots.css":
+/*!**************************************!*\
+  !*** ./src/screens/search_spots.css ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../node_modules/css-loader!./search_spots.css */ "./node_modules/css-loader/index.js!./src/screens/search_spots.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
 
 /***/ }),
 

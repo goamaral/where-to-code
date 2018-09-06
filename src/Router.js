@@ -5,7 +5,7 @@ import { createStore } from 'redux'
 
 import './reset.css'
 
-import { Home, SpotList } from './screens'
+import { Home, SearchSpots } from './screens'
 import reducers from './redux/reducers'
 
 const store = createStore(reducers)
@@ -14,7 +14,7 @@ const Router = () => (
   <Provider store={store}>
     <BrowserRouter>
       <Switch>
-        <Route path="/search_spots" component={SpotList} />
+        <Route path='/search_spots' component={SearchSpots} />
         <Route component={Home} />
       </Switch>
     </BrowserRouter>

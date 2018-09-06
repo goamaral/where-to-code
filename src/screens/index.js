@@ -1,4 +1,4 @@
 import Home from './Home'
-import SpotList from './SpotList'
+import SearchSpots from './SearchSpots'
 
-export { Home, SpotList }
+export { Home, SearchSpots }

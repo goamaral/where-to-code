@@ -4,13 +4,14 @@ import { withRouter } from 'react-router-dom'
 
 import './home.css'
 
-import { SearchBox } from '../components'
+import SearchBox from '../components/SearchBox'
 import { actions } from '../redux/actions'
 
 const Home = props => {
-  let store = { input: '' }
+  let searchbox_ref = React.createRef()
+
   const search_spots = () => {
-    props.set_location(store.input)
+    props.set_location(searchbox_ref.current.value)
     props.history.push('/search_spots')
   }
 
@@ -22,12 +23,11 @@ const Home = props => {
       </div>
 
       <div id='body'>
-        <p className='title'>Where to code</p>
+        <a href='/' className='title'>Where to code</a>
 
         <SearchBox
           placeholder='Search coding spots around an address'
-          store={store.input}
-          onChange={ev => store.input = ev.target.value}
+          inputRef={searchbox_ref}
           onSubmit={search_spots}
         />
       </div>
