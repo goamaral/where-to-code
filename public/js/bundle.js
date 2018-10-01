@@ -10659,25 +10659,6 @@ module.exports = __webpack_require__(/*! ./modules/_core */ "./node_modules/core
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./src/components/search_box.css":
-/*!*****************************************************************!*\
-  !*** ./node_modules/css-loader!./src/components/search_box.css ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "#search_box {\n  display: flex;\n  flex-direction: row;\n  padding-top: 5rem;\n}\n\n#search_box .input {\n  width: 30rem;\n  margin-right: 2rem;\n  border: none;\n  text-align: center;\n  color: black;\n}\n\n#search_box .button {\n  line-height: 2rem;\n  width: 8rem;\n  text-align: center;\n  border: 1px solid white;\n  color: white;\n}", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js!./src/reset.css":
 /*!*************************************************!*\
   !*** ./node_modules/css-loader!./src/reset.css ***!
@@ -10690,26 +10671,26 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans);", ""]);
 
 // module
-exports.push([module.i, "/* RESET */\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\nbody, html {\n  font-size: 16px;\n  font-family: 'Open Sans';\n}\n\n#background {\n  background-image: url(\"/background.jpg\");\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  filter: brightness(30%);\n  z-index: 0;\n  width: 100vw;\n  height: 100vh;\n  z-index: 0;\n  position: absolute;\n}\n\n#root {\n  z-index: 10;\n  position: relative;\n}\n\ninput {\n  font-family: 'Open Sans';\n}\n\na {\n  color: black;\n  text-decoration: none;\n}\n\n::placeholder {\n  color: '#747474'\n}\n\na:hover {\n  cursor: pointer;\n}\n\n.column {\n  display: flex;\n  flex-direction: column;\n}\n\n.row {\n  display: flex;\n  flex-direction: row;\n}", ""]);
+exports.push([module.i, "/* RESET */\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\nbody, html {\n  font-size: 16px;\n  font-family: 'Open Sans';\n}\n\n#background {\n  background-image: url(\"/background.jpg\");\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  filter: brightness(30%);\n  z-index: 0;\n  width: 100vw;\n  height: 100vh;\n  z-index: 0;\n  position: absolute;\n}\n\n#root {\n  z-index: 10;\n  position: relative;\n}\n\ninput {\n  font-family: 'Open Sans';\n}\n\na {\n  color: white;\n  text-decoration: none;\n}\n\n::placeholder {\n  color: '#747474'\n}\n\na:hover {\n  cursor: pointer;\n}\n\n.column {\n  display: flex;\n  flex-direction: column;\n}\n\n.row {\n  display: flex;\n  flex-direction: row;\n}\n\n.button {\n  border: 1px solid white;\n}", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./src/screens/home.css":
-/*!********************************************************!*\
-  !*** ./node_modules/css-loader!./src/screens/home.css ***!
-  \********************************************************/
+/***/ "./node_modules/css-loader/index.js!./src/screens/css/home.css":
+/*!************************************************************!*\
+  !*** ./node_modules/css-loader!./src/screens/css/home.css ***!
+  \************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
 
 
 // module
-exports.push([module.i, "#home #top {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  padding-top: 2rem;\n  padding-right: 2rem;\n}\n\n#home #top .button {\n  width: 8rem;\n  height: 2rem;\n  text-align: center;\n  color: white;\n  line-height: 2rem;\n}\n\n#home #body {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding-top: 6rem;\n}\n\n#home #body .title {\n  font-size: 3.5rem;\n  font-weight: bold;\n  padding-top: 1rem;\n  margin-bottom: 1rem;\n  color: white;\n}", ""]);
+exports.push([module.i, "#home {\n  display: grid;\n  grid-column-gap: 1rem;\n  grid-template-columns: repeat(12, 1fr);\n  padding: 2% 8%;\n}\n\n#home #body {\n  grid-column: 3 / span 8;\n  padding-top: 18%;\n  display: grid;\n  grid-column-gap: 1rem;\n  grid-template-columns: repeat(8, 1fr);\n}\n\n#home #body #title {\n  grid-column: span 8;\n  height: 6rem;\n  line-height: 6rem;\n  text-align: center;\n  font-size: 3.5rem;\n  font-weight: bold;\n  color: white;\n}\n\n#home #body #search_box {\n  grid-column: span 8;\n  padding-top: 11%;\n  display: grid;\n  grid-column-gap: 1rem;\n  grid-template-columns: repeat(8, 1fr);\n}\n\n#home #search_box #input {\n  grid-column: span 6;\n  border: none;\n  text-align: center;\n  color: black;\n}\n\n#home #search_box #button {\n  grid-column: span 2;\n  line-height: 2rem;\n  text-align: center;\n  border: 1px solid white;\n  color: white;\n}\n\n#home .link {\n  height: 2rem;\n  grid-column: span 1;\n  text-align: center;\n  line-height: 2rem;\n}", ""]);
 
 // exports
 
@@ -37892,8 +37873,6 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
-__webpack_require__(/*! ./search_box.css */ "./src/components/search_box.css");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -37916,15 +37895,15 @@ var SearchBox = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { id: 'search_box' },
+        { id: this.props.id },
         _react2.default.createElement('input', {
-          className: 'input',
+          id: 'input',
           placeholder: this.props.placeholder,
           type: 'text',
           ref: this.props.inputRef }),
         _react2.default.createElement(
           'a',
-          { onClick: this.props.onSubmit, className: 'button' },
+          { onClick: this.props.onSubmit, id: 'button' },
           'Search'
         )
       );
@@ -37935,36 +37914,6 @@ var SearchBox = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = SearchBox;
-
-/***/ }),
-
-/***/ "./src/components/search_box.css":
-/*!***************************************!*\
-  !*** ./src/components/search_box.css ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../node_modules/css-loader!./search_box.css */ "./node_modules/css-loader/index.js!./src/components/search_box.css");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
 
 /***/ }),
 
@@ -38121,7 +38070,7 @@ var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-r
 
 var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
-__webpack_require__(/*! ./home.css */ "./src/screens/home.css");
+__webpack_require__(/*! ./css/home.css */ "./src/screens/css/home.css");
 
 var _SearchBox = __webpack_require__(/*! ../components/SearchBox */ "./src/components/SearchBox.js");
 
@@ -38144,31 +38093,28 @@ var Home = function Home(props) {
     { id: 'home' },
     _react2.default.createElement(
       'div',
-      { id: 'top' },
-      _react2.default.createElement(
-        'a',
-        { href: '#', className: 'button' },
-        'Register'
-      ),
-      _react2.default.createElement(
-        'a',
-        { href: '#', className: 'button' },
-        'Login'
-      )
-    ),
-    _react2.default.createElement(
-      'div',
       { id: 'body' },
       _react2.default.createElement(
         'a',
-        { href: '/', className: 'title' },
+        { href: '/', id: 'title' },
         'Where to code'
       ),
       _react2.default.createElement(_SearchBox2.default, {
+        id: 'search_box',
         placeholder: 'Search coding spots around an address',
         inputRef: searchbox_ref,
         onSubmit: search_spots
       })
+    ),
+    _react2.default.createElement(
+      'a',
+      { href: '#', className: 'link' },
+      'Register'
+    ),
+    _react2.default.createElement(
+      'a',
+      { href: '#', className: 'link' },
+      'Login'
     )
   );
 };
@@ -38260,15 +38206,15 @@ exports.default = SearchSpots;
 
 /***/ }),
 
-/***/ "./src/screens/home.css":
-/*!******************************!*\
-  !*** ./src/screens/home.css ***!
-  \******************************/
+/***/ "./src/screens/css/home.css":
+/*!**********************************!*\
+  !*** ./src/screens/css/home.css ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../node_modules/css-loader!./home.css */ "./node_modules/css-loader/index.js!./src/screens/home.css");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!./home.css */ "./node_modules/css-loader/index.js!./src/screens/css/home.css");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -38282,7 +38228,7 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 

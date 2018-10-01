@@ -1,19 +1,17 @@
 import React from 'react'
 
-import './search_box.css'
-
 class SearchBox extends React.Component {
   render() {
     return (
-      <div id='search_box'>
+      <div id={ this.props.id }>
         <input
-          className='input'
+          id='input'
           placeholder={this.props.placeholder}
           type="text"
           ref={this.props.inputRef}>
         </input>
 
-        <a onClick={this.props.onSubmit} className='button'>
+        <a onClick={this.props.onSubmit} id='button'>
             Search
         </a>
       </div>

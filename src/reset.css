@@ -78,7 +78,7 @@ input {
 }
 
 a {
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
@@ -98,4 +98,8 @@ a:hover {
 .row {
   display: flex;
   flex-direction: row;
+}
+
+.button {
+  border: 1px solid white;
 }

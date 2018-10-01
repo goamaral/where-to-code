@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
-import './home.css'
+import './css/home.css'
 
 import SearchBox from '../components/SearchBox'
 import { actions } from '../redux/actions'
@@ -17,20 +17,19 @@ const Home = props => {
 
   return (
     <div id='home'>
-      <div id='top'>
-        <a href='#' className='button'>Register</a>
-        <a href='#' className='button'>Login</a>
-      </div>
-
       <div id='body'>
-        <a href='/' className='title'>Where to code</a>
+        <a href='/' id='title'>Where to code</a>
 
         <SearchBox
+          id="search_box"
           placeholder='Search coding spots around an address'
           inputRef={searchbox_ref}
           onSubmit={search_spots}
         />
       </div>
+
+      <a href='#' className='link'>Register</a>
+      <a href='#' className='link'>Login</a>
     </div>
   )
 }
