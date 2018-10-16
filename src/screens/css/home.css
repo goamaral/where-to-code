@@ -1,4 +1,38 @@
-#home {
+#home #body #title {
+  height: 6rem;
+  line-height: 6rem;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 20vh;
+  margin-top: 20vh;
+}
+
+#home .link {
+  text-align: center;
+  margin-top: 4vh;
+  padding: 0;
+  height: 2rem;
+  line-height: 2rem;
+}
+
+#home #search_box #input {
+  border: none;
+  text-align: center;
+  color: black;
+  padding: 0;
+  margin-right: 1rem;
+}
+
+#home #search_box #button {
+  line-height: 2rem;
+  text-align: center;
+  border: 1px solid white;
+  color: white;
+  padding: 0;
+}
+
+/*#home {
   display: grid;
   grid-column-gap: 1rem;
   grid-template-columns: repeat(12, 1fr);
@@ -6,8 +40,8 @@
 }
 
 #home #body {
-  grid-column: 3 / span 8;
   padding-top: 18%;
+  grid-column: 3 / span 8;
   display: grid;
   grid-column-gap: 1rem;
   grid-template-columns: repeat(8, 1fr);
@@ -51,4 +85,4 @@
   grid-column: span 1;
   text-align: center;
   line-height: 2rem;
-}
+}*/

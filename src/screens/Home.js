@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom'
 
 import './css/home.css'
 
-import SearchBox from '../components/SearchBox'
 import { actions } from '../redux/actions'
 
 const Home = props => {
@@ -16,20 +15,15 @@ const Home = props => {
   }
 
   return (
-    <div id='home'>
-      <div id='body'>
+    <div id='home' className="columns">
+      <div id='body' className="column is-6 is-offset-3">
         <a href='/' id='title'>Where to code</a>
 
-        <SearchBox
-          id="search_box"
-          placeholder='Search coding spots around an address'
-          inputRef={searchbox_ref}
-          onSubmit={search_spots}
-        />
+        <SearchBox inputRef={searchbox_ref} onSubmit={search_spots} />
       </div>
 
-      <a href='#' className='link'>Register</a>
-      <a href='#' className='link'>Login</a>
+      <a href='#' className='column is-1 link'>Register</a>
+      <a href='#' className='column is-1 link'>Login</a>
     </div>
   )
 }
@@ -39,3 +33,23 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(null, mapDispatchToProps)(withRouter(Home))
+
+class SearchBox extends React.Component {
+  render() {
+    return (
+      <div id="search_box" className="columns">
+        <input
+          id="input"
+          className="column"
+          placeholder='Search coding spots around an address'
+          type="text"
+          ref={this.props.inputRef}>
+        </input>
+
+        <a id='button' className="column is-2" onClick={this.props.onSubmit}>
+            Search
+        </a>
+      </div>
+    )
+  }
+}

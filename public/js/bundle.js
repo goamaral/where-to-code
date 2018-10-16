@@ -10671,7 +10671,7 @@ exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/li
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Open+Sans);", ""]);
 
 // module
-exports.push([module.i, "/* RESET */\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\nbody, html {\n  font-size: 16px;\n  font-family: 'Open Sans';\n}\n\n#background {\n  background-image: url(\"/background.jpg\");\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  filter: brightness(30%);\n  z-index: 0;\n  width: 100vw;\n  height: 100vh;\n  z-index: 0;\n  position: absolute;\n}\n\n#root {\n  z-index: 10;\n  position: relative;\n}\n\ninput {\n  font-family: 'Open Sans';\n}\n\na {\n  color: white;\n  text-decoration: none;\n}\n\n::placeholder {\n  color: '#747474'\n}\n\na:hover {\n  cursor: pointer;\n}\n\n.column {\n  display: flex;\n  flex-direction: column;\n}\n\n.row {\n  display: flex;\n  flex-direction: row;\n}\n\n.button {\n  border: 1px solid white;\n}", ""]);
+exports.push([module.i, "/* RESET */\n/* http://meyerweb.com/eric/tools/css/reset/ \n   v2.0 | 20110126\n   License: none (public domain)\n*/\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\nb, u, i, center,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, caption, tbody, tfoot, thead, tr, th, td,\narticle, aside, canvas, details, embed, \nfigure, figcaption, footer, header, hgroup, \nmenu, nav, output, ruby, section, summary,\ntime, mark, audio, video {\n\tmargin: 0;\n\tpadding: 0;\n\tborder: 0;\n\tfont-size: 100%;\n\tfont: inherit;\n\tvertical-align: baseline;\n}\n/* HTML5 display-role reset for older browsers */\narticle, aside, details, figcaption, figure, \nfooter, header, hgroup, menu, nav, section {\n\tdisplay: block;\n}\nbody {\n\tline-height: 1;\n}\nol, ul {\n\tlist-style: none;\n}\nblockquote, q {\n\tquotes: none;\n}\nblockquote:before, blockquote:after,\nq:before, q:after {\n\tcontent: '';\n\tcontent: none;\n}\ntable {\n\tborder-collapse: collapse;\n\tborder-spacing: 0;\n}\n\nbody, html {\n  font-size: 16px;\n  font-family: 'Open Sans';\n  min-height: 100vh;\n  overflow-y: hidden;\n}\n\n#background {\n  background-image: url(\"/background.jpg\");\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  filter: brightness(30%);\n  z-index: 0;\n  width: 100%;\n  min-height: 100vh;\n  z-index: 0;\n  position: absolute;\n}\n\n#root {\n  z-index: 10;\n  position: relative;\n}\n\ninput {\n  font-family: 'Open Sans';\n}\n\na {\n  color: white;\n  text-decoration: none;\n  display: block;\n}\n\n::placeholder {\n  color: '#747474'\n}\n\na:hover {\n  cursor: pointer;\n  color: white;\n}\n\n.button {\n  border: 1px solid white;\n}", ""]);
 
 // exports
 
@@ -10690,7 +10690,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "#home {\n  display: grid;\n  grid-column-gap: 1rem;\n  grid-template-columns: repeat(12, 1fr);\n  padding: 2% 8%;\n}\n\n#home #body {\n  grid-column: 3 / span 8;\n  padding-top: 18%;\n  display: grid;\n  grid-column-gap: 1rem;\n  grid-template-columns: repeat(8, 1fr);\n}\n\n#home #body #title {\n  grid-column: span 8;\n  height: 6rem;\n  line-height: 6rem;\n  text-align: center;\n  font-size: 3.5rem;\n  font-weight: bold;\n  color: white;\n}\n\n#home #body #search_box {\n  grid-column: span 8;\n  padding-top: 11%;\n  display: grid;\n  grid-column-gap: 1rem;\n  grid-template-columns: repeat(8, 1fr);\n}\n\n#home #search_box #input {\n  grid-column: span 6;\n  border: none;\n  text-align: center;\n  color: black;\n}\n\n#home #search_box #button {\n  grid-column: span 2;\n  line-height: 2rem;\n  text-align: center;\n  border: 1px solid white;\n  color: white;\n}\n\n#home .link {\n  height: 2rem;\n  grid-column: span 1;\n  text-align: center;\n  line-height: 2rem;\n}", ""]);
+exports.push([module.i, "#home #body #title {\n  height: 6rem;\n  line-height: 6rem;\n  text-align: center;\n  font-size: 3.5rem;\n  font-weight: bold;\n  margin-bottom: 20vh;\n  margin-top: 20vh;\n}\n\n#home .link {\n  text-align: center;\n  margin-top: 4vh;\n  padding: 0;\n  height: 2rem;\n  line-height: 2rem;\n}\n\n#home #search_box #input {\n  border: none;\n  text-align: center;\n  color: black;\n  padding: 0;\n  margin-right: 1rem;\n}\n\n#home #search_box #button {\n  line-height: 2rem;\n  text-align: center;\n  border: 1px solid white;\n  color: white;\n  padding: 0;\n}\n\n/*#home {\n  display: grid;\n  grid-column-gap: 1rem;\n  grid-template-columns: repeat(12, 1fr);\n  padding: 2% 8%;\n}\n\n#home #body {\n  padding-top: 18%;\n  grid-column: 3 / span 8;\n  display: grid;\n  grid-column-gap: 1rem;\n  grid-template-columns: repeat(8, 1fr);\n}\n\n#home #body #title {\n  grid-column: span 8;\n  height: 6rem;\n  line-height: 6rem;\n  text-align: center;\n  font-size: 3.5rem;\n  font-weight: bold;\n  color: white;\n}\n\n#home #body #search_box {\n  grid-column: span 8;\n  padding-top: 11%;\n  display: grid;\n  grid-column-gap: 1rem;\n  grid-template-columns: repeat(8, 1fr);\n}\n\n#home #search_box #input {\n  grid-column: span 6;\n  border: none;\n  text-align: center;\n  color: black;\n}\n\n#home #search_box #button {\n  grid-column: span 2;\n  line-height: 2rem;\n  text-align: center;\n  border: 1px solid white;\n  color: white;\n}\n\n#home .link {\n  height: 2rem;\n  grid-column: span 1;\n  text-align: center;\n  line-height: 2rem;\n}*/", ""]);
 
 // exports
 
@@ -37853,70 +37853,6 @@ exports.default = Map;
 
 /***/ }),
 
-/***/ "./src/components/SearchBox.js":
-/*!*************************************!*\
-  !*** ./src/components/SearchBox.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var SearchBox = function (_React$Component) {
-  _inherits(SearchBox, _React$Component);
-
-  function SearchBox() {
-    _classCallCheck(this, SearchBox);
-
-    return _possibleConstructorReturn(this, (SearchBox.__proto__ || Object.getPrototypeOf(SearchBox)).apply(this, arguments));
-  }
-
-  _createClass(SearchBox, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { id: this.props.id },
-        _react2.default.createElement('input', {
-          id: 'input',
-          placeholder: this.props.placeholder,
-          type: 'text',
-          ref: this.props.inputRef }),
-        _react2.default.createElement(
-          'a',
-          { onClick: this.props.onSubmit, id: 'button' },
-          'Search'
-        )
-      );
-    }
-  }]);
-
-  return SearchBox;
-}(_react2.default.Component);
-
-exports.default = SearchBox;
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -38062,6 +37998,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -38072,13 +38010,15 @@ var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_module
 
 __webpack_require__(/*! ./css/home.css */ "./src/screens/css/home.css");
 
-var _SearchBox = __webpack_require__(/*! ../components/SearchBox */ "./src/components/SearchBox.js");
-
-var _SearchBox2 = _interopRequireDefault(_SearchBox);
-
 var _actions = __webpack_require__(/*! ../redux/actions */ "./src/redux/actions.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Home = function Home(props) {
   var searchbox_ref = _react2.default.createRef();
@@ -38090,30 +38030,25 @@ var Home = function Home(props) {
 
   return _react2.default.createElement(
     'div',
-    { id: 'home' },
+    { id: 'home', className: 'columns' },
     _react2.default.createElement(
       'div',
-      { id: 'body' },
+      { id: 'body', className: 'column is-6 is-offset-3' },
       _react2.default.createElement(
         'a',
         { href: '/', id: 'title' },
         'Where to code'
       ),
-      _react2.default.createElement(_SearchBox2.default, {
-        id: 'search_box',
-        placeholder: 'Search coding spots around an address',
-        inputRef: searchbox_ref,
-        onSubmit: search_spots
-      })
+      _react2.default.createElement(SearchBox, { inputRef: searchbox_ref, onSubmit: search_spots })
     ),
     _react2.default.createElement(
       'a',
-      { href: '#', className: 'link' },
+      { href: '#', className: 'column is-1 link' },
       'Register'
     ),
     _react2.default.createElement(
       'a',
-      { href: '#', className: 'link' },
+      { href: '#', className: 'column is-1 link' },
       'Login'
     )
   );
@@ -38128,6 +38063,39 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)((0, _reactRouterDom.withRouter)(Home));
+
+var SearchBox = function (_React$Component) {
+  _inherits(SearchBox, _React$Component);
+
+  function SearchBox() {
+    _classCallCheck(this, SearchBox);
+
+    return _possibleConstructorReturn(this, (SearchBox.__proto__ || Object.getPrototypeOf(SearchBox)).apply(this, arguments));
+  }
+
+  _createClass(SearchBox, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { id: 'search_box', className: 'columns' },
+        _react2.default.createElement('input', {
+          id: 'input',
+          className: 'column',
+          placeholder: 'Search coding spots around an address',
+          type: 'text',
+          ref: this.props.inputRef }),
+        _react2.default.createElement(
+          'a',
+          { id: 'button', className: 'column is-2', onClick: this.props.onSubmit },
+          'Search'
+        )
+      );
+    }
+  }]);
+
+  return SearchBox;
+}(_react2.default.Component);
 
 /***/ }),
 
