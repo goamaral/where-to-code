@@ -1,0 +1,19 @@
+<nav>
+  <%= link_to 'Register', '/sign_up' %>
+  <%= link_to 'Login', '/sign_in' %>
+</nav>
+
+<main>
+  <section>
+    <h1>Where to code</h1>
+
+    <%= form_tag '/search', end: false %>
+      <%= text_field_tag placeholder: 'Search coding spots around an address', id: 'query' %>
+      <% unless @is_mobile %>
+        <%= submit_tag value: 'Search' %>
+      <% else %>
+        <%= icon_tag 'fas fa-search'%>
+      <% end %>
+    </form>
+  </section>
+</main>

@@ -6,8 +6,8 @@ require 'require_all'
 
 Dotenv.load('config/.env')
 
-# Require models and controllers
-require_all "app/**/*.rb"
+require_all "app/controllers/*.rb"
+require_all "app/models/*.rb"
 
 map '/' do
   run WebsiteController

@@ -1,6 +1,6 @@
 class WebsiteController < ApplicationController
   get '/' do
-    erb :index
+    erb :home, layout: 'layouts/general'.to_sym
   end
 
   get '/search' do
