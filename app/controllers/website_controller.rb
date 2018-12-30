@@ -1,9 +1,13 @@
 class WebsiteController < ApplicationController
+  def layout
+    'layouts/general'
+  end
+
   get '/' do
-    erb :home, layout: 'layouts/general'.to_sym
+    render_view :home
   end
 
   get '/search' do
-    erb :search
+    render_view :search
   end
 end

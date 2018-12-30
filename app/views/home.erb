@@ -1,18 +1,18 @@
-<nav>
-  <%= link_to 'Register', '/sign_up' %>
-  <%= link_to 'Login', '/sign_in' %>
+<nav class='row end-md'>
+  <a class='button col-md-1' href='/sign_up'>Register</a>
+  <a class='button col-md-1' href='/sign_in'>Login</a>
 </nav>
 
 <main>
   <section>
     <h1>Where to code</h1>
 
-    <%= form_tag '/search', end: false %>
-      <%= text_field_tag placeholder: 'Search coding spots around an address', id: 'query' %>
+    <form method='/search'>
+      <input id='query' type='text' placeholder='Search coding spots around an address' />
       <% unless @is_mobile %>
-        <%= submit_tag value: 'Search' %>
+        <input type="submit" value='Search' />
       <% else %>
-        <%= icon_tag 'fas fa-search'%>
+        <i class="fas fa-search"></i>
       <% end %>
     </form>
   </section>
