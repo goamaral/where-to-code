@@ -1,22 +1,6 @@
 # Where to code
 
-**How to run**  rackup
-
-**Goal**  Find places where to code
-
 **Status**  In development
 
-**Structure**
-+ Starting Page
-  - Simple search bar for locations
-+ Search Results Page
-  - Show Map with pins and list of places
-+ Place Info Page
-  - Name
-  - Location
-  - Conditions
-  - Rating
-+ Business strategy
-  - Ads
-  - Freemium
+Web platform to help you find places where you can code, describing essencial conditions like wifi quality, plug availability, schedule
   
