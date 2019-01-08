@@ -1,9 +1,7 @@
 @import url("core/flexboxgrid.min.css");
+@import url("core/fonts.css");
 
-body, html {
-  height: 100%;
-  margin: 0;
-}
+html { height: 100%; }
 
 body {
   background-image: url('/images/background.jpg');
@@ -12,4 +10,18 @@ body {
   background-size: cover;
   background-blend-mode: hue;
   background-color: rgba(0, 0, 0, 0.7);
+  height: calc(100vh - 2rem);
+  margin: 0;
+  padding: 1rem;
 }
+
+.fw { width: 100%; }
+
+.marginless-button {
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding: 1%;
+}
+
+.mt-1 { margin-top: 1rem; }
