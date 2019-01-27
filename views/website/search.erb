@@ -1,0 +1,24 @@
+<nav class='row end-md'>
+  <a class='marginless-button col-md-1' href='/sign_up'>Register</a>
+  <a class='marginless-button col-md-1' href='/sign_in'>Login</a>
+</nav>
+
+<main class="row center-md middle-md fw">
+  <section class="col-md-5">
+    <h1>Where to code</h1>
+
+    <form class='row' method='/search'>
+      <div class="col-md-9" id="query">
+        <input name='query' type='text' placeholder='Search coding spots around an address' />
+      </div>
+
+      <% unless @is_mobile %>
+        <div class="col-md-3">
+          <input class="button" type="submit" value='Search' />
+        </div>
+      <% else %>
+        <i class="fas fa-search"></i>
+      <% end %>
+    </form>
+  </section>
+</main>

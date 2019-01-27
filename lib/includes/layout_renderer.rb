@@ -12,7 +12,10 @@ module LayoutRenderer
   end
 
   def action_stylesheet(action_name)
-    css_file_location = "css/#{folder_name}/#{action_name}.css"
-    "<link rel='stylesheet' href='#{css_file_location}' type='text/css'>"
+    css_file_location = "/css/#{folder_name}/#{action_name}.css"
+
+    if File.exists? File.join(settings.public_folder, css_file_location)
+      "<link rel='stylesheet' href='#{css_file_location}' type='text/css'>"
+    end
   end
 end
