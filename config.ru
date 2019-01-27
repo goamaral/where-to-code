@@ -1,14 +1,14 @@
-require 'bundler/setup'
-require 'sinatra'
-require 'sinatra/activerecord'
-require 'dotenv'
-require 'require_all'
+# Load path and gems/bundler
+$LOAD_PATH << File.expand_path(File.dirname(__FILE__))
 
-Dotenv.load('config/.env')
+require "bundler"
+Bundler.require
 
-require_all "app/controllers/*.rb"
-require_all "app/models/*.rb"
+# Local config
+require "find"
 
-map '/' do
-  run WebsiteController
-end
+%w{config lib}.each {|load_path| require_all load_path }
+
+# Load app
+require "where_to_code"
+run WhereToCode

@@ -1,6 +1,20 @@
-require 'bundler/setup'
-require 'dotenv'
-Dotenv.load('config/.env')
+%w{ bundler find rake/testtask}.each { |lib| require lib }
 
-require 'sinatra/activerecord/rake'
-require 'sinatra/activerecord'
+task :default => :spec
+
+Rake::TestTask.new(:spec) do |t|
+  t.test_files = FileList['spec/*_spec.rb']
+end
+
+namespace :db do
+  desc "Run all migrations in db/migrate"
+  task :migrate => :connect do
+    Sequel.extension(:migration)
+    Sequel::Migrator.apply(DB, "db/migrate")
+  end
+
+  task :connect => :environment do
+    require "./config/initializers/database"
+  end
+end
+

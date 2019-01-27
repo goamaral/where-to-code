@@ -1,0 +1,1 @@
+Mongoid.load!(File.join(__dir__, "../mongoid.yml"), ENV['APP_ENV'])
