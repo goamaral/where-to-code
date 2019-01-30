@@ -4,21 +4,17 @@
 </nav>
 
 <main class="row center-md middle-md fw">
-  <section class="col-md-5">
+  <section class="col-md-6">
     <h1>Where to code</h1>
 
-    <form class='row' method='/search'>
+    <form class='row' action='/search'>
       <div class="col-md-9" id="query">
         <input name='query' type='text' placeholder='Search coding spots around an address' />
       </div>
 
-      <% unless @is_mobile %>
-        <div class="col-md-3">
-          <input class="button" type="submit" value='Search' />
-        </div>
-      <% else %>
-        <i class="fas fa-search"></i>
-      <% end %>
+      <div class="col-md-3">
+        <input class="button" type="submit" value='Search' />
+      </div>
     </form>
   </section>
 </main>

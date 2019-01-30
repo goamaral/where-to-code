@@ -3,22 +3,19 @@
   <a class='marginless-button col-md-1' href='/sign_in'>Login</a>
 </nav>
 
-<main class="row center-md middle-md fw">
-  <section class="col-md-5">
+<main class="col-md-offset-1 col-md-10">
+  <div class="row center-md">
     <h1>Where to code</h1>
+  </div>
 
-    <form class='row' method='/search'>
-      <div class="col-md-9" id="query">
-        <input name='query' type='text' placeholder='Search coding spots around an address' />
-      </div>
+  <div class="row" id="core">
+    <section class="col-md-6 flex-col">
+      <div id="google_maps"></div>
+      <a class="button">Add a new coding spot</a>
+    </section>
 
-      <% unless @is_mobile %>
-        <div class="col-md-3">
-          <input class="button" type="submit" value='Search' />
-        </div>
-      <% else %>
-        <i class="fas fa-search"></i>
-      <% end %>
-    </form>
-  </section>
+    <section class="col-md-6">
+      <div style="background-color: blue; height: 60vh;"></div>
+    </section>
+  </div>
 </main>

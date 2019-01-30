@@ -31,9 +31,17 @@ body {
   padding: 1%;
   border: 1px solid white;
   background-color: transparent;
-  width: 100%;
+  width: calc(100% - 2%);
   max-height: 2.5rem;
   font-size: 1rem;
+  display: block;
 }
 
 input { font-size: 1rem; }
+
+.fw { width: 100%; }
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
