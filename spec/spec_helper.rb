@@ -1,26 +1,21 @@
-# encoding: UTF-8
+RACK_ENV = 'test' unless defined?(RACK_ENV)
+require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
+Dir[File.expand_path(File.dirname(__FILE__) + "/../app/helpers/**/*.rb")].each(&method(:require))
 
-require 'bundler'
-
-Bundler.setup
-Bundler.require
-
-ENV["RACK_ENV"] = "test"
-
-require 'minitest/pride'
-require 'minitest/autorun'
-require 'minitest/spec'
-require 'rack/test'
-
-require 'fakeredis'
-REDIS = Redis.new
-
-
-require "find"
-%w{./config/initializers ./lib}.each do |load_path|
-  Find.find(load_path) { |f| require f if f.match(/\.rb$/) }
+RSpec.configure do |conf|
+  conf.include Rack::Test::Methods
 end
 
-class MiniTest::Spec
-  include Rack::Test::Methods
+# You can use this method to custom specify a Rack app
+# you want rack-test to invoke:
+#
+#   app WhereToCode::App
+#   app WhereToCode::App.tap { |a| }
+#   app(WhereToCode::App) do
+#     set :foo, :bar
+#   end
+#
+def app(app = nil, &blk)
+  @app ||= block_given? ? app.instance_eval(&blk) : app
+  @app ||= Padrino.application
 end

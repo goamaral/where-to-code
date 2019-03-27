@@ -1,6 +1,0 @@
-development:
-  clients:
-    default:
-      database: where_to_code_development
-      hosts:
-        - localhost:27017

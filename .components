@@ -1,0 +1,9 @@
+---
+:orm: mongoid
+:test: rspec
+:mock: none
+:script: none
+:renderer: erb
+:stylesheet: none
+:namespace: WhereToCode
+:migration_format: number

@@ -1,14 +1,9 @@
-# Load path and gems/bundler
-$LOAD_PATH << File.expand_path(File.dirname(__FILE__))
+#!/usr/bin/env rackup
+# encoding: utf-8
 
-require "bundler"
-Bundler.require
+# This file can be used to start Padrino,
+# just execute it from the command line.
 
-# Local config
-require "find"
+require File.expand_path("../config/boot.rb", __FILE__)
 
-%w{config lib}.each {|load_path| require_all load_path }
-
-# Load app
-require "where_to_code"
-run WhereToCode
+run Padrino.application

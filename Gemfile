@@ -1,14 +1,36 @@
-source "https://rubygems.org/"
-ruby '2.5.1'
+source 'https://rubygems.org'
 
-gem 'sinatra', '~> 2.0', '>= 2.0.5'
-gem 'mongoid', '~> 7.0', '>= 7.0.2'
-gem 'require_all', '~> 2.0'
-gem 'dotenv', '~> 2.5'
-gem 'byebug', '~> 10.0', '>= 10.0.2'
+# Padrino supports Ruby version 2.2.2 and later
+# ruby '2.5.1'
 
-group :development do
-  gem 'rake', '~> 12.3', '>= 12.3.2'
-  gem 'minitest', '~> 5.11', '>= 5.11.3'
-  gem 'rack-test', '~> 1.1'
-end
+# Distribute your app as a gem
+# gemspec
+
+# Server requirements
+# gem 'thin' # or mongrel
+# gem 'trinidad', :platform => 'jruby'
+
+# Optional JSON codec (faster performance)
+# gem 'oj'
+
+# Project requirements
+gem 'rake'
+
+# Component requirements
+gem 'erubi', '~> 1.6'
+gem 'mongoid', '>= 3.0.0'
+
+# Test requirements
+gem 'rspec', :group => 'test'
+gem 'rack-test', :require => 'rack/test', :group => 'test'
+
+# Padrino Stable Gem
+gem 'padrino', '0.14.4'
+
+# Or Padrino Edge
+# gem 'padrino', :github => 'padrino/padrino-framework'
+
+# Or Individual Gems
+# %w(core support gen helpers cache mailer admin).each do |g|
+#   gem 'padrino-' + g, '0.14.4'
+# end
