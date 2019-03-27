@@ -1,17 +1,6 @@
 source 'https://rubygems.org'
 
-# Padrino supports Ruby version 2.2.2 and later
-# ruby '2.5.1'
-
-# Distribute your app as a gem
-# gemspec
-
-# Server requirements
-# gem 'thin' # or mongrel
-# gem 'trinidad', :platform => 'jruby'
-
-# Optional JSON codec (faster performance)
-# gem 'oj'
+ruby '2.5.1'
 
 # Project requirements
 gem 'rake'
@@ -27,10 +16,6 @@ gem 'rack-test', :require => 'rack/test', :group => 'test'
 # Padrino Stable Gem
 gem 'padrino', '0.14.4'
 
-# Or Padrino Edge
-# gem 'padrino', :github => 'padrino/padrino-framework'
-
-# Or Individual Gems
-# %w(core support gen helpers cache mailer admin).each do |g|
-#   gem 'padrino-' + g, '0.14.4'
-# end
+# Extra
+gem 'dotenv', '~> 2.7', '>= 2.7.2'
+gem 'bcrypt', '~> 3.1', '>= 3.1.12'

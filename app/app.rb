@@ -4,6 +4,45 @@ module WhereToCode
     register Padrino::Helpers
     enable :sessions
 
+    layout :app
+
+    get :index do
+      render :index
+    end
+
+    get :login do
+      @user = User.new
+      render :login
+    end
+
+    post :login do
+      puts 'IN'
+      @user = User.find_by(email: params[:email])
+
+      if @user.present? && @user.password == params[:password]
+        return 'LOGGED IN'
+      else
+        render :login
+      end
+    end
+
+    get :register do
+      @user = User.new
+      render :register
+    end
+
+    post :resgister do
+
+    end
+
+    get :forgot_password do
+      render :forgot_password
+    end
+
+    post :forgot_password do
+
+    end
+
     ##
     # Caching support.
     #
