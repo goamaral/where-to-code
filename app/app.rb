@@ -15,13 +15,15 @@ module WhereToCode
       render :login
     end
 
-    post :login do
-      puts 'IN'
-      @user = User.find_by(email: params[:email])
+    post :login, params: { user: [:email, :password] } do
+      @user = User.find_by(email: params[:user][:email])
 
-      if @user.present? && @user.password == params[:password]
-        return 'LOGGED IN'
+      if @user.present? && @user.password == params[:user][:password]
+        session[:user_id] = @user.id
+        redirect_to url_for(:platform, :index)
       else
+        @user = User.new
+        @user.errors.messages[:credentials] = "invalid"
         render :login
       end
     end
@@ -31,8 +33,15 @@ module WhereToCode
       render :register
     end
 
-    post :resgister do
+    post :register, params: { user: [:username, :email, :password, :password_confirmation, :terms_accepted] } do
+      @user = User.new(params[:user])
 
+      if @user.save
+        session[:user_id] = @user.id
+        redirect url_for(:platform, :index)
+      else
+        render :register
+      end
     end
 
     get :forgot_password do
@@ -41,6 +50,10 @@ module WhereToCode
 
     post :forgot_password do
 
+    end
+
+    get :terms do
+      render :terms
     end
 
     ##

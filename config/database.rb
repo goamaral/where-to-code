@@ -23,6 +23,8 @@ else
   Mongoid::Config.load_configuration :clients => database_settings
 end
 
+Mongoid::Config.raise_not_found_error = false
+
 # If you want to use a YML file for config, use this instead:
 #
 #   Mongoid.load!(File.join(Padrino.root, 'config', 'database.yml'), Padrino.env)

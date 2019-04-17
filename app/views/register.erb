@@ -1,14 +1,22 @@
-<%= error_messages_for @user %>
+<% form_for @user, url_for(:register) do |f| %>
+  <%= f.error_messages %>
 
-<% form_tag url_for(:register) do %>
-  <%= label_tag :username %>
-  <%= text_field_tag :username %>
+  <%= f.label :username %>
+  <%= f.text_field :username %>
 
-  <%= label_tag :email %>
-  <%= email_field_tag :email %>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
 
-  <%= label_tag :password %>
-  <%= password_field_tag :password %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
 
-  <%= submit_tag 'Register' %>
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+
+  <p>
+    <%= f.check_box :terms_accepted %>
+    I accept the <a href="<%= url_for :terms %>">terms of service</a>
+  </p>
+
+  <%= f.submit 'Register' %>
 <% end %>
