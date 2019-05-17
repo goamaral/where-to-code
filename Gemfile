@@ -7,6 +7,7 @@ gem 'rake'
 
 # Component requirements
 gem 'erubi', '~> 1.6'
+gem 'haml', '~> 5.1'
 gem 'mongoid', '>= 3.0.0'
 
 # Test requirements

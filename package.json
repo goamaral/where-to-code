@@ -1,0 +1,9 @@
+{
+  "name": "where-to-code",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Goamaral/where-to-code.git",
+  "author": "Goncalo Amaral <goa.docs@gmail.com>",
+  "license": "MIT",
+  "dependencies": {}
+}

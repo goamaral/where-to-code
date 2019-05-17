@@ -3,7 +3,7 @@
 :test: rspec
 :mock: none
 :script: none
-:renderer: erb
+:renderer: haml
 :stylesheet: none
 :namespace: WhereToCode
 :migration_format: number

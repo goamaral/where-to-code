@@ -56,6 +56,10 @@ module WhereToCode
       render :terms
     end
 
+    post :search do
+      render :search
+    end
+
     ##
     # Caching support.
     #
