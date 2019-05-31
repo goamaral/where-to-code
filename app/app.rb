@@ -33,7 +33,7 @@ module WhereToCode
       render :register
     end
 
-    post :register, params: { user: [:username, :email, :password, :password_confirmation, :terms_accepted] } do
+    post :register, params: { user: [:username, :email, :terms_accepted] } do
       @user = User.new(params[:user])
 
       if @user.save
