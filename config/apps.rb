@@ -26,10 +26,26 @@
 # override these settings in the subapps as needed.
 #
 Padrino.configure_apps do
-  # enable :sessions
+  enable :sessions
   set :session_secret, '0fb6c5192994b1be75e19c9b5982819ad2b9abc9fbfcbec0ea8adff41f39c9f0'
   set :protection, :except => :path_traversal
   set :protect_from_csrf, true
+  register Padrino::Mailer
+  register Padrino::Helpers
+
+  set :mailer_defaults, from: ENV['EMAIL_FROM']
+  if Padrino.env == :production || ENV['USE_SENDGRID'] == "1"
+    set :delivery_method, smtp: {
+      address: "smtp.sendgrid.net",
+      port: 587,
+      user_name: ENV['SENDGRID_USERNAME'],
+      password: ENV['SENDGRID_PASSWORD'],
+      authentication: :plain,
+      enable_starttls_auto: true
+    }
+  else
+    set :delivery_method, :logger
+  end
 end
 
 # Mounts the core application for this project

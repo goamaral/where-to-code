@@ -12,11 +12,11 @@ WhereToCode::Admin.controllers :accounts do
   end
 
   post :create do
-    @account = Account.new(params[:account])
+    @account = Account.new(params[:account].merge(terms: true))
     if @account.save
       @title = pat(:create_title, :model => "account #{@account.id}")
       flash[:success] = pat(:create_success, :model => 'Account')
-      params[:save_and_continue] ? redirect(url(:accounts, :index)) : redirect(url(:accounts, :edit, :id => @account.id))
+      redirect url(:accounts, :index)
     else
       @title = pat(:create_title, :model => 'account')
       flash.now[:error] = pat(:create_error, :model => 'account')
@@ -78,11 +78,11 @@ WhereToCode::Admin.controllers :accounts do
     end
     ids = params[:account_ids].split(',').map(&:strip)
     accounts = Account.find(ids)
-    
+
     if accounts.include? current_account
       flash[:error] = pat(:delete_error, :model => 'account')
     elsif accounts.each(&:destroy)
-    
+
       flash[:success] = pat(:destroy_many_success, :model => 'Accounts', :ids => "#{ids.join(', ')}")
     end
     redirect url(:accounts, :index)

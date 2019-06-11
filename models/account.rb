@@ -5,11 +5,12 @@ class Account
   attr_accessor :password, :password_confirmation
 
   # Fields
+  field :name, type: String
   field :username, type: String
   field :email, type: String
   field :crypted_password, type: String
   field :terms, type: Boolean, default: false
-  field :role, type: Symbol
+  field :role, type: Symbol, default: :regular
 
   # Validations
   validates_presence_of :email, :role
@@ -30,6 +31,7 @@ class Account
 
   # Callbacks
   before_save :encrypt_password
+  before_save :normalize_role
 
   def self.authenticate(email, password)
     account = where(email: /#{Object::Regexp.escape(email)}/i).first if email.present?
@@ -51,5 +53,9 @@ class Account
 
   def password_required
     @password.present?
+  end
+
+  def normalize_role
+    self.role = role.downcase.to_sym
   end
 end

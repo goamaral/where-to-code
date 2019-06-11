@@ -1,40 +1,36 @@
 module WhereToCode
   class App < Padrino::Application
-    register Padrino::Mailer
-    register Padrino::Helpers
-    enable :sessions
-
     layout :app
 
-    get :index do
+    get :index, map: '/' do
       render :index
     end
 
     get :login do
-      @user = User.new
+      @user = Account.new
       render :login
     end
 
     post :login, params: { user: [:email, :password] } do
-      @user = User.find_by(email: params[:user][:email])
+      @user = Account.find_by(email: params.dig(:user, :email))
 
       if @user.present? && @user.password == params[:user][:password]
         session[:user_id] = @user.id
         redirect_to url_for(:platform, :index)
       else
-        @user = User.new
+        @user = Account.new
         @user.errors.messages[:credentials] = "invalid"
         render :login
       end
     end
 
     get :register do
-      @user = User.new
+      @user = Account.new
       render :register
     end
 
     post :register, params: { user: [:username, :email, :terms_accepted] } do
-      @user = User.new(params[:user])
+      @user = Account.new(params[:user])
 
       if @user.save
         session[:user_id] = @user.id
@@ -82,7 +78,7 @@ module WhereToCode
 
     ##
     # Application configuration options.
-    #
+    #Something
     # set :raise_errors, true       # Raise exceptions (will stop application) (default for test)
     # set :dump_errors, true        # Exception backtraces are written to STDERR (default for production/development)
     # set :show_exceptions, true    # Shows a stack trace in browser (default for development)
