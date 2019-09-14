@@ -19,7 +19,7 @@ user = Account.create!(
   email: "user@email.com",
   password: "user_secret",
   password_confirmation: "user_secret",
-  role: :normal,
+  role: :regular,
   terms: true
 )
 ap user

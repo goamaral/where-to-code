@@ -4,7 +4,10 @@ class Account
 
   attr_accessor :password, :password_confirmation
 
-  # Fields
+  # Roles #
+  ROLES = [:admin, :regular]
+
+  # Fields #
   field :name, type: String
   field :username, type: String
   field :email, type: String
@@ -12,7 +15,7 @@ class Account
   field :terms, type: Boolean, default: false
   field :role, type: Symbol, default: :regular
 
-  # Validations
+  # Validations #
   validates_presence_of :email, :role
   validates_presence_of :password, if: :password_required
   validates_presence_of :password_confirmation, if: :password_required
@@ -29,10 +32,11 @@ class Account
 
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
-  # Callbacks
-  before_save :encrypt_password
+  # Callbacks #
+  before_save :encrypt_password, if: :password_required
   before_save :normalize_role
 
+  # Static Methods #
   def self.authenticate(email, password)
     account = where(email: /#{Object::Regexp.escape(email)}/i).first if email.present?
     account && account.has_password?(password) ? account : nil
@@ -42,17 +46,19 @@ class Account
     find(id) rescue nil
   end
 
+  # Methods #
   def has_password?(password)
     BCrypt::Password.new(crypted_password) == password
   end
 
-  def encrypt_password
-    @password = BCrypt::Password.create(Time.current)[10..20] unless password_required
-    self.crypted_password = BCrypt::Password.create(@password)
+  # Helper Methods #
+  def password_required
+    @password.present? 
   end
 
-  def password_required
-    @password.present?
+  def encrypt_password 
+    @password = BCrypt::Password.create(Time.current)[10..20] unless password_required
+    self.crypted_password = BCrypt::Password.create(@password)
   end
 
   def normalize_role

@@ -38,6 +38,7 @@ WhereToCode::Admin.controllers :accounts do
   put :update, :with => :id do
     @title = pat(:update_title, :model => "account #{params[:id]}")
     @account = Account.find(params[:id])
+    
     if @account
       if @account.update_attributes(params[:account])
         flash[:success] = pat(:update_success, :model => 'Account', :id =>  "#{params[:id]}")
