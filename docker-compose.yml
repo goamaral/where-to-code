@@ -3,8 +3,10 @@ version: "3"
 services:
   padrino:
     container_name: padrino-web
-    build: .
-    image: rails_2.5.1:v1
+    build:
+      dockerfile: docker/Dockerfile
+      context: .
+    image: where_to_work_padrino
     volumes:
       - .:/project
     ports:
@@ -15,15 +17,8 @@ services:
   mongo:
     container_name: padrino-mongo
     image: mongo:latest
+    volumes:
+      - ./data/mongo:/data/db
     restart: always
     ports:
-      - "27017:27017"
-
-  mongo-express:
-    container_name: padrino-mongo-express
-    image: mongo-express:latest
-    restart: always
-    ports:
-      - "3001:8081"
-    depends_on:
-      - mongo
+      - 27017:27017

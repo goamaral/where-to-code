@@ -35,15 +35,15 @@ class Account
   # Callbacks #
   before_save :encrypt_password, if: :password_required
   before_save :normalize_role
+  after_save :send_update_email
+
+  # Scope Methods #
+  
 
   # Static Methods #
   def self.authenticate(email, password)
     account = where(email: /#{Object::Regexp.escape(email)}/i).first if email.present?
     account && account.has_password?(password) ? account : nil
-  end
-
-  def self.find_by_id(id)
-    find(id) rescue nil
   end
 
   # Methods #
@@ -52,16 +52,17 @@ class Account
   end
 
   # Helper Methods #
-  def password_required
-    @password.present? 
-  end
+  private
+    def password_required
+      @password.present? 
+    end
 
-  def encrypt_password 
-    @password = BCrypt::Password.create(Time.current)[10..20] unless password_required
-    self.crypted_password = BCrypt::Password.create(@password)
-  end
+    def encrypt_password 
+      @password = BCrypt::Password.create(Time.current)[10..20] unless password_required
+      self.crypted_password = BCrypt::Password.create(@password)
+    end
 
-  def normalize_role
-    self.role = role.downcase.to_sym
-  end
+    def normalize_role
+      self.role = role.downcase.to_sym
+    end
 end
