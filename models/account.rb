@@ -38,7 +38,7 @@ class Account
   after_save :send_update_email
 
   # Scope Methods #
-  
+
 
   # Static Methods #
   def self.authenticate(email, password)
@@ -64,5 +64,9 @@ class Account
 
     def normalize_role
       self.role = role.downcase.to_sym
+    end
+
+    def send_update_email
+      WhereToCode::App.deliver(:account, :updated, self)
     end
 end

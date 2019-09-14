@@ -11,10 +11,10 @@ module WhereToCode
       render :login
     end
 
-    post :login, params: { user: [:email, :password] } do
-      @user = Account.find_by(email: params.dig(:user, :email))
+    post :login, params: { account: [:email, :password] } do
+      @user = Account.find_by(email: params.dig(:account, :email))
 
-      if @user.present? && @user.password == params[:user][:password]
+      if @user.present? && @user.password == params[:account][:password]
         session[:user_id] = @user.id
         redirect_to url_for(:platform, :index)
       else
@@ -29,8 +29,8 @@ module WhereToCode
       render :register
     end
 
-    post :register, params: { user: [:username, :email, :terms_accepted] } do
-      @user = Account.new(params[:user])
+    post :register, params: { account: [:username, :email, :terms] } do
+      @user = Account.new(params[:account])
 
       if @user.save
         session[:user_id] = @user.id
