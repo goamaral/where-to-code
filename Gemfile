@@ -1,24 +1,30 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.6.5'
 
-# Project requirements
-gem 'rake'
+gem 'dotenv-rails', '~> 2.7', '>= 2.7.5', require: 'dotenv/rails-now'
+gem 'rails', '~> 6.0', '>= 6.0.2.1'
+gem 'bootsnap', '~> 1.4', '>= 1.4.5', require: false
+gem 'tzinfo-data', '~> 1.2019', '>= 1.2019.3'
+gem 'pg', '~> 1.2', '>= 1.2.2'
+gem 'puma', '~> 4.3', '>= 4.3.1'
+gem 'annotate', '~> 3.0', '>= 3.0.3'
+gem 'devise', '~> 4.7', '>= 4.7.1'
+gem 'omniauth-facebook', '~> 5.0'
+gem 'omniauth-google-oauth2', '~> 0.8.0'
+gem 'omniauth-twitter', '~> 1.4'
 
-# Component requirements
-gem 'bcrypt', '~> 3.1', '>= 3.1.12'
-gem 'activesupport', '>= 3.1'
-gem 'haml', '~> 5.1'
-gem 'mongoid', '>= 3.0.0'
+group :development, :test do
+  gem 'byebug', '~> 11.0', '>= 11.0.1'
+end
 
-# Test requirements
-gem 'rspec', :group => 'test'
-gem 'rack-test', :require => 'rack/test', :group => 'test'
+group :development do
+  gem 'web-console', '~> 4.0', '>= 4.0.1'
+  gem 'listen', '~> 3.2', '>= 3.2.1'
+  gem 'spring', '~> 2.1'
+  gem 'spring-watcher-listen', '~> 2.0', '>= 2.0.1'
+end
 
-# Padrino Stable Gem
-gem 'padrino', '0.14.4'
-
-# Extra
-gem 'dotenv', '~> 2.7', '>= 2.7.2'
-gem 'faker', '~> 1.9', '>= 1.9.3'
-gem 'awesome_print', '~> 1.8'
+group :test do
+end

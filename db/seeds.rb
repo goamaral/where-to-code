@@ -1,25 +1,7 @@
-# Clear
-Account.delete_all
-
-# Seed
-puts "ADMIN"
-admin = Account.create!(
-  username: "admin",
-  email: "admin@email.com",
-  password: "admin_secret",
-  password_confirmation: "admin_secret",
-  role: :admin,
-  terms: true
-)
-ap admin
-
-puts "USER"
-user = Account.create!(
-  username: "user",
-  email: "user@email.com",
-  password: "user_secret",
-  password_confirmation: "user_secret",
-  role: :regular,
-  terms: true
-)
-ap user
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+#
+# Examples:
+#
+#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
+#   Character.create(name: 'Luke', movie: movies.first)
