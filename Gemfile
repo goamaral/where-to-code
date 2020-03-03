@@ -8,7 +8,7 @@ gem 'rails', '~> 6.0', '>= 6.0.2.1'
 gem 'bootsnap', '~> 1.4', '>= 1.4.5', require: false
 gem 'tzinfo-data', '~> 1.2019', '>= 1.2019.3'
 gem 'pg', '~> 1.2', '>= 1.2.2'
-gem 'puma', '~> 4.3', '>= 4.3.1'
+gem 'puma', '~> 4.3'
 gem 'annotate', '~> 3.0', '>= 3.0.3'
 gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'omniauth-facebook', '~> 5.0'
