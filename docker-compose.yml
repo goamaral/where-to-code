@@ -1,19 +1,6 @@
 version: "3"
 
 services:
-    rails:
-        container_name: where-to-code-rails
-        build:
-            context: .
-        image: rails_where_to_code
-        volumes:
-            - .:/project
-        ports:
-            - "3000:3000"
-        depends_on:
-            - postgres
-            - redis
-
     postgres:
         container_name: where-to-code-postgres
         image: postgres

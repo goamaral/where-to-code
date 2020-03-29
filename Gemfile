@@ -15,15 +15,12 @@ gem 'omniauth-facebook', '~> 5.0'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'omniauth-twitter', '~> 1.4'
 
-group :development, :test do
-  gem 'byebug', '~> 11.0', '>= 11.0.1'
-end
-
 group :development do
   gem 'web-console', '~> 4.0', '>= 4.0.1'
   gem 'listen', '~> 3.2', '>= 3.2.1'
   gem 'spring', '~> 2.1'
   gem 'spring-watcher-listen', '~> 2.0', '>= 2.0.1'
+  gem 'byebug', '~> 11.0', '>= 11.0.1'
 end
 
 group :test do
