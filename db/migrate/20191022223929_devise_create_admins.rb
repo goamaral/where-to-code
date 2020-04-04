@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DeviseCreateAdmins < ActiveRecord::Migration[6.0]
+
   def change
     create_table :admins do |t|
       ## Database authenticatable
@@ -37,4 +38,5 @@ class DeviseCreateAdmins < ActiveRecord::Migration[6.0]
       t.timestamps null: false
     end
   end
+
 end
