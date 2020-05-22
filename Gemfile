@@ -13,7 +13,7 @@ gem 'omniauth-facebook', '~> 5.0'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'omniauth-twitter', '~> 1.4'
 gem 'pg', '~> 1.2', '>= 1.2.2'
-gem 'puma', '~> 4.3', '>= 4.3.1'
+gem 'puma', '~> 4.3'
 gem 'rails', '~> 6.0', '>= 6.0.2.1'
 gem 'rubocop', '~> 0.81.0'
 gem 'rubocop-rails', '~> 2.5', '>= 2.5.1', require: false
