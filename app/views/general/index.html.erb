@@ -1,0 +1,13 @@
+<div>
+  <%= link_to "Register", new_user_registration_path %>
+  <%= link_to "Login", new_user_session_path %>
+</div>
+
+<%= form_tag spots_path, method: :get do %>
+  <h1>Where to code</h1>
+
+  <div>
+    <%= text_field_tag :name, "", placeholder: "Search coding spots around an address" %>
+    <%= submit_tag "Search", name: nil %>
+  </div>
+<% end %>

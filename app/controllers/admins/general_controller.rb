@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AdminController < ApplicationController
+class Admins::GeneralController < ApplicationController
 
   before_action :authenticate_admin!
 

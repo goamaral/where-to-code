@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class PlatformController < ApplicationController
+class Users::GeneralController < ApplicationController
 
   before_action :authenticate_user!
 

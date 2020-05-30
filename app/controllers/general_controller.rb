@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WebsiteController < ApplicationController
+class GeneralController < ApplicationController
 
   def index
   end

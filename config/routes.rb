@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   devise_for :admins
   devise_for :users
 
-  root to: 'website#index'
+  resources :spots, only: [:index]
+
+  root to: 'general#index'
 end
