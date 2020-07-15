@@ -1,23 +1,39 @@
-version: "3"
+version: '3'
 
 services:
-    postgres:
-        container_name: where-to-code-postgres
-        image: postgres
-        restart: always
-        environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-        volumes:
-            - $HOME/.docker/data/where-to-code/postgres:/var/lib/postgresql/data
-        ports:
-            - 5432:5432
+  rails:
+    container_name: where-to-code-rails
+    build:
+      dockerfile: docker/development.dockerfile
+      context: .
+    image: where_to_code_rails
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/project
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+      - redis
 
-    redis:
-        container_name: "where-to-code-redis"
-        image: redis
-        restart: always
-        volumes:
-            - $HOME/.docker/data/where-to-code/redis:/data
-        ports:
-            - 6379:6379
+  postgres:
+    container_name: where-to-code-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./docker/data/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  redis:
+    container_name: where-to-code-redis
+    image: redis
+    restart: always
+    volumes:
+      - ./docker/data/redis:/data
+    ports:
+      - 6379:6379

@@ -9,7 +9,6 @@ tmp/
 storage/
 config/master.key
 .env
-log/
 
 # Public assets #
 /public/packs
