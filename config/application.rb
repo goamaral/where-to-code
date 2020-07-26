@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 
 Dotenv::Railtie.load
 
-module Taskdojo
+module WhereToCode
 
   class Application < Rails::Application
 

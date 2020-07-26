@@ -32,6 +32,7 @@
 
 class User < ApplicationRecord
 
-  devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable , :validatable
+  include User::DeviseConcern
+  include User::RoleConcern
 
 end

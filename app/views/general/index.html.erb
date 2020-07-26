@@ -1,7 +1,11 @@
-<div>
-  <%= link_to "Register", new_user_registration_path %>
-  <%= link_to "Login", new_user_session_path %>
-</div>
+<% unless user_signed_in? %>
+  <div>
+    <%= link_to "Register", new_user_registration_path %>
+    <%= link_to "Login", new_user_session_path %>
+  </div>
+<% else %>
+  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+<% end %>
 
 <%= form_tag spots_path, method: :get do %>
   <h1>Where to code</h1>

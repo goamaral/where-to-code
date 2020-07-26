@@ -23,6 +23,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.datetime :confirmation_sent_at
       t.string :unconfirmed_email # Only if using reconfirmable
 
+      t.integer :role, null: false, default: 0
       t.timestamps null: false
     end
   end

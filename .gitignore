@@ -16,5 +16,5 @@ log/
 /public/packs-test
 
 # Docker #
-docker/data/
-docker/home/
+docker/development/data/
+docker/development/home/

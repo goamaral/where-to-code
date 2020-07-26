@@ -15,22 +15,6 @@ ActiveRecord::Schema.define(version: 2020_05_30_151628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "admins", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "username", null: false
-    t.string "name", null: false
-    t.string "encrypted_password", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "spots", force: :cascade do |t|
     t.text "name", null: false
     t.time "opening_hours", null: false
@@ -57,6 +41,7 @@ ActiveRecord::Schema.define(version: 2020_05_30_151628) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.integer "role", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
