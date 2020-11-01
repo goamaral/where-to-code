@@ -10,6 +10,7 @@ storage/
 config/master.key
 .env
 log/
+vendor/bundle
 
 # Public assets #
 /public/packs

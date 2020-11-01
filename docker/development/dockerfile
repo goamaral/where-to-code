@@ -1,21 +1,26 @@
 FROM ruby:2.6.6-alpine3.10
 
 ENV APP_PATH /project
-ENV PATH "${PATH}:${APP_PATH}/bin"
+ENV BUNDLE_PATH "${APP_PATH}/vendor/bundle"
+ENV BUNDLE_BIN "${BUNDLE_PATH}/ruby/2.6.0/bin"
+ENV PATH "${PATH}:${BUNDLE_BIN}"
+ENV BUNDLE_JOBS 4
 WORKDIR $APP_PATH
 
 RUN apk --update add make g++ postgresql-dev build-base bash nodejs npm yarn \
   && gem install bundler \
-  && echo "user:x:1000:1000::/project/docker/development/home:/bin/zsh" >> /etc/passwd \
-  && apk add --update micro --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+  && echo "user:x:1000:100::/project/docker/development/home:/bin/zsh" >> /etc/passwd \
+  && apk add --update micro --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
   && apk add --update zsh git openssh
 
 COPY Gemfile $APP_PATH
 COPY Gemfile.lock $APP_PATH
+COPY vendor/bundle ${APP_PATH}/vendor/bundle
 RUN bundle install
 
 COPY package.json $APP_PATH
 COPY package-lock.json $APP_PATH
+COPY node_modules ${APP_PATH}/node_modules
 RUN npm install
 
 COPY . $APP_PATH

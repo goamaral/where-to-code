@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AuthenticateAdminConcern
-  
+
   extend ActiveSupport::Concern
 
   included do
@@ -10,9 +10,9 @@ module AuthenticateAdminConcern
 
   private
 
-    def authenticate_admin!
-      authenticate_user!
-      redirect_to root_path unless current_user.admin?
-    end
+  def authenticate_admin!
+    authenticate_user!
+    redirect_to root_path unless current_user.admin?
+  end
 
 end

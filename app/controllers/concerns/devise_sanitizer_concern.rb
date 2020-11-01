@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DeviseSanitizerConcern
 
   extend ActiveSupport::Concern
@@ -8,8 +10,8 @@ module DeviseSanitizerConcern
 
   private
 
-    def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :name, :email])
-    end
-  
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :name, :email])
+  end
+
 end

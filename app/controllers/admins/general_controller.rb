@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
-class Admins::GeneralController < ApplicationController
+module Admins
 
-  def index
+  class GeneralController < ApplicationController
+
+    def index
+    end
+
   end
 
 end

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
-  authenticate :user, lambda { |u| u.admin? } do
+  authenticate :user, ->(u) { u.admin? } do
     scope module: 'admins', path: 'admins', as: 'admin' do
       root to: 'general#index'
     end
@@ -13,6 +12,5 @@ Rails.application.routes.draw do
   resources :spots, only: [:index]
 
   root to: 'general#index'
-  match "/*a", to: redirect('/'), via: :all
-
+  match '/*a', to: redirect('/'), via: :all
 end

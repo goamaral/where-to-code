@@ -3,12 +3,13 @@
 class SpotsController < ApplicationController
 
   def index
+    @spots = params[:name].present? ? Spot.search_by_name(params[:name]) : Spot.all
   end
 
   private
 
-    def name_param
-      params.permit(:name)[:name] || ""
-    end
+  def index_name_param
+    params.fetch(:name)
+  end
 
 end

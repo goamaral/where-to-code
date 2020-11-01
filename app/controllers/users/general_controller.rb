@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
-class Users::GeneralController < ApplicationController
+module Users
 
-  before_action :authenticate_user!
+  class GeneralController < ApplicationController
 
-  def index
+    before_action :authenticate_user!
+
+    def index
+    end
+
   end
 
 end

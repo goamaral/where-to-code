@@ -13,6 +13,7 @@ gem 'omniauth-facebook', '~> 5.0'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'omniauth-twitter', '~> 1.4'
 gem 'pg', '~> 1.2', '>= 1.2.2'
+gem 'pg_search', '~> 2.3', '>= 2.3.4'
 gem 'puma', '~> 4.3', '>= 4.3.1'
 gem 'rails', '~> 6.0', '>= 6.0.2.1'
 gem 'rubocop', '~> 0.81.0'
@@ -20,13 +21,14 @@ gem 'rubocop-rails', '~> 2.5', '>= 2.5.1', require: false
 gem 'tzinfo-data', '~> 1.2019', '>= 1.2019.3'
 gem 'webpacker', '~> 5.0', '>= 5.0.1'
 
-group :development do
+group :development, :test do
+  gem 'amazing_print', '~> 1.2', '>= 1.2.2'
   gem 'byebug', '~> 11.0', '>= 11.0.1'
+  gem 'factory_bot_rails', '~> 6.1'
+  gem 'faker', '~> 2.14'
   gem 'listen', '~> 3.2', '>= 3.2.1'
+  gem 'rspec-rails', '~> 4.0', '>= 4.0.1'
   gem 'spring', '~> 2.1'
   gem 'spring-watcher-listen', '~> 2.0', '>= 2.0.1'
   gem 'web-console', '~> 4.0', '>= 4.0.1'
-end
-
-group :test do
 end

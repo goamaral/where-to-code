@@ -32,7 +32,7 @@
 
 class User < ApplicationRecord
 
-  include User::DeviseConcern
-  include User::RoleConcern
+  include Users::DeviseConcern
+  include Users::RoleConcern
 
 end

@@ -16,13 +16,12 @@ ActiveRecord::Schema.define(version: 2020_05_30_151628) do
   enable_extension "plpgsql"
 
   create_table "spots", force: :cascade do |t|
-    t.text "name", null: false
-    t.time "opening_hours", null: false
-    t.time "closing_hours", null: false
+    t.string "name", null: false
+    t.string "opening_hours", null: false
+    t.string "closing_hours", null: false
     t.integer "network_quality", null: false
     t.boolean "plugs_available", null: false
     t.float "rating", default: 0.0, null: false
-    t.datetime "rating_expires_at"
     t.decimal "latitude", precision: 10, scale: 6
     t.decimal "longitude", precision: 10, scale: 6
     t.datetime "created_at", precision: 6, null: false
